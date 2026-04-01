@@ -7,417 +7,539 @@
 <title>terminalBio — Computational Biology Research</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,200;12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
+@property --rot { syntax:'<angle>'; initial-value:0deg; inherits:false; }
+
 :root,[data-theme="dark"]{
-  --bg:#080a0c;--bg-1:#0d1014;--bg-2:#111519;--bg-3:#161b21;--bg-4:#1c2229;
-  --border:rgba(255,255,255,.07);--border-hi:rgba(255,255,255,.13);
-  --text:#e8edf3;--text-2:#8a96a3;--text-3:#4a5562;--text-inv:#080a0c;
-  --teal:#00c8a8;--teal-dim:#007a68;--teal-glow:rgba(0,200,168,.15);
-  --blue:#4d9fff;--blue-dim:#1a6fcc;--blue-glow:rgba(77,159,255,.12);
-  --purple:#a78bfa;--purple-dim:#6d48d6;--purple-glow:rgba(167,139,250,.12);
-  --gold:#f5c842;--gold-glow:rgba(245,200,66,.1);
-  --r-sm:.375rem;--r-md:.5rem;--r-lg:.75rem;--r-xl:1rem;--r-2xl:1.5rem;--r-full:9999px;
-  --font-display:'Instrument Serif',Georgia,serif;
-  --font-body:'Space Grotesk','Helvetica Neue',sans-serif;
-  --font-mono:'Space Mono',monospace;
-  --text-xs:clamp(.75rem,.7rem + .25vw,.875rem);
-  --text-sm:clamp(.875rem,.8rem + .35vw,1rem);
-  --text-base:clamp(1rem,.95rem + .25vw,1.125rem);
-  --text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);
-  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
-  --text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);
-  --text-hero:clamp(3rem,.5rem + 7vw,7rem);
+  --bg:#060608;--bg-1:#0a0a0e;--bg-2:#0f0f14;--bg-3:#141419;--bg-4:#1a1a21;
+  --border:rgba(255,255,255,.06);--border-hi:rgba(255,255,255,.12);--border-acc:rgba(0,240,180,.25);
+  --text:#eeeef0;--text-2:#8888a0;--text-3:#44445a;--text-inv:#060608;
+  --teal:#00f0b4;--teal-dim:#009970;--teal-glow:rgba(0,240,180,.1);--teal-glow-hi:rgba(0,240,180,.18);
+  --blue:#6ab4ff;--blue-glow:rgba(106,180,255,.1);
+  --purple:#b48fff;--purple-glow:rgba(180,143,255,.1);
+  --gold:#ffd166;--gold-glow:rgba(255,209,102,.1);
+  --r-sm:.25rem;--r-md:.375rem;--r-lg:.5rem;--r-xl:.75rem;--r-2xl:1rem;--r-full:9999px;
+  --font-display:'Bricolage Grotesque','Helvetica Neue',sans-serif;
+  --font-body:'DM Mono',monospace;
+  --font-serif:'Instrument Serif',Georgia,serif;
+  --text-xs:clamp(.7rem,.65rem + .25vw,.8rem);
+  --text-sm:clamp(.8rem,.75rem + .25vw,.9rem);
+  --text-base:clamp(.875rem,.82rem + .28vw,1rem);
+  --text-lg:clamp(1rem,.9rem + .5vw,1.35rem);
+  --text-xl:clamp(1.4rem,1.1rem + 1.2vw,2.2rem);
+  --text-2xl:clamp(2rem,1rem + 3vw,4rem);
+  --text-hero:clamp(3.5rem,.5rem + 8vw,9rem);
   --s1:.25rem;--s2:.5rem;--s3:.75rem;--s4:1rem;--s5:1.25rem;--s6:1.5rem;
   --s8:2rem;--s10:2.5rem;--s12:3rem;--s16:4rem;--s20:5rem;--s24:6rem;
   --ease:cubic-bezier(.16,1,.3,1);
-  --shadow-card:0 0 0 1px var(--border),0 8px 32px rgba(0,0,0,.4);
-  --shadow-hi:0 0 0 1px var(--border-hi),0 16px 64px rgba(0,0,0,.6);
 }
 [data-theme="light"]{
-  --bg:#f4f5f7;--bg-1:#ffffff;--bg-2:#f9fafb;--bg-3:#f0f2f5;--bg-4:#e8ebef;
-  --border:rgba(0,0,0,.08);--border-hi:rgba(0,0,0,.14);
-  --text:#0d1014;--text-2:#5a6472;--text-3:#9aa3ae;--text-inv:#ffffff;
-  --teal:#00907a;--teal-dim:#006d5b;--teal-glow:rgba(0,144,122,.1);
-  --blue:#1a6fcc;--blue-dim:#0f52a0;--blue-glow:rgba(26,111,204,.08);
-  --purple:#6d48d6;--purple-dim:#4e2fb3;--purple-glow:rgba(109,72,214,.08);
-  --shadow-card:0 0 0 1px var(--border),0 4px 16px rgba(0,0,0,.07);
-  --shadow-hi:0 0 0 1px var(--border-hi),0 8px 32px rgba(0,0,0,.12);
+  --bg:#f5f5f0;--bg-1:#ffffff;--bg-2:#f9f9f6;--bg-3:#eeeee8;--bg-4:#e4e4dc;
+  --border:rgba(0,0,0,.07);--border-hi:rgba(0,0,0,.13);--border-acc:rgba(0,150,100,.2);
+  --text:#0a0a10;--text-2:#50506a;--text-3:#9898b0;--text-inv:#f5f5f0;
+  --teal:#009970;--teal-dim:#006b50;--teal-glow:rgba(0,153,112,.07);--teal-glow-hi:rgba(0,153,112,.13);
+  --blue:#2a7acc;--blue-glow:rgba(42,122,204,.07);
+  --purple:#7048d6;--purple-glow:rgba(112,72,214,.07);
+  --gold:#d69a00;--gold-glow:rgba(214,154,0,.07);
 }
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;scroll-padding-top:5rem;-webkit-font-smoothing:antialiased;}
-body{font-family:var(--font-body);font-size:var(--text-base);color:var(--text);background:var(--bg);line-height:1.65;overflow-x:hidden;}
+body{font-family:var(--font-body);font-size:var(--text-base);color:var(--text);background:var(--bg);line-height:1.7;overflow-x:hidden;}
 img,video,svg{display:block;max-width:100%;}
 a{color:inherit;text-decoration:none;}
 button{cursor:pointer;font:inherit;border:none;background:none;color:inherit;}
-::selection{background:var(--teal-glow);color:var(--teal);}
-:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:var(--r-sm);}
-.container{max-width:1160px;margin-inline:auto;padding-inline:var(--s6);}
+::selection{background:var(--teal-glow-hi);color:var(--teal);}
+:focus-visible{outline:1.5px solid var(--teal);outline-offset:3px;border-radius:var(--r-sm);}
+.container{max-width:1180px;margin-inline:auto;padding-inline:var(--s6);}
 
-/* NAV */
+/* ── DRAGGABLE LOGO ── */
+#logo-square{
+  width:22px;height:22px;background:var(--text);
+  border-radius:0;flex-shrink:0;cursor:grab;
+  user-select:none;-webkit-user-select:none;
+  transition:background 200ms;
+}
+#logo-square:hover{background:var(--teal);}
+
+/* ── NAV ── */
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;
-  background:color-mix(in oklch,var(--bg) 85%,transparent);
-  backdrop-filter:blur(20px) saturate(1.5);
-  border-bottom:1px solid var(--border);transition:background 300ms var(--ease);}
+  background:color-mix(in oklch,var(--bg) 80%,transparent);
+  backdrop-filter:blur(24px) saturate(1.8);
+  border-bottom:1px solid var(--border);
+  transition:background 300ms var(--ease);}
 .nav__inner{display:flex;align-items:center;justify-content:space-between;
-  height:56px;max-width:1160px;margin-inline:auto;padding-inline:var(--s6);}
-.nav__logo{display:flex;align-items:center;gap:var(--s3);}
-.nav__logo-text{font-family:var(--font-mono);font-weight:700;font-size:.95rem;letter-spacing:-.01em;}
+  height:52px;max-width:1180px;margin-inline:auto;padding-inline:var(--s6);}
+.nav__logo{display:flex;align-items:center;gap:var(--s3);text-decoration:none;}
+.nav__logo-text{font-family:var(--font-display);font-weight:700;font-size:.85rem;letter-spacing:-.02em;color:var(--text);}
 .nav__logo-text span{color:var(--teal);}
-.nav__links{display:flex;align-items:center;gap:var(--s1);}
-.nav__link{padding:var(--s2) var(--s4);font-size:var(--text-sm);color:var(--text-2);
-  border-radius:var(--r-md);transition:color 180ms,background 180ms;}
-.nav__link:hover{color:var(--text);background:var(--bg-3);}
+.nav__links{display:flex;align-items:center;}
+.nav__link{padding:var(--s2) var(--s4);font-size:var(--text-xs);color:var(--text-3);
+  letter-spacing:.06em;text-transform:uppercase;border-radius:var(--r-md);
+  transition:color 150ms,background 150ms;}
+.nav__link:hover{color:var(--text);background:rgba(255,255,255,.04);}
 .nav__actions{display:flex;align-items:center;gap:var(--s3);}
-.btn-ghost{padding:var(--s2) var(--s4);font-size:var(--text-sm);color:var(--text-2);
-  border:1px solid var(--border);border-radius:var(--r-md);transition:all 180ms var(--ease);}
-.btn-ghost:hover{color:var(--text);border-color:var(--border-hi);background:var(--bg-3);}
-.btn-primary{padding:var(--s2) var(--s5);font-size:var(--text-sm);font-weight:600;
-  color:#000;background:var(--teal);border-radius:var(--r-md);transition:all 180ms var(--ease);}
-.btn-primary:hover{background:color-mix(in oklch,var(--teal) 85%,#fff);transform:translateY(-1px);}
+.btn-nav-primary{padding:var(--s2) var(--s4);font-size:var(--text-xs);font-family:var(--font-body);
+  font-weight:500;color:var(--bg);background:var(--text);border-radius:var(--r-sm);
+  letter-spacing:.03em;transition:all 150ms var(--ease);}
+.btn-nav-primary:hover{background:var(--teal);color:var(--bg);}
+.theme-toggle{width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  color:var(--text-3);border-radius:var(--r-md);transition:color 150ms,background 150ms;}
+.theme-toggle:hover{color:var(--text);background:rgba(255,255,255,.06);}
 
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
-  padding-top:56px;position:relative;overflow:hidden;}
-.hero__grid-bg{position:absolute;inset:0;
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding-top:52px;position:relative;overflow:hidden;}
+.hero__grid{position:absolute;inset:0;
   background-image:linear-gradient(var(--border) 1px,transparent 1px),
   linear-gradient(90deg,var(--border) 1px,transparent 1px);
-  background-size:60px 60px;opacity:.4;pointer-events:none;}
-.hero__glow{position:absolute;top:-20%;left:50%;transform:translateX(-50%);
-  width:800px;height:600px;
-  background:radial-gradient(ellipse at center,var(--teal-glow) 0%,transparent 65%);pointer-events:none;}
-.hero__glow-2{position:absolute;bottom:-10%;right:-10%;width:600px;height:600px;
-  background:radial-gradient(ellipse at center,var(--blue-glow) 0%,transparent 65%);pointer-events:none;}
-.hero__inner{position:relative;z-index:1;padding:var(--s24) 0 var(--s16);}
+  background-size:48px 48px;opacity:.6;pointer-events:none;
+  animation:gridShift 40s linear infinite;}
+@keyframes gridShift{0%{background-position:0 0,0 0;}100%{background-position:48px 48px,48px 48px;}}
+
+.hero__orb{position:absolute;top:5%;left:52%;
+  width:700px;height:700px;pointer-events:none;
+  background:conic-gradient(from var(--rot),
+    rgba(0,240,180,.12) 0deg,transparent 60deg,
+    rgba(106,180,255,.09) 120deg,transparent 180deg,
+    rgba(180,143,255,.09) 240deg,transparent 300deg,
+    rgba(0,240,180,.12) 360deg);
+  filter:blur(80px);
+  animation:orbSpin 18s linear infinite;}
+@keyframes orbSpin{to{--rot:360deg;}}
+
+/* Ghost ticker behind hero text */
+.hero__ticker{position:absolute;bottom:0;left:0;right:0;
+  font-family:var(--font-display);font-size:clamp(5rem,13vw,17rem);
+  font-weight:800;color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.035);
+  white-space:nowrap;overflow:hidden;line-height:1;pointer-events:none;
+  letter-spacing:-.04em;
+  animation:tickerRoll 28s linear infinite;}
+@keyframes tickerRoll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+.hero__inner{position:relative;z-index:1;padding:var(--s24) 0 var(--s20);}
+
 .hero__eyebrow{display:inline-flex;align-items:center;gap:var(--s3);
-  font-family:var(--font-mono);font-size:var(--text-xs);color:var(--teal);
-  background:var(--teal-glow);border:1px solid color-mix(in oklch,var(--teal) 30%,transparent);
-  padding:var(--s2) var(--s4);border-radius:var(--r-full);margin-bottom:var(--s8);}
-.hero__eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);
-  animation:blink 2s ease infinite;}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.hero__title{font-family:var(--font-display);font-size:var(--text-hero);line-height:1.0;
-  letter-spacing:-.03em;margin-bottom:var(--s8);max-width:14ch;}
-.hero__title em{font-style:italic;color:var(--teal);}
-.hero__title .line-2{color:var(--text-2);}
-.hero__desc{font-size:var(--text-lg);color:var(--text-2);max-width:52ch;line-height:1.6;margin-bottom:var(--s10);}
-.hero__ctas{display:flex;align-items:center;gap:var(--s4);flex-wrap:wrap;}
-.btn-hero{display:inline-flex;align-items:center;gap:var(--s3);padding:var(--s4) var(--s8);
-  font-size:var(--text-base);font-weight:600;border-radius:var(--r-lg);transition:all 220ms var(--ease);}
-.btn-hero--primary{background:var(--teal);color:#000;}
-.btn-hero--primary:hover{background:color-mix(in oklch,var(--teal) 88%,#fff);
-  transform:translateY(-2px);box-shadow:0 8px 32px var(--teal-glow);}
-.btn-hero--secondary{border:1px solid var(--border-hi);color:var(--text-2);}
-.btn-hero--secondary:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-glow);}
-.hero__stats{display:flex;gap:var(--s10);margin-top:var(--s16);padding-top:var(--s8);border-top:1px solid var(--border);}
-.hero__stat-num{font-family:var(--font-mono);font-size:var(--text-xl);font-weight:700;color:var(--text);line-height:1;}
-.hero__stat-label{font-size:var(--text-xs);color:var(--text-3);margin-top:var(--s2);
-  text-transform:uppercase;letter-spacing:.08em;}
+  font-family:var(--font-body);font-size:var(--text-xs);color:var(--teal);
+  border:1px solid var(--border-acc);padding:var(--s1) var(--s4);
+  border-radius:var(--r-sm);margin-bottom:var(--s10);
+  letter-spacing:.08em;text-transform:uppercase;}
+.hero__eyebrow .pulse{width:5px;height:5px;border-radius:50%;background:var(--teal);
+  animation:pls 2s ease infinite;}
+@keyframes pls{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
 
-/* MARQUEE */
-.marquee-strip{background:var(--bg-2);border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);padding:var(--s4) 0;overflow:hidden;}
-.marquee-track{display:flex;gap:var(--s12);animation:marquee 30s linear infinite;white-space:nowrap;width:max-content;}
+.hero__title{font-family:var(--font-display);font-size:var(--text-hero);font-weight:800;
+  line-height:.92;letter-spacing:-.04em;margin-bottom:var(--s10);max-width:16ch;}
+.hero__title .word-accent{font-family:var(--font-serif);font-weight:400;
+  font-style:italic;color:var(--teal);display:block;}
+.hero__title .word-dim{color:var(--text-3);}
+
+.hero__meta{display:grid;grid-template-columns:1fr auto;gap:var(--s10);
+  align-items:flex-end;margin-top:var(--s16);padding-top:var(--s8);
+  border-top:1px solid var(--border);}
+.hero__desc{font-size:var(--text-base);color:var(--text-2);max-width:44ch;line-height:1.8;}
+.hero__ctas{display:flex;gap:var(--s3);flex-wrap:wrap;align-items:center;}
+.btn-hero{display:inline-flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s6);
+  font-size:var(--text-sm);font-family:var(--font-body);font-weight:500;
+  border-radius:var(--r-sm);transition:all 200ms var(--ease);letter-spacing:.02em;}
+.btn-hero--primary{background:var(--text);color:var(--bg);}
+.btn-hero--primary:hover{background:var(--teal);color:var(--bg);transform:translateY(-1px);}
+.btn-hero--ghost{border:1px solid var(--border-hi);color:var(--text-2);}
+.btn-hero--ghost:hover{border-color:var(--teal);color:var(--teal);}
+
+.hero__stats{display:flex;gap:var(--s8);flex-wrap:wrap;}
+.hero__stat{text-align:right;}
+.hero__stat-num{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;line-height:1;color:var(--text);}
+.hero__stat-label{font-size:var(--text-xs);color:var(--text-3);margin-top:var(--s1);text-transform:uppercase;letter-spacing:.08em;}
+
+/* ── TICKER STRIP ── */
+.ticker-strip{background:var(--teal);color:var(--bg);padding:var(--s3) 0;overflow:hidden;}
+.ticker-track{display:flex;gap:var(--s8);animation:marquee 22s linear infinite;white-space:nowrap;width:max-content;}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.marquee-item{display:flex;align-items:center;gap:var(--s3);
-  font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-3);}
-.marquee-item .mark{color:var(--teal);}
+.ticker-item{font-family:var(--font-body);font-size:var(--text-xs);font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:var(--s4);}
+.ticker-sep{opacity:.4;}
 
-/* SECTION COMMON */
-.section{padding:clamp(var(--s16),8vw,var(--s24)) 0;}
-.section__label{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--teal);
-  text-transform:uppercase;letter-spacing:.12em;margin-bottom:var(--s4);}
-.section__title{font-family:var(--font-display);font-size:var(--text-2xl);line-height:1.1;
-  letter-spacing:-.02em;margin-bottom:var(--s6);}
-.section__title em{font-style:italic;color:var(--text-2);}
-.section__desc{font-size:var(--text-base);color:var(--text-2);max-width:55ch;line-height:1.7;}
+/* ── SECTIONS ── */
+.section{padding:clamp(var(--s16),7vw,var(--s24)) 0;}
+.section__label{font-family:var(--font-body);font-size:var(--text-xs);color:var(--teal);
+  text-transform:uppercase;letter-spacing:.14em;margin-bottom:var(--s5);
+  display:flex;align-items:center;gap:var(--s3);}
+.section__label::before{content:'';width:20px;height:1px;background:var(--teal);}
+.section__title{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:800;
+  line-height:1.0;letter-spacing:-.03em;margin-bottom:var(--s6);}
+.section__title em{font-family:var(--font-serif);font-style:italic;font-weight:400;color:var(--text-2);}
+.section__desc{font-size:var(--text-base);color:var(--text-2);max-width:50ch;line-height:1.8;}
 
-/* PROJECT CARDS */
-.projects__grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin-top:var(--s12);}
-.project-card{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--r-2xl);
-  padding:var(--s8);display:flex;flex-direction:column;gap:var(--s6);
-  transition:all 280ms var(--ease);position:relative;overflow:hidden;}
-.project-card::before{content:'';position:absolute;inset:0;opacity:0;
-  transition:opacity 300ms var(--ease);pointer-events:none;border-radius:inherit;}
-.project-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hi);}
-.project-card--bindfm::before{background:radial-gradient(ellipse at top left,var(--teal-glow),transparent 60%);}
-.project-card--xuzu::before{background:radial-gradient(ellipse at top right,var(--purple-glow),transparent 60%);}
-.project-card--rnj::before{background:radial-gradient(ellipse at bottom left,var(--blue-glow),transparent 60%);}
+/* ── PROJECT CARDS ── */
+.projects{background:var(--bg-1);}
+.projects__intro{display:grid;grid-template-columns:1fr 1fr;gap:var(--s16);
+  align-items:flex-end;margin-bottom:var(--s12);padding-bottom:var(--s10);border-bottom:1px solid var(--border);}
+.projects__grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);}
+
+/* ── THE FIX: card uses isolation so ::before overlay never covers content ── */
+.project-card{
+  background:var(--bg-2);
+  border:1px solid var(--border);
+  border-radius:0;
+  padding:var(--s8);
+  display:flex;flex-direction:column;gap:var(--s6);
+  /* CRITICAL: position relative + isolation keeps stacking correct */
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  transition:border-color 280ms var(--ease),background 280ms var(--ease);
+}
+
+/* Gradient border glow — z-index BELOW all content via z-index:-1 on pseudo */
+.project-card::before{
+  content:'';
+  position:absolute;inset:0;
+  z-index:-1; /* sits behind all card content */
+  background:
+    linear-gradient(135deg,
+      color-mix(in oklch,var(--teal) 12%,transparent) 0%,
+      transparent 50%,
+      color-mix(in oklch,var(--blue) 8%,transparent) 100%
+    );
+  opacity:0;
+  transition:opacity 300ms var(--ease);
+}
 .project-card:hover::before{opacity:1;}
-.project-card--featured{grid-column:1/-1;}
-.project-card__header{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s4);}
-.project-card__icon{width:48px;height:48px;border-radius:var(--r-lg);display:flex;
-  align-items:center;justify-content:center;flex-shrink:0;font-family:var(--font-mono);font-weight:700;font-size:.9rem;}
-.project-card__icon--teal{background:var(--teal-glow);color:var(--teal);border:1px solid color-mix(in oklch,var(--teal) 25%,transparent);}
-.project-card__icon--purple{background:var(--purple-glow);color:var(--purple);border:1px solid color-mix(in oklch,var(--purple) 25%,transparent);}
-.project-card__icon--blue{background:var(--blue-glow);color:var(--blue);border:1px solid color-mix(in oklch,var(--blue) 25%,transparent);}
-.project-card__tags{display:flex;flex-wrap:wrap;gap:var(--s2);}
-.tag{font-family:var(--font-mono);font-size:var(--text-xs);padding:3px 9px;
-  border-radius:var(--r-sm);border:1px solid var(--border);}
-.tag--teal{color:var(--teal);background:var(--teal-glow);border-color:color-mix(in oklch,var(--teal) 20%,transparent);}
-.tag--purple{color:var(--purple);background:var(--purple-glow);border-color:color-mix(in oklch,var(--purple) 20%,transparent);}
-.tag--blue{color:var(--blue);background:var(--blue-glow);border-color:color-mix(in oklch,var(--blue) 20%,transparent);}
-.tag--gold{color:var(--gold);background:var(--gold-glow);border-color:color-mix(in oklch,var(--gold) 20%,transparent);}
-.tag--muted{color:var(--text-3);background:var(--bg-3);}
-.project-card__name{font-family:var(--font-mono);font-size:var(--text-xl);font-weight:700;letter-spacing:-.02em;line-height:1.1;}
-.project-card__tagline{font-family:var(--font-display);font-style:italic;font-size:var(--text-lg);color:var(--text-2);line-height:1.3;margin-top:var(--s2);}
-.project-card__desc{font-size:var(--text-sm);color:var(--text-2);line-height:1.7;}
-.project-card__meta{display:flex;align-items:center;gap:var(--s6);padding-top:var(--s6);border-top:1px solid var(--border);margin-top:auto;}
-.project-card__stat{display:flex;flex-direction:column;gap:2px;}
-.project-card__stat-val{font-family:var(--font-mono);font-size:var(--text-sm);font-weight:700;}
-.project-card__stat-key{font-size:var(--text-xs);color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;}
-.project-card__link{margin-left:auto;display:flex;align-items:center;gap:var(--s2);
-  font-size:var(--text-xs);font-family:var(--font-mono);color:var(--text-3);transition:color 180ms;}
-.project-card:hover .project-card__link{color:var(--teal);}
-.project-card--featured .project-card__body{display:grid;grid-template-columns:1fr 1fr;gap:var(--s8);}
-.project-card--featured .project-card__modalities{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);}
-.modality-item{background:var(--bg-3);border:1px solid var(--border);border-radius:var(--r-lg);
-  padding:var(--s4);display:flex;align-items:center;gap:var(--s3);}
-.modality-item__num{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-3);width:20px;}
-.modality-item__name{font-size:var(--text-sm);font-weight:500;}
-.modality-item__example{font-size:var(--text-xs);color:var(--text-3);margin-top:2px;}
+.project-card:hover{border-color:var(--border-acc);background:var(--bg-3);}
 
-/* CERTIFICATE IMAGE */
-.cert-image{margin-top:var(--s4);border-radius:var(--r-lg);overflow:hidden;
-  border:1px solid var(--border);opacity:.85;transition:opacity 300ms;}
-.cert-image:hover{opacity:1;}
+/* ── GHOST CODE WATERMARK ── correct layering ── */
+.project-card__code{
+  font-family:var(--font-display);
+  font-size:clamp(3rem,5vw,5.5rem);
+  font-weight:800;line-height:1;letter-spacing:-.05em;
+  color:var(--text);
+  opacity:.05;
+  position:absolute;bottom:var(--s4);right:var(--s6);
+  pointer-events:none;
+  z-index:0; /* same layer as ::before pseudo which is z-index:-1, so this is above */
+  transition:opacity 280ms var(--ease),transform 280ms var(--ease);
+  user-select:none;
+  /* No translate — it was causing CLS-like visual jump */
+}
+/* On hover: ghost code becomes slightly MORE visible — never disappears */
+.project-card:hover .project-card__code{
+  opacity:.09;
+  transform:scale(1.04) translate(-4px,-4px);
+}
+
+.project-card--featured{grid-column:1/-1;}
+
+/* Corner cut decoration */
+.project-card__corner{
+  position:absolute;top:0;right:0;width:0;height:0;
+  border-style:solid;border-width:0 26px 26px 0;
+  border-color:transparent var(--border-hi) transparent transparent;
+  transition:border-color 250ms;z-index:1;
+}
+.project-card:hover .project-card__corner{border-color:transparent var(--teal) transparent transparent;}
+
+/* Card typography */
+.project-card__header{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s4);position:relative;z-index:1;}
+.project-card__name{font-family:var(--font-display);font-size:var(--text-xl);
+  font-weight:800;letter-spacing:-.03em;line-height:1;margin-bottom:var(--s2);}
+.project-card__tagline{font-size:var(--text-xs);color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;}
+.project-card__desc{font-size:var(--text-sm);color:var(--text-2);line-height:1.75;max-width:60ch;position:relative;z-index:1;}
+.project-card__body{display:grid;grid-template-columns:1fr 1fr;gap:var(--s8);position:relative;z-index:1;}
+.project-card__tags{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s3);position:relative;z-index:1;}
+
+/* Badges */
+.project-card__badge{font-family:var(--font-body);font-size:var(--text-xs);font-weight:500;
+  padding:2px var(--s3);border-radius:var(--r-sm);letter-spacing:.04em;text-transform:uppercase;
+  border:1px solid;}
+.badge--teal{color:var(--teal);border-color:var(--border-acc);background:var(--teal-glow);}
+.badge--purple{color:var(--purple);border-color:rgba(180,143,255,.2);background:rgba(180,143,255,.06);}
+.badge--blue{color:var(--blue);border-color:rgba(106,180,255,.2);background:rgba(106,180,255,.06);}
+.badge--gold{color:var(--gold);border-color:rgba(255,209,102,.2);background:rgba(255,209,102,.06);}
+.badge--dim{color:var(--text-3);border-color:var(--border);background:transparent;}
+
+/* Tags */
+.tag{font-family:var(--font-body);font-size:10px;font-weight:500;
+  padding:2px 8px;border-radius:var(--r-sm);
+  border:1px solid var(--border);color:var(--text-3);
+  letter-spacing:.04em;text-transform:uppercase;}
+.tag--teal{color:var(--teal);border-color:var(--border-acc);}
+.tag--purple{color:var(--purple);border-color:rgba(180,143,255,.2);}
+.tag--blue{color:var(--blue);border-color:rgba(106,180,255,.2);}
+.tag--gold{color:var(--gold);border-color:rgba(255,209,102,.2);}
+
+/* Card meta footer */
+.project-card__meta{display:flex;gap:var(--s6);flex-wrap:wrap;align-items:center;
+  padding-top:var(--s6);border-top:1px solid var(--border);margin-top:auto;
+  position:relative;z-index:1;}
+.project-card__stat{display:flex;flex-direction:column;gap:2px;}
+.project-card__stat-val{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;line-height:1;}
+.project-card__stat-key{font-size:var(--text-xs);color:var(--text-3);text-transform:uppercase;letter-spacing:.07em;}
+.project-card__link{margin-left:auto;font-family:var(--font-body);font-size:var(--text-xs);
+  color:var(--text-3);transition:color 150ms;}
+.project-card:hover .project-card__link{color:var(--teal);}
+
+/* Modalities grid */
+.project-card__modalities{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);}
+.modality-item{display:flex;align-items:flex-start;gap:var(--s3);padding:var(--s3);
+  border:1px solid var(--border);border-radius:var(--r-sm);transition:border-color 200ms;}
+.modality-item:hover{border-color:var(--border-acc);}
+.modality-item__num{font-family:var(--font-body);font-size:var(--text-xs);color:var(--teal);
+  font-weight:500;flex-shrink:0;width:20px;}
+.modality-item__name{font-size:var(--text-xs);color:var(--text);margin-bottom:2px;}
+.modality-item__example{font-size:10px;color:var(--text-3);}
+
+/* Cert image */
+.cert-image{border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--border);position:relative;z-index:1;}
 .cert-image img{width:100%;height:auto;display:block;}
 
-/* ARCHITECTURE */
-.arch{background:var(--bg-1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.arch__inner{display:grid;grid-template-columns:1fr 1fr;gap:var(--s16);align-items:center;}
-.arch__pipeline{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-2xl);
-  padding:var(--s8);font-family:var(--font-mono);font-size:var(--text-xs);}
-.arch__pipeline-title{font-size:var(--text-xs);color:var(--text-3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--s6);}
-.pipe-row{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s4);}
-.pipe-node{padding:var(--s3) var(--s4);border-radius:var(--r-md);font-size:var(--text-xs);
-  font-weight:700;white-space:nowrap;min-width:140px;text-align:center;line-height:1.3;}
-.pipe-node--febi{background:color-mix(in oklch,var(--purple) 10%,var(--bg-2));border:1px solid color-mix(in oklch,var(--purple) 25%,transparent);color:var(--purple);}
-.pipe-node--rj{background:color-mix(in oklch,var(--blue) 10%,var(--bg-2));border:1px solid color-mix(in oklch,var(--blue) 25%,transparent);color:var(--blue);}
-.pipe-node--fuse{background:color-mix(in oklch,var(--teal) 10%,var(--bg-2));border:1px solid color-mix(in oklch,var(--teal) 25%,transparent);color:var(--teal);}
-.pipe-node--dec{background:color-mix(in oklch,var(--gold) 10%,var(--bg-2));border:1px solid color-mix(in oklch,var(--gold) 25%,transparent);color:var(--gold);}
-.pipe-arrow{color:var(--text-3);font-size:.9rem;}
-.pipe-label{font-size:10px;color:var(--text-3);}
+/* ── COMPARISON ── */
+.compare-section{background:var(--bg);}
+.compare-wrap{overflow-x:auto;margin-top:var(--s10);}
+.compare-table{width:100%;border-collapse:collapse;font-family:var(--font-body);font-size:var(--text-xs);}
+.compare-table th{padding:var(--s3) var(--s5);text-align:left;color:var(--text-3);
+  text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--border);font-weight:500;}
+.compare-table td{padding:var(--s4) var(--s5);border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:middle;}
+.compare-table tr.row--highlight td{background:rgba(0,240,180,.03);}
+.compare-table tr.row--highlight td:first-child{color:var(--teal);font-weight:600;}
+.compare-table .check--yes{color:var(--teal);}
+.compare-table .check--no{color:var(--text-3);}
+.compare-table .check--partial{color:var(--gold);}
+.compare-table thead tr th:first-child{width:160px;}
 
-/* ABOUT */
-.about__grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s12);align-items:start;margin-top:var(--s12);}
-.about__manifesto{font-family:var(--font-display);font-size:var(--text-lg);font-style:italic;
-  color:var(--text-2);line-height:1.6;border-left:2px solid var(--teal);padding-left:var(--s6);}
-.about__pills{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s6);}
-.about__pill{background:var(--bg-2);border:1px solid var(--border);border-radius:var(--r-full);
-  padding:var(--s2) var(--s5);font-size:var(--text-xs);color:var(--text-2);}
+/* ── ARCHITECTURE ── */
+.arch{background:var(--bg-1);}
+.arch__inner{display:grid;grid-template-columns:1fr 1fr;gap:var(--s16);align-items:flex-start;}
+.arch__pipeline{background:var(--bg-2);border:1px solid var(--border);border-radius:0;padding:var(--s8);font-family:var(--font-body);}
+.arch__pipeline-title{font-size:var(--text-xs);color:var(--text-3);text-transform:uppercase;
+  letter-spacing:.12em;margin-bottom:var(--s8);padding-bottom:var(--s4);border-bottom:1px solid var(--border);}
+.pipe-row{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s3);}
+.pipe-node{flex:1;padding:var(--s3) var(--s4);border:1px solid var(--border);border-radius:var(--r-sm);
+  font-size:11px;color:var(--text-2);line-height:1.4;transition:border-color 200ms,background 200ms;}
+.pipe-node:hover{border-color:var(--border-acc);background:var(--teal-glow);}
+.pipe-node--febi{border-color:rgba(0,240,180,.15);}
+.pipe-node--rj{border-color:rgba(106,180,255,.15);}
+.pipe-node--fuse{border-color:rgba(180,143,255,.15);}
+.pipe-node--dec{border-color:rgba(255,209,102,.15);}
+.pipe-label{font-size:9px;color:var(--text-3);margin-top:2px;display:block;}
+.pipe-arrow{color:var(--text-3);font-size:12px;flex-shrink:0;}
 
-/* RECOGNITION */
-.recognition{background:var(--bg-1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.recognition__inner{display:flex;align-items:center;justify-content:space-between;gap:var(--s8);flex-wrap:wrap;}
-.recognition__text .label{font-family:var(--font-mono);font-size:var(--text-xs);
-  color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--s3);}
-.recognition__text h3{font-family:var(--font-display);font-size:var(--text-xl);letter-spacing:-.02em;margin-bottom:var(--s3);}
-.recognition__text p{font-size:var(--text-sm);color:var(--text-2);max-width:50ch;}
-.recognition__badge{display:flex;gap:var(--s4);}
-.rank-box{background:var(--bg);border:1px solid var(--border-hi);border-radius:var(--r-xl);
-  padding:var(--s6) var(--s8);text-align:center;}
-.rank-box__num{font-family:var(--font-mono);font-size:var(--text-2xl);font-weight:700;color:var(--gold);}
-.rank-box__label{font-size:var(--text-xs);color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;margin-top:var(--s2);}
+/* ── QUOTE ── */
+.quote-section{background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:clamp(var(--s12),6vw,var(--s24)) 0;}
+.quote-inner{max-width:900px;}
+.quote-mark{font-family:var(--font-display);font-size:6rem;line-height:.8;
+  color:var(--teal);opacity:.3;font-weight:800;margin-bottom:var(--s4);}
+.quote-text{font-family:var(--font-serif);font-style:italic;
+  font-size:clamp(1.3rem,2.5vw,2.2rem);line-height:1.45;color:var(--text);
+  margin-bottom:var(--s8);max-width:30ch;}
+.quote-attr{font-size:var(--text-sm);color:var(--text-3);font-family:var(--font-body);}
+.quote-attr strong{color:var(--text-2);}
 
-/* COMPARISON TABLE */
-.comparison__table{width:100%;border-collapse:collapse;margin-top:var(--s10);font-size:var(--text-sm);}
-.comparison__table th{background:var(--bg-2);padding:var(--s4) var(--s5);text-align:left;
-  font-weight:600;color:var(--text-2);font-size:var(--text-xs);
-  text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
-.comparison__table td{padding:var(--s4) var(--s5);border-bottom:1px solid var(--border);vertical-align:middle;}
-.comparison__table tr:last-child td{border-bottom:none;}
-.comparison__table tr:hover td{background:var(--bg-2);}
-.model-name{font-family:var(--font-mono);font-weight:700;}
-.model-name--tb{color:var(--teal);}
-.check{color:var(--teal);}
-.cross{color:var(--text-3);}
-.partial{color:var(--gold);}
+/* ── ABOUT ── */
+.about{background:var(--bg-1);}
+.about__inner{display:grid;grid-template-columns:1fr 1fr;gap:var(--s16);align-items:flex-start;}
+.about__principles{display:flex;flex-direction:column;gap:var(--s3);margin-top:var(--s8);}
+.principle{display:flex;align-items:flex-start;gap:var(--s4);padding:var(--s5);
+  border:1px solid var(--border);border-radius:0;transition:border-color 200ms,background 200ms;}
+.principle:hover{border-color:var(--border-acc);background:var(--teal-glow);}
+.principle__num{font-family:var(--font-display);font-size:var(--text-xl);font-weight:800;
+  color:var(--text-3);line-height:1;flex-shrink:0;transition:color 200ms;}
+.principle:hover .principle__num{color:var(--teal);}
+.principle__title{font-size:var(--text-sm);color:var(--text);margin-bottom:var(--s1);font-weight:500;}
+.principle__body{font-size:var(--text-xs);color:var(--text-2);line-height:1.7;}
 
-/* CTA BANNER */
-.cta-banner{background:var(--bg-1);border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);padding:clamp(var(--s12),6vw,var(--s20)) 0;
-  position:relative;overflow:hidden;}
-.cta-banner__glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:600px;height:400px;background:radial-gradient(ellipse,var(--teal-glow),transparent 65%);pointer-events:none;}
-.cta-banner__inner{position:relative;z-index:1;text-align:center;}
-.cta-banner__title{font-family:var(--font-display);font-size:var(--text-2xl);letter-spacing:-.02em;margin-bottom:var(--s4);}
-.cta-banner__title em{font-style:italic;color:var(--teal);}
-.cta-banner__desc{font-size:var(--text-base);color:var(--text-2);max-width:52ch;margin:0 auto var(--s10);}
-.cta-banner__btns{display:flex;justify-content:center;gap:var(--s4);flex-wrap:wrap;}
+/* Terminal block */
+.about__terminal{background:var(--bg);border:1px solid var(--border);border-radius:0;overflow:hidden;}
+.terminal__bar{display:flex;align-items:center;gap:var(--s2);padding:var(--s3) var(--s4);
+  background:var(--bg-3);border-bottom:1px solid var(--border);}
+.terminal__dot{width:10px;height:10px;border-radius:50%;}
+.terminal__dot:nth-child(1){background:#ff5f56;}
+.terminal__dot:nth-child(2){background:#febc2e;}
+.terminal__dot:nth-child(3){background:#26c840;}
+.terminal__title{font-size:var(--text-xs);color:var(--text-3);margin-left:auto;margin-right:auto;letter-spacing:.06em;}
+.terminal__body{padding:var(--s6);font-size:11px;line-height:1.9;color:var(--text-2);}
+.terminal__body .c{color:var(--teal);}
+.terminal__body .k{color:var(--purple);}
+.terminal__body .s{color:var(--gold);}
+.terminal__body .m{color:var(--blue);}
+.terminal__body .cm{color:var(--text-3);font-style:italic;}
+.terminal__cursor{display:inline-block;width:8px;height:13px;background:var(--teal);
+  vertical-align:text-bottom;animation:blink-cur .9s step-end infinite;}
+@keyframes blink-cur{0%,100%{opacity:1}50%{opacity:0}}
 
-/* FOOTER */
-.footer{background:var(--bg);padding:var(--s12) 0 var(--s8);border-top:1px solid var(--border);}
-.footer__grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:var(--s12);}
-.footer__brand p{font-size:var(--text-sm);color:var(--text-3);max-width:34ch;line-height:1.6;margin-top:var(--s4);}
-.footer__col h4{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-3);
-  text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--s5);}
-.footer__col a{display:block;font-size:var(--text-sm);color:var(--text-2);padding:var(--s2) 0;transition:color 180ms;}
-.footer__col a:hover{color:var(--teal);}
-.footer__bottom{display:flex;align-items:center;justify-content:space-between;
-  padding-top:var(--s8);margin-top:var(--s8);border-top:1px solid var(--border);
-  font-size:var(--text-xs);color:var(--text-3);}
-.footer__bottom a{color:var(--text-3);transition:color 180ms;}
-.footer__bottom a:hover{color:var(--teal);}
+/* ── FOOTER ── */
+.footer{background:var(--bg-2);border-top:1px solid var(--border);padding:var(--s12) 0 var(--s8);}
+.footer__inner{display:grid;grid-template-columns:1fr auto auto auto;gap:var(--s8);
+  align-items:center;padding-bottom:var(--s8);border-bottom:1px solid var(--border);margin-bottom:var(--s6);}
+.footer__brand{display:flex;align-items:center;gap:var(--s3);}
+.footer__brand-text{font-family:var(--font-display);font-weight:700;font-size:.85rem;letter-spacing:-.02em;}
+.footer__brand-text span{color:var(--teal);}
+.footer__link{font-size:var(--text-xs);color:var(--text-3);transition:color 150ms;text-transform:uppercase;letter-spacing:.08em;}
+.footer__link:hover{color:var(--teal);}
+.footer__bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--s4);}
+.footer__copy{font-size:var(--text-xs);color:var(--text-3);}
+.footer__copy span{color:var(--teal);}
+.footer__tagline{font-size:var(--text-xs);color:var(--text-3);font-style:italic;font-family:var(--font-serif);}
 
-/* SCROLL REVEAL */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity 600ms var(--ease),transform 600ms var(--ease);}
-.reveal.visible{opacity:1;transform:translateY(0);}
-.reveal-delay-1{transition-delay:100ms;}
-.reveal-delay-2{transition-delay:200ms;}
-.reveal-delay-3{transition-delay:320ms;}
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:1;}
+@supports(animation-timeline:scroll()){
+  .reveal{opacity:0;animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 70%;}
+  .reveal-delay-1{animation-delay:60ms;}
+  .reveal-delay-2{animation-delay:120ms;}
+  .reveal-delay-3{animation-delay:180ms;}
+}
+@keyframes rv{from{opacity:0;}to{opacity:1;}}
 
-/* MOBILE */
-@media(max-width:900px){
-  .projects__grid{grid-template-columns:1fr;}
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .projects__intro,.projects__grid,.arch__inner,.about__inner{grid-template-columns:1fr;}
   .project-card--featured{grid-column:auto;}
-  .project-card--featured .project-card__body{grid-template-columns:1fr;}
-  .project-card--featured .project-card__modalities{grid-template-columns:1fr 1fr;}
-  .arch__inner{grid-template-columns:1fr;}
-  .about__grid{grid-template-columns:1fr;}
-  .recognition__inner{flex-direction:column;}
-  .footer__grid{grid-template-columns:1fr 1fr;}
-  .footer__brand{grid-column:1/-1;}
+  .project-card__body{grid-template-columns:1fr;}
+  .footer__inner{grid-template-columns:1fr 1fr;}
+  .hero__meta{grid-template-columns:1fr;}
+  .hero__stats{flex-direction:row;}
+  .hero__stat{text-align:left;}
   .nav__links{display:none;}
-  .hero__stats{gap:var(--s8);}
 }
 @media(max-width:480px){
-  .hero__ctas{flex-direction:column;align-items:flex-start;}
-  .hero__stats{flex-wrap:wrap;gap:var(--s6);}
-  .footer__grid{grid-template-columns:1fr;}
-  .recognition__badge{flex-direction:column;}
-  .project-card--featured .project-card__modalities{grid-template-columns:1fr;}
+  .hero__stats{flex-direction:column;gap:var(--s6);}
+  .project-card__modalities{grid-template-columns:1fr;}
+  .footer__inner{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav class="nav">
+<nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav__inner">
-    <a href="#" class="nav__logo">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="flex-shrink:0">
-        <rect width="32" height="32" rx="8" fill="rgba(0,200,168,.12)"/>
-        <path d="M8 24 L16 8 L24 24" stroke="#00c8a8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M11 18 L21 18" stroke="#00c8a8" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="24" cy="24" r="2" fill="#4d9fff"/>
-        <circle cx="8" cy="24" r="2" fill="#a78bfa"/>
-      </svg>
+    <a class="nav__logo" href="#" aria-label="terminalBio home">
+      <div id="logo-square" role="img" aria-label="terminalBio logo" title="Drag me"></div>
       <span class="nav__logo-text">terminal<span>Bio</span></span>
     </a>
     <div class="nav__links">
-      <a href="#projects" class="nav__link">Research</a>
-      <a href="#architecture" class="nav__link">Models</a>
-      <a href="#about" class="nav__link">About</a>
+      <a class="nav__link" href="#models">Models</a>
+      <a class="nav__link" href="#architecture">Architecture</a>
+      <a class="nav__link" href="#about">About</a>
     </div>
     <div class="nav__actions">
-      <button class="btn-ghost" onclick="toggleTheme()" id="theme-btn">☀ Light</button>
-      <a href="https://github.com/iamhamzaabdullah" target="_blank" rel="noopener" class="btn-primary">GitHub ↗</a>
+      <button class="theme-toggle" data-theme-toggle aria-label="Switch to light mode">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="https://github.com/iamhamzaabdullah" target="_blank" rel="noopener noreferrer" class="btn-nav-primary">GitHub ↗</a>
     </div>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero__grid-bg"></div>
-  <div class="hero__glow"></div>
-  <div class="hero__glow-2"></div>
-  <div class="container hero__inner">
-    <div class="hero__eyebrow"><span class="dot"></span> Open Research · terminalBio</div>
-    <h1 class="hero__title">
-      Molecules<br>
-      <em>understand</em><br>
-      <span class="line-2">each other.</span>
-    </h1>
-    <p class="hero__desc">Building open foundation models for computational biology — where every atom, sequence, and structure speaks the same language.</p>
-    <div class="hero__ctas">
-      <a href="#projects" class="btn-hero btn-hero--primary">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-        Explore Research
-      </a>
-      <a href="https://github.com/iamhamzaabdullah" target="_blank" rel="noopener" class="btn-hero btn-hero--secondary">View on GitHub ↗</a>
-    </div>
-    <div class="hero__stats">
-      <div><div class="hero__stat-num">3</div><div class="hero__stat-label">Open Models</div></div>
-      <div><div class="hero__stat-num">5</div><div class="hero__stat-label">Binding Modalities</div></div>
-      <div><div class="hero__stat-num">89th</div><div class="hero__stat-label">Kaggle · Silver Medal</div></div>
-      <div><div class="hero__stat-num">380M</div><div class="hero__stat-label">BindFM Full Parameters</div></div>
+<section class="hero" aria-label="Hero">
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="hero__orb" aria-hidden="true"></div>
+  <div class="hero__ticker" aria-hidden="true">TERMINALBIO · BINDFM · XUZU · RNJ · OPEN FOUNDATION MODELS · COMPUTATIONAL BIOLOGY · TERMINALBIO · BINDFM · XUZU · RNJ · OPEN FOUNDATION MODELS · COMPUTATIONAL BIOLOGY ·&nbsp;</div>
+  <div class="container">
+    <div class="hero__inner">
+      <div class="hero__eyebrow">
+        <div class="pulse" aria-hidden="true"></div>
+        Open Research Lab · Computational Biology
+      </div>
+      <h1 class="hero__title">
+        Every atom.<br>
+        <span class="word-accent">One language.</span>
+        <span class="word-dim">Always open.</span>
+      </h1>
+      <div class="hero__meta">
+        <p class="hero__desc">Building open foundation models for computational biology — where every atom, sequence, and structure speaks the same language. No pretrained encoders borrowed. No compromises made.</p>
+        <div>
+          <div class="hero__stats">
+            <div class="hero__stat">
+              <div class="hero__stat-num">3</div>
+              <div class="hero__stat-label">Foundation Models</div>
+            </div>
+            <div class="hero__stat">
+              <div class="hero__stat-num">5</div>
+              <div class="hero__stat-label">Modalities</div>
+            </div>
+            <div class="hero__stat">
+              <div class="hero__stat-num">89<span style="font-size:.5em;color:var(--text-3)">th</span></div>
+              <div class="hero__stat-label">Global Rank</div>
+            </div>
+          </div>
+          <div class="hero__ctas" style="margin-top:var(--s6)">
+            <a href="#models" class="btn-hero btn-hero--primary">Explore Models</a>
+            <a href="https://github.com/iamhamzaabdullah" target="_blank" rel="noopener noreferrer" class="btn-hero btn-hero--ghost">View on GitHub ↗</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee-strip">
-  <div class="marquee-track">
-    <span class="marquee-item"><span class="mark">◈</span> EGNN · SE(3)-Equivariant</span>
-    <span class="marquee-item"><span class="mark">◈</span> Absorbing Diffusion · D3PM</span>
-    <span class="marquee-item"><span class="mark">◈</span> FEBI · Transformer Block</span>
-    <span class="marquee-item"><span class="mark">◈</span> RJ · Graph Attention</span>
-    <span class="marquee-item"><span class="mark">◈</span> PairFormer Trunk</span>
-    <span class="marquee-item"><span class="mark">◈</span> OT-CFM Flow Matching</span>
-    <span class="marquee-item"><span class="mark">◈</span> GER Refinement Loop</span>
-    <span class="marquee-item"><span class="mark">◈</span> 197-dim Atom Tokenizer</span>
-    <span class="marquee-item"><span class="mark">◈</span> RNA 3D Structure Prediction</span>
-    <span class="marquee-item"><span class="mark">◈</span> Aptamer Design</span>
-    <span class="marquee-item"><span class="mark">◈</span> Binding Affinity Prediction</span>
-    <span class="marquee-item"><span class="mark">◈</span> Stanford RNA 3D Folding · Silver 🥈</span>
-    <span class="marquee-item"><span class="mark">◈</span> EGNN · SE(3)-Equivariant</span>
-    <span class="marquee-item"><span class="mark">◈</span> Absorbing Diffusion · D3PM</span>
-    <span class="marquee-item"><span class="mark">◈</span> FEBI · Transformer Block</span>
-    <span class="marquee-item"><span class="mark">◈</span> RJ · Graph Attention</span>
-    <span class="marquee-item"><span class="mark">◈</span> PairFormer Trunk</span>
-    <span class="marquee-item"><span class="mark">◈</span> OT-CFM Flow Matching</span>
-    <span class="marquee-item"><span class="mark">◈</span> GER Refinement Loop</span>
-    <span class="marquee-item"><span class="mark">◈</span> 197-dim Atom Tokenizer</span>
-    <span class="marquee-item"><span class="mark">◈</span> RNA 3D Structure Prediction</span>
-    <span class="marquee-item"><span class="mark">◈</span> Aptamer Design</span>
-    <span class="marquee-item"><span class="mark">◈</span> Binding Affinity Prediction</span>
-    <span class="marquee-item"><span class="mark">◈</span> Stanford RNA 3D Folding · Silver 🥈</span>
+<!-- TICKER STRIP -->
+<div class="ticker-strip" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">BindFM <span class="ticker-sep">·</span> Universal Binding</span>
+    <span class="ticker-item">XUZU <span class="ticker-sep">·</span> Aptamer Design</span>
+    <span class="ticker-item">RNJ <span class="ticker-sep">·</span> RNA 3D Structure</span>
+    <span class="ticker-item">Kaggle Silver <span class="ticker-sep">·</span> 89th of 1867</span>
+    <span class="ticker-item">All 5 Modalities <span class="ticker-sep">·</span> From Scratch</span>
+    <span class="ticker-item">MIT License <span class="ticker-sep">·</span> Open Source</span>
+    <span class="ticker-item">BindFM <span class="ticker-sep">·</span> Universal Binding</span>
+    <span class="ticker-item">XUZU <span class="ticker-sep">·</span> Aptamer Design</span>
+    <span class="ticker-item">RNJ <span class="ticker-sep">·</span> RNA 3D Structure</span>
+    <span class="ticker-item">Kaggle Silver <span class="ticker-sep">·</span> 89th of 1867</span>
+    <span class="ticker-item">All 5 Modalities <span class="ticker-sep">·</span> From Scratch</span>
+    <span class="ticker-item">MIT License <span class="ticker-sep">·</span> Open Source</span>
   </div>
 </div>
 
-<!-- PROJECTS -->
-<section class="section" id="projects" style="background:var(--bg)">
+<!-- MODELS -->
+<section class="section projects" id="models" aria-label="Models">
   <div class="container">
-    <div class="reveal">
-      <div class="section__label">// Research Models</div>
-      <h2 class="section__title">Three models.<br><em>One unified vision.</em></h2>
-      <p class="section__desc">Each model solves a distinct problem in computational biology — and each is built from scratch, without borrowing pretrained encoders or inheriting the wrong inductive biases.</p>
+    <div class="projects__intro reveal">
+      <div>
+        <div class="section__label">Foundation Models</div>
+        <h2 class="section__title">Three models.<br><em>One physics.</em></h2>
+      </div>
+      <p class="section__desc">Each model solves a distinct problem in computational biology — built from scratch, without borrowing pretrained encoders or inheriting the wrong inductive biases.</p>
     </div>
+
     <div class="projects__grid">
 
-      <!-- BindFM FEATURED -->
-      <a href="https://github.com/iamhamzaabdullah/BindFM" target="_blank" rel="noopener"
-         class="project-card project-card--bindfm project-card--featured reveal reveal-delay-1">
+      <!-- BINDFM -->
+      <a href="https://github.com/iamhamzaabdullah/BindFM" target="_blank" rel="noopener noreferrer"
+         class="project-card project-card--featured reveal">
+        <div class="project-card__corner" aria-hidden="true"></div>
+        <div class="project-card__code" aria-hidden="true">BFM</div>
         <div class="project-card__header">
-          <div style="display:flex;align-items:center;gap:var(--s4)">
-            <div class="project-card__icon project-card__icon--teal">BF</div>
-            <div>
-              <div class="project-card__name" style="color:var(--teal)">BindFM</div>
-              <div class="project-card__tagline">Universal Biomolecular Binding Foundation Model</div>
-            </div>
+          <div>
+            <div class="project-card__name" style="color:var(--teal)">BindFM</div>
+            <div class="project-card__tagline">Universal Binding Foundation Model</div>
           </div>
-          <div class="project-card__tags">
-            <span class="tag tag--teal">Foundation Model</span>
-            <span class="tag tag--muted">MIT License</span>
-            <span class="tag tag--muted">v0.1</span>
+          <div style="display:flex;gap:var(--s2);flex-wrap:wrap;">
+            <span class="project-card__badge badge--teal">Foundation Model</span>
+            <span class="project-card__badge badge--dim">MIT License</span>
+            <span class="project-card__badge badge--dim">v0.1</span>
           </div>
         </div>
         <div class="project-card__body">
           <div>
             <p class="project-card__desc">The first open foundation model for binding prediction across <strong>all five molecular modalities</strong> — protein, RNA, DNA, small molecule — built entirely from scratch. One universal atom representation. Shared encoder weights. No pretrained encoders borrowed.</p>
             <p class="project-card__desc" style="margin-top:var(--s4)">A protein carbon and an RNA carbon pass through <em>identical learned transformations</em>. This is not a design constraint — it is the entire point.</p>
-            <div style="display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s5)">
+            <div class="project-card__tags" style="margin-top:var(--s5)">
               <span class="tag tag--teal">EGNN Encoder</span>
               <span class="tag tag--teal">PairFormer Trunk</span>
               <span class="tag tag--teal">OT-CFM Flow Matching</span>
               <span class="tag tag--teal">197-dim Atom Tokens</span>
-              <span class="tag tag--muted">~380M params (full)</span>
-              <span class="tag tag--muted">4-Stage Curriculum</span>
+              <span class="tag">~380M params</span>
+              <span class="tag">4-Stage Curriculum</span>
             </div>
           </div>
           <div>
-            <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--s4)">Binding Modalities</div>
+            <div style="font-family:var(--font-body);font-size:var(--text-xs);color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--s4)">Binding Modalities</div>
             <div class="project-card__modalities">
               <div class="modality-item">
                 <span class="modality-item__num">01</span>
@@ -452,29 +574,28 @@ button{cursor:pointer;font:inherit;border:none;background:none;color:inherit;}
       </a>
 
       <!-- XUZU -->
-      <a href="https://github.com/iamhamzaabdullah/xuzu" target="_blank" rel="noopener"
-         class="project-card project-card--xuzu reveal reveal-delay-2">
+      <a href="https://github.com/iamhamzaabdullah/xuzu" target="_blank" rel="noopener noreferrer"
+         class="project-card reveal reveal-delay-1">
+        <div class="project-card__corner" aria-hidden="true"></div>
+        <div class="project-card__code" aria-hidden="true">XZ</div>
         <div class="project-card__header">
-          <div style="display:flex;align-items:center;gap:var(--s4)">
-            <div class="project-card__icon project-card__icon--purple">XZ</div>
-            <div>
-              <div class="project-card__name" style="color:var(--purple)">XUZU</div>
-              <div class="project-card__tagline">Multi-Modal Aptamer Language Model</div>
-            </div>
+          <div>
+            <div class="project-card__name" style="color:var(--purple)">XUZU</div>
+            <div class="project-card__tagline">Multi-Modal Aptamer Language Model</div>
           </div>
-          <div class="project-card__tags">
-            <span class="tag tag--purple">v1.0.0</span>
-            <span class="tag tag--muted">Released</span>
+          <div style="display:flex;gap:var(--s2);flex-wrap:wrap;">
+            <span class="project-card__badge badge--purple">v1.0.0</span>
+            <span class="project-card__badge badge--dim">Released</span>
           </div>
         </div>
         <p class="project-card__desc"><strong>X-modal Unified Zero-shot Universal</strong> aptamer language model for de novo DNA and RNA aptamer design against any protein target — no SELEX experimental data required.</p>
         <p class="project-card__desc" style="margin-top:var(--s3)">Powered by <strong>FEBI</strong> (Fundamental Encoding Block Intelligence) and <strong>RJ</strong> (Relational Junction) — proprietary blocks for sequence context and structural graph propagation. A built-in <strong>GER loop</strong> refines generation via REINFORCE toward lower Kd.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4)">
+        <div class="project-card__tags">
           <span class="tag tag--purple">FEBI Blocks</span>
           <span class="tag tag--purple">RJ Graph Attn</span>
           <span class="tag tag--purple">D3PM Decoder</span>
-          <span class="tag tag--muted">~7.5M params</span>
-          <span class="tag tag--muted">GER Refinement</span>
+          <span class="tag">~7.5M params</span>
+          <span class="tag">GER Refinement</span>
         </div>
         <div class="project-card__meta">
           <div class="project-card__stat"><span class="project-card__stat-val" style="color:var(--purple)">~7.5M</span><span class="project-card__stat-key">Parameters</span></div>
@@ -485,39 +606,35 @@ button{cursor:pointer;font:inherit;border:none;background:none;color:inherit;}
       </a>
 
       <!-- RNJ -->
-      <div class="project-card project-card--rnj reveal reveal-delay-3">
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-card__corner" aria-hidden="true"></div>
+        <div class="project-card__code" aria-hidden="true">RNJ</div>
         <div class="project-card__header">
-          <div style="display:flex;align-items:center;gap:var(--s4)">
-            <div class="project-card__icon project-card__icon--blue">RNJ</div>
-            <div>
-              <div class="project-card__name" style="color:var(--blue)">RNJ</div>
-              <div class="project-card__tagline">RNA 3D Structure Prediction Model</div>
-            </div>
+          <div>
+            <div class="project-card__name" style="color:var(--blue)">RNJ</div>
+            <div class="project-card__tagline">RNA 3D Structure Prediction Model</div>
           </div>
-          <div class="project-card__tags">
-            <span class="tag tag--gold">🥈 Silver Medalist</span>
-            <span class="tag tag--muted">Kaggle</span>
+          <div style="display:flex;gap:var(--s2);flex-wrap:wrap;">
+            <span class="project-card__badge badge--gold">🥈 Silver Medal</span>
+            <span class="project-card__badge badge--dim">Kaggle</span>
           </div>
         </div>
         <p class="project-card__desc">RNA 3D structure prediction model — codenamed <strong>RNX</strong> during development and competition. Competed in the <strong>Stanford RNA 3D Folding Part 2</strong> Kaggle challenge, placing <strong>89th out of 1,867 teams</strong> worldwide, earning a <strong>Silver Medal</strong> — awarded March 26, 2026.</p>
         <p class="project-card__desc" style="margin-top:var(--s3)">RNJ is the structural counterpart to XUZU: where XUZU uses dot-bracket secondary structure as input context, RNJ predicts the full 3D atomic coordinates that define RNA tertiary fold and binding geometry.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4)">
+        <div class="project-card__tags" style="margin-top:var(--s3)">
           <span class="tag tag--blue">3D Coordinates</span>
           <span class="tag tag--blue">Tertiary Structure</span>
           <span class="tag tag--gold">Codename: RNX</span>
-          <span class="tag tag--muted">1,867 Teams</span>
+          <span class="tag">1,867 Teams</span>
         </div>
-
-        <!-- Kaggle Certificate -->
         <div class="cert-image">
           <img src="assets/Hamza-A-Stanford-RNA-3D-Folding-Part-2.jpg"
                alt="Kaggle Silver Medal Certificate — Stanford RNA 3D Folding Part 2, Hamza A, 89th of 1867 teams, March 26 2026"
-               width="800" height="450" loading="lazy">
+               width="800" height="450" loading="lazy" decoding="async">
         </div>
-
         <div class="project-card__meta">
           <div class="project-card__stat"><span class="project-card__stat-val" style="color:var(--gold)">89th</span><span class="project-card__stat-key">Global Rank</span></div>
-          <div class="project-card__stat"><span class="project-card__stat-val">1,867</span><span class="project-card__stat-key">Competing Teams</span></div>
+          <div class="project-card__stat"><span class="project-card__stat-val">1,867</span><span class="project-card__stat-key">Teams</span></div>
           <div class="project-card__stat"><span class="project-card__stat-val">🥈 Silver</span><span class="project-card__stat-key">Medal</span></div>
           <div class="project-card__stat"><span class="project-card__stat-val">Mar 2026</span><span class="project-card__stat-key">Awarded</span></div>
         </div>
@@ -527,164 +644,168 @@ button{cursor:pointer;font:inherit;border:none;background:none;color:inherit;}
   </div>
 </section>
 
+<!-- COMPARISON -->
+<section class="section compare-section" id="compare">
+  <div class="container">
+    <div class="reveal">
+      <div class="section__label">Landscape</div>
+      <h2 class="section__title">Where we stand.<br><em>Honestly.</em></h2>
+    </div>
+    <div class="compare-wrap reveal reveal-delay-1">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th scope="col">System</th>
+            <th scope="col">Modalities</th>
+            <th scope="col">Affinity</th>
+            <th scope="col">Structure</th>
+            <th scope="col">Generation</th>
+            <th scope="col">Aptamers</th>
+            <th scope="col">Open</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row--highlight">
+            <td>BindFM</td><td>All 5</td>
+            <td class="check--yes">✓</td><td class="check--yes">✓</td>
+            <td class="check--yes">✓</td><td class="check--yes">✓ modified</td>
+            <td class="check--yes">✓</td>
+          </tr>
+          <tr><td>AlphaFold3</td><td>Protein+SM+NA</td><td class="check--no">✗</td><td class="check--yes">✓</td><td class="check--no">✗</td><td class="check--partial">partial</td><td class="check--no">✗</td></tr>
+          <tr><td>Boltz-2</td><td>Protein+SM</td><td class="check--yes">✓</td><td class="check--yes">✓</td><td class="check--no">✗</td><td class="check--no">✗</td><td class="check--yes">✓</td></tr>
+          <tr><td>DiffDock</td><td>Protein+SM</td><td class="check--no">✗</td><td class="check--yes">✓</td><td class="check--no">✗</td><td class="check--no">✗</td><td class="check--yes">✓</td></tr>
+          <tr><td>AptaBLE</td><td>Aptamer+Protein</td><td class="check--partial">partial</td><td class="check--no">✗</td><td class="check--no">✗</td><td class="check--yes">✓</td><td class="check--yes">✓</td></tr>
+          <tr><td>RoseTTAFold-AA</td><td>Protein+SM+NA</td><td class="check--no">✗</td><td class="check--yes">✓</td><td class="check--no">✗</td><td class="check--partial">partial</td><td class="check--yes">✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
 <!-- ARCHITECTURE -->
 <section class="section arch" id="architecture">
   <div class="container">
     <div class="arch__inner">
       <div class="reveal">
-        <div class="section__label">// Architecture</div>
+        <div class="section__label">Architecture</div>
         <h2 class="section__title">One encoder.<br><em>Every molecule.</em></h2>
         <p class="section__desc">BindFM's shared-weight EGNN encoder ensures a protein carbon and an RNA carbon live in the same representation space — making cross-modality binding interactions mathematically comparable, not just empirically correlated.</p>
         <div style="margin-top:var(--s8);display:flex;flex-direction:column;gap:var(--s4)">
           <div style="display:flex;gap:var(--s4);align-items:flex-start">
-            <div style="width:10px;height:10px;border-radius:50%;background:var(--teal);margin-top:5px;flex-shrink:0"></div>
+            <div style="width:8px;height:8px;background:var(--teal);margin-top:6px;flex-shrink:0"></div>
             <div><strong>Shared EGNN Encoder</strong> — SE(3)-equivariant. Same weights process both binding partners in parallel.</div>
           </div>
           <div style="display:flex;gap:var(--s4);align-items:flex-start">
-            <div style="width:10px;height:10px;border-radius:50%;background:var(--purple);margin-top:5px;flex-shrink:0"></div>
+            <div style="width:8px;height:8px;background:var(--purple);margin-top:6px;flex-shrink:0"></div>
             <div><strong>PairFormer Trunk</strong> — 32 layers of triangle attention + outer product mean, adapted from AlphaFold2.</div>
           </div>
           <div style="display:flex;gap:var(--s4);align-items:flex-start">
-            <div style="width:10px;height:10px;border-radius:50%;background:var(--blue);margin-top:5px;flex-shrink:0"></div>
+            <div style="width:8px;height:8px;background:var(--blue);margin-top:6px;flex-shrink:0"></div>
             <div><strong>Three Co-trained Heads</strong> — Affinity (Kd, kon/koff, t½), Structure (3D coordinates), Generative (de novo binders).</div>
           </div>
           <div style="display:flex;gap:var(--s4);align-items:flex-start">
-            <div style="width:10px;height:10px;border-radius:50%;background:var(--gold);margin-top:5px;flex-shrink:0"></div>
+            <div style="width:8px;height:8px;background:var(--gold);margin-top:6px;flex-shrink:0"></div>
             <div><strong>XUZU's FEBI + RJ</strong> — Proprietary transformer and graph attention blocks for aptamer-specific multi-modal encoding with GER self-refinement.</div>
           </div>
         </div>
       </div>
       <div class="arch__pipeline reveal reveal-delay-1">
         <div class="arch__pipeline-title">XUZU Inference Pipeline</div>
-        <div class="pipe-row">
-          <div class="pipe-node pipe-node--febi">NucleotideLanguageEncoder<br><span class="pipe-label">FEBI × 6 · RoPE Attention</span></div>
-          <span class="pipe-arrow">→</span>
-        </div>
-        <div class="pipe-row">
-          <div class="pipe-node pipe-node--rj">StructureGraphEncoder<br><span class="pipe-label">RJ × 3 · Base-pair Graph</span></div>
-          <span class="pipe-arrow">→</span>
-        </div>
-        <div class="pipe-row">
-          <div class="pipe-node pipe-node--febi">TargetProteinEncoder<br><span class="pipe-label">FEBI × 3 · Pocket AA Seq</span></div>
-          <span class="pipe-arrow">→</span>
-        </div>
-        <div style="border-left:1px dashed var(--border);margin-left:70px;height:var(--s4)"></div>
-        <div class="pipe-row">
-          <div class="pipe-node pipe-node--fuse">CrossModalFusion<br><span class="pipe-label">3-way Softmax Gate</span></div>
-          <span class="pipe-arrow">→</span>
-        </div>
-        <div style="border-left:1px dashed var(--border);margin-left:70px;height:var(--s4)"></div>
+        <div class="pipe-row"><div class="pipe-node pipe-node--febi">NucleotideLanguageEncoder<br><span class="pipe-label">FEBI × 6 · RoPE Attention</span></div><span class="pipe-arrow">→</span></div>
+        <div class="pipe-row"><div class="pipe-node pipe-node--rj">StructureGraphEncoder<br><span class="pipe-label">RJ × 3 · Base-pair Graph</span></div><span class="pipe-arrow">→</span></div>
+        <div class="pipe-row"><div class="pipe-node pipe-node--febi">TargetProteinEncoder<br><span class="pipe-label">FEBI × 3 · Pocket AA Seq</span></div><span class="pipe-arrow">→</span></div>
+        <div style="border-left:1px dashed var(--border);margin-left:60px;height:var(--s4)"></div>
+        <div class="pipe-row"><div class="pipe-node pipe-node--fuse">CrossModalFusion<br><span class="pipe-label">3-way Softmax Gate</span></div><span class="pipe-arrow">→</span></div>
+        <div style="border-left:1px dashed var(--border);margin-left:60px;height:var(--s4)"></div>
         <div class="pipe-row">
           <div class="pipe-node pipe-node--dec">DiscreteDiffusionDecoder<br><span class="pipe-label">D3PM · 100 Timesteps</span></div>
           <span class="pipe-arrow">→</span>
-          <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--teal);font-weight:700">Aptamer</span>
+          <span style="font-family:var(--font-body);font-size:var(--text-xs);color:var(--teal);font-weight:600">Aptamer</span>
         </div>
-        <div style="margin-top:var(--s4);padding-top:var(--s4);border-top:1px solid var(--border);display:flex;align-items:center;gap:var(--s3)">
-          <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-3)">↺ GER Loop</span>
-          <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-3)">BindingAffinitySurrogate + REINFORCE</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- RECOGNITION -->
-<section class="section recognition">
-  <div class="container">
-    <div class="recognition__inner reveal">
-      <div class="recognition__text">
-        <div class="label">// Competition · Kaggle · Silver Medal 🥈</div>
-        <h3>Stanford RNA 3D Folding<br>Part 2 Challenge</h3>
-        <p>RNJ (codenamed <strong>RNX</strong> during competition) placed <strong>89th out of 1,867 teams</strong> globally in the Stanford RNA 3D structure prediction challenge — earning a Kaggle <strong>Silver Medal</strong>, awarded March 26, 2026. This validated terminalBio's approach to nucleotide structure modeling before XUZU's aptamer design work began.</p>
-      </div>
-      <div class="recognition__badge">
-        <div class="rank-box">
-          <div class="rank-box__num">89th</div>
-          <div class="rank-box__label">Global Rank</div>
-        </div>
-        <div class="rank-box">
-          <div class="rank-box__num">1,867</div>
-          <div class="rank-box__label">Competing Teams</div>
-        </div>
-        <div class="rank-box">
-          <div class="rank-box__num">🥈</div>
-          <div class="rank-box__label">Silver Medal</div>
+        <div style="margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--border)">
+          <span style="font-size:10px;color:var(--text-3)">↺ GER Loop · REINFORCE toward lower Kd · Iterative self-refinement</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- COMPARISON -->
-<section class="section" style="background:var(--bg)">
+<!-- QUOTE -->
+<section class="quote-section">
   <div class="container">
-    <div class="reveal">
-      <div class="section__label">// Positioning</div>
-      <h2 class="section__title">How BindFM <em>compares</em></h2>
-      <p class="section__desc">The only open model with affinity prediction, 3D structure, de novo generation, <em>and</em> full aptamer modification support — across all five binding modalities.</p>
+    <div class="quote-inner reveal">
+      <div class="quote-mark" aria-hidden="true">"</div>
+      <blockquote class="quote-text">Every serious attempt at universal binding prediction hits the same wall: incompatible representation spaces. BindFM takes the only principled approach — represent every molecular entity as the same thing it actually is: a graph of atoms in 3D space.</blockquote>
+      <p class="quote-attr">— <strong>Hamza Abdullah</strong>, terminalBio</p>
     </div>
-    <table class="comparison__table reveal reveal-delay-1">
-      <thead>
-        <tr><th>System</th><th>Modalities</th><th>Affinity</th><th>Structure</th><th>Generation</th><th>Aptamers</th><th>Open</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><span class="model-name model-name--tb">BindFM</span></td><td>All 5</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓ modified</span></td><td><span class="check">✓</span></td></tr>
-        <tr><td><span class="model-name">AlphaFold3</span></td><td>Protein+SM+NA</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="partial">partial</span></td><td><span class="cross">✗</span></td></tr>
-        <tr><td><span class="model-name">Boltz-2</span></td><td>Protein+SM</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
-        <tr><td><span class="model-name">DiffDock</span></td><td>Protein+SM</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
-        <tr><td><span class="model-name">AptaBLE</span></td><td>Aptamer+Protein</td><td><span class="partial">partial</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
-        <tr><td><span class="model-name">RoseTTAFold-AA</span></td><td>Protein+SM+NA</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="partial">partial</span></td><td><span class="check">✓</span></td></tr>
-      </tbody>
-    </table>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section class="section" id="about" style="background:var(--bg)">
+<section class="section about" id="about">
   <div class="container">
-    <div class="reveal">
-      <div class="section__label">// About terminalBio</div>
-      <h2 class="section__title">Built from scratch.<br><em>On principle.</em></h2>
-    </div>
-    <div class="about__grid">
-      <div class="reveal reveal-delay-1">
-        <blockquote class="about__manifesto">
-          "Every serious attempt at universal binding prediction hits the same wall: incompatible representation spaces. BindFM takes the only principled approach — represent every molecular entity as the same thing it actually is: a graph of atoms in 3D space."
-        </blockquote>
-        <p style="font-size:var(--text-sm);color:var(--text-3);margin-top:var(--s4);padding-left:var(--s6)">— Hamza Abdullah, terminalBio</p>
-        <div style="margin-top:var(--s8)">
-          <a href="https://github.com/iamhamzaabdullah" target="_blank" rel="noopener"
-             class="btn-hero btn-hero--secondary" style="display:inline-flex">
-            github.com/iamhamzaabdullah ↗
-          </a>
+    <div class="about__inner">
+      <div class="reveal">
+        <div class="section__label">About</div>
+        <h2 class="section__title">Built from<br><em>first principles.</em></h2>
+        <p class="section__desc">terminalBio is an independent computational biology research lab focused on building open foundation models that treat molecular biology as a unified physics problem — not a collection of domain-specific benchmarks.</p>
+        <div class="about__principles">
+          <div class="principle">
+            <div class="principle__num">01</div>
+            <div>
+              <div class="principle__title">No borrowed encoders</div>
+              <div class="principle__body">Every model is built from scratch. Inheriting evolutionary language model representations introduces the wrong inductive biases at every modality boundary crossing.</div>
+            </div>
+          </div>
+          <div class="principle">
+            <div class="principle__num">02</div>
+            <div>
+              <div class="principle__title">One representation space</div>
+              <div class="principle__body">A protein carbon and an RNA carbon are both carbons. They should live in the same learned embedding space — and in BindFM, they do.</div>
+            </div>
+          </div>
+          <div class="principle">
+            <div class="principle__num">03</div>
+            <div>
+              <div class="principle__title">Always open</div>
+              <div class="principle__body">All models released under MIT license. Science advances by building on prior work — that only works if the work is actually accessible.</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="reveal reveal-delay-2">
-        <p style="font-size:var(--text-sm);color:var(--text-2);line-height:1.8;margin-bottom:var(--s6)">terminalBio is an independent computational biology research lab focused on building open foundation models that treat molecular biology as a unified physics problem — not a collection of domain-specific benchmarks.</p>
-        <p style="font-size:var(--text-sm);color:var(--text-2);line-height:1.8;margin-bottom:var(--s8)">Every model is built from scratch with no pretrained encoders borrowed. This is a design choice: inheriting evolutionary language model representations introduces the wrong inductive biases at every modality boundary crossing.</p>
-        <div class="about__pills">
-          <span class="about__pill">Computational Biology</span>
-          <span class="about__pill">Foundation Models</span>
-          <span class="about__pill">Aptamer Design</span>
-          <span class="about__pill">Binding Prediction</span>
-          <span class="about__pill">RNA Structure</span>
-          <span class="about__pill">Molecular Dynamics</span>
-          <span class="about__pill">Open Source</span>
+      <div class="about__terminal reveal reveal-delay-1">
+        <div class="terminal__bar" aria-hidden="true">
+          <div class="terminal__dot"></div>
+          <div class="terminal__dot"></div>
+          <div class="terminal__dot"></div>
+          <div class="terminal__title">terminalbio — python3</div>
+        </div>
+        <div class="terminal__body">
+<span class="cm"># terminalBio · Universal Binding Prediction</span><br>
+<span class="k">from</span> terminalbio <span class="k">import</span> BindFM, XUZU<br>
+<br>
+<span class="cm"># Load universal binding model</span><br>
+model = <span class="c">BindFM</span>.<span class="m">from_pretrained</span>(<span class="s">"terminalbio/bindfm-v0.1"</span>)<br>
+<br>
+<span class="cm"># Predict affinity across modalities</span><br>
+result = model.<span class="m">predict</span>(<br>
+&nbsp;&nbsp;partner_a=<span class="s">"MKTIIALSYIFCLVFA..."</span>,&nbsp;&nbsp;<span class="cm"># protein</span><br>
+&nbsp;&nbsp;partner_b=<span class="s">"GGGACCCUGCUUUCG..."</span>,&nbsp;&nbsp;<span class="cm"># RNA aptamer</span><br>
+&nbsp;&nbsp;task=<span class="s">"affinity"</span><br>
+)<br>
+<br>
+<span class="cm"># → Kd: 12.4 nM | ΔG: -10.8 kcal/mol</span><br>
+<span class="k">print</span>(result.<span class="m">kd</span>)&nbsp;&nbsp;&nbsp;<span class="cm"># 1.24e-8</span><br>
+<br>
+<span class="cm"># Design aptamers with XUZU</span><br>
+aptamer = <span class="c">XUZU</span>.<span class="m">design</span>(<br>
+&nbsp;&nbsp;target=<span class="s">"KPC-2 beta-lactamase"</span>,<br>
+&nbsp;&nbsp;modality=<span class="s">"RNA"</span>,<br>
+&nbsp;&nbsp;n_candidates=<span class="m">100</span><br>
+)<br>
+<span class="terminal__cursor"></span>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA BANNER -->
-<section class="cta-banner">
-  <div class="cta-banner__glow"></div>
-  <div class="container cta-banner__inner reveal">
-    <h2 class="cta-banner__title">Start with <em>BindFM.</em></h2>
-    <p class="cta-banner__desc">Run the nano model on Colab in 40 minutes. Train on your own binding data. Contribute to the next open foundation model for biology.</p>
-    <div class="cta-banner__btns">
-      <a href="https://github.com/iamhamzaabdullah/BindFM" target="_blank" rel="noopener" class="btn-hero btn-hero--primary">Explore BindFM ↗</a>
-      <a href="https://github.com/iamhamzaabdullah/xuzu" target="_blank" rel="noopener" class="btn-hero btn-hero--secondary">Explore XUZU ↗</a>
     </div>
   </div>
 </section>
@@ -692,53 +813,95 @@ button{cursor:pointer;font:inherit;border:none;background:none;color:inherit;}
 <!-- FOOTER -->
 <footer class="footer">
   <div class="container">
-    <div class="footer__grid">
+    <div class="footer__inner">
       <div class="footer__brand">
-        <div style="display:flex;align-items:center;gap:var(--s3)">
-          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-            <rect width="32" height="32" rx="8" fill="rgba(0,200,168,.1)"/>
-            <path d="M8 24 L16 8 L24 24" stroke="#00c8a8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M11 18 L21 18" stroke="#00c8a8" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="24" cy="24" r="2" fill="#4d9fff"/>
-            <circle cx="8" cy="24" r="2" fill="#a78bfa"/>
-          </svg>
-          <span style="font-family:var(--font-mono);font-weight:700;font-size:.9rem">terminal<span style="color:var(--teal)">Bio</span></span>
-        </div>
-        <p>Open foundation models for computational biology. Every molecule. Every modality. One representation.</p>
+        <div style="width:16px;height:16px;background:var(--text);flex-shrink:0" aria-hidden="true"></div>
+        <span class="footer__brand-text">terminal<span>Bio</span></span>
       </div>
-      <div class="footer__col">
-        <h4>Models</h4>
-        <a href="https://github.com/iamhamzaabdullah/BindFM" target="_blank" rel="noopener">BindFM</a>
-        <a href="https://github.com/iamhamzaabdullah/xuzu" target="_blank" rel="noopener">XUZU</a>
-        <a href="#projects">RNJ</a>
-      </div>
-      <div class="footer__col">
-        <h4>Links</h4>
-        <a href="https://github.com/iamhamzaabdullah" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://terminalbio.io" target="_blank" rel="noopener">terminalbio.io</a>
-      </div>
+      <a href="https://github.com/iamhamzaabdullah/BindFM" target="_blank" rel="noopener noreferrer" class="footer__link">BindFM</a>
+      <a href="https://github.com/iamhamzaabdullah/xuzu" target="_blank" rel="noopener noreferrer" class="footer__link">XUZU</a>
+      <a href="https://github.com/iamhamzaabdullah" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub ↗</a>
     </div>
     <div class="footer__bottom">
-      <span>© 2026 terminalBio · Hamza Abdullah</span>
-      <div style="display:flex;gap:var(--s6)">
-        <a href="https://github.com/iamhamzaabdullah/BindFM/blob/main/LICENSE" target="_blank" rel="noopener">MIT License (BindFM)</a>
-        <a href="https://github.com/iamhamzaabdullah/xuzu" target="_blank" rel="noopener">Proprietary (XUZU)</a>
-      </div>
+      <p class="footer__copy">© 2026 <span>terminalBio</span> · MIT License · Independent Research</p>
+      <p class="footer__tagline">Every atom speaks the same language.</p>
     </div>
   </div>
 </footer>
 
 <script>
-function toggleTheme(){
-  const h=document.documentElement;
-  const dark=h.getAttribute('data-theme')==='dark';
-  h.setAttribute('data-theme',dark?'light':'dark');
-  document.getElementById('theme-btn').textContent=dark?'☽ Dark':'☀ Light';
-}
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
-},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+/* THEME TOGGLE */
+(function(){
+  const t=document.querySelector('[data-theme-toggle]');
+  const r=document.documentElement;
+  let d=r.getAttribute('data-theme')||'dark';
+  const moon='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  const sun='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  function upd(){t.innerHTML=d==='dark'?sun:moon;t.setAttribute('aria-label','Switch to '+(d==='dark'?'light':'dark')+' mode');}
+  upd();
+  t&&t.addEventListener('click',()=>{d=d==='dark'?'light':'dark';r.setAttribute('data-theme',d);upd();});
+})();
+
+/* DRAGGABLE LOGO */
+(function(){
+  const sq=document.getElementById('logo-square');
+  if(!sq) return;
+  let active=false,clone=null,ox=0,oy=0,rx=0,ry=0;
+
+  function start(e){
+    e.preventDefault();
+    const p=e.touches?e.touches[0]:e;
+    const rc=sq.getBoundingClientRect();
+    rx=rc.left; ry=rc.top;
+    ox=p.clientX-rc.left; oy=p.clientY-rc.top;
+
+    clone=document.createElement('div');
+    clone.style.cssText='position:fixed;z-index:9999;width:22px;height:22px;'
+      +'background:var(--text);pointer-events:none;transition:box-shadow 120ms;'
+      +'box-shadow:0 8px 32px rgba(0,0,0,.5),0 0 0 1px var(--teal);'
+      +'left:'+rc.left+'px;top:'+rc.top+'px;';
+    document.body.appendChild(clone);
+    active=true;
+  }
+
+  function move(e){
+    if(!active||!clone) return;
+    e.preventDefault();
+    const p=e.touches?e.touches[0]:e;
+    clone.style.left=(p.clientX-ox)+'px';
+    clone.style.top=(p.clientY-oy)+'px';
+  }
+
+  function end(){
+    if(!active) return;
+    active=false;
+    if(clone){
+      clone.style.transition='left 480ms cubic-bezier(.16,1,.3,1),top 480ms cubic-bezier(.16,1,.3,1),opacity 280ms ease,box-shadow 280ms';
+      clone.style.left=rx+'px';
+      clone.style.top=ry+'px';
+      clone.style.opacity='0';
+      clone.style.boxShadow='none';
+      setTimeout(()=>{clone&&clone.remove();clone=null;},560);
+    }
+    document.removeEventListener('mousemove',move);
+    document.removeEventListener('touchmove',move);
+    document.removeEventListener('mouseup',end);
+    document.removeEventListener('touchend',end);
+  }
+
+  sq.addEventListener('mousedown',e=>{start(e);document.addEventListener('mousemove',move);document.addEventListener('mouseup',end);});
+  sq.addEventListener('touchstart',e=>{start(e);document.addEventListener('touchmove',move,{passive:false});document.addEventListener('touchend',end);},{passive:false});
+})();
+
+/* NAV SCROLL OPACITY */
+(function(){
+  const nav=document.querySelector('.nav');
+  window.addEventListener('scroll',()=>{
+    nav.style.background=window.scrollY>40
+      ?'color-mix(in oklch,var(--bg) 95%,transparent)'
+      :'color-mix(in oklch,var(--bg) 80%,transparent)';
+  },{passive:true});
+})();
 </script>
 </body>
 </html>
