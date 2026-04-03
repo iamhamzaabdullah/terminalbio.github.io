@@ -54,13 +54,74 @@ button{cursor:pointer;font:inherit;border:none;background:none;color:inherit;}
 :focus-visible{outline:1.5px solid var(--teal);outline-offset:3px;border-radius:var(--r-sm);}
 .container{max-width:1180px;margin-inline:auto;padding-inline:var(--s6);}
 
+/* NAV LOGO ANIMATION */
+.nav__logo{position:relative;}
+#logo-wrap{position:relative;width:22px;height:22px;flex-shrink:0;}
 #logo-square{
   width:22px;height:22px;background:var(--text);
   border-radius:0;flex-shrink:0;cursor:grab;
   user-select:none;-webkit-user-select:none;
-  transition:background 200ms;
+  position:relative;z-index:2;
+  transition:background 200ms,transform 200ms var(--ease),box-shadow 200ms;
 }
-#logo-square:hover{background:var(--teal);}
+#logo-square:hover{background:var(--teal);transform:rotate(45deg) scale(.85);box-shadow:0 0 0 1.5px var(--teal),0 0 20px var(--teal-glow-hi);}
+
+/* Biological orbit: DNA → RNA → Protein cycling label */
+#logo-bio{
+  position:absolute;
+  top:50%;left:50%;
+  width:0;height:0;
+  pointer-events:none;
+  z-index:3;
+  overflow:visible;
+}
+#logo-bio-label{
+  position:absolute;
+  top:-22px;left:50%;
+  transform:translateX(-50%);
+  font-family:var(--font-body);
+  font-size:7px;
+  font-weight:500;
+  letter-spacing:.06em;
+  color:var(--teal);
+  white-space:nowrap;
+  opacity:0;
+  transition:opacity 300ms;
+  pointer-events:none;
+  text-shadow:0 0 8px var(--teal);
+}
+.nav__logo:hover #logo-bio-label{opacity:1;}
+
+/* Helix SVG orbiting the square */
+#logo-helix{
+  position:absolute;
+  top:50%;left:50%;
+  width:52px;height:52px;
+  margin:-26px 0 0 -26px;
+  pointer-events:none;
+  z-index:1;
+  animation:helix-spin 4s linear infinite;
+  opacity:.7;
+}
+.nav__logo:hover #logo-helix{opacity:1;}
+@keyframes helix-spin{to{transform:rotate(360deg);}}
+
+/* Corner accent lines */
+#logo-corners{
+  position:absolute;inset:-3px;
+  pointer-events:none;z-index:1;
+  opacity:0;
+  transition:opacity 200ms var(--ease);
+}
+.nav__logo:hover #logo-corners{opacity:1;}
+#logo-corners::before,#logo-corners::after{
+  content:'';position:absolute;
+  width:5px;height:5px;
+  border-color:var(--teal);
+  border-style:solid;
+}
+#logo-corners::before{top:0;left:0;border-width:1px 0 0 1px;}
+#logo-corners::after{bottom:0;right:0;border-width:0 1px 1px 0;}
 
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;
   background:color-mix(in oklch,var(--bg) 80%,transparent);
@@ -72,12 +133,72 @@ button{cursor:pointer;font:inherit;border:none;background:none;color:inherit;}
 .nav__logo{display:flex;align-items:center;gap:var(--s3);text-decoration:none;}
 .nav__logo-text{font-family:var(--font-display);font-weight:700;font-size:.85rem;letter-spacing:-.02em;color:var(--text);}
 .nav__logo-text span{color:var(--teal);}
-.nav__links{display:flex;align-items:center;}
+.nav__links{display:flex;align-items:center;gap:0;}
 .nav__link{padding:var(--s2) var(--s4);font-size:var(--text-xs);color:var(--text-3);
   letter-spacing:.06em;text-transform:uppercase;border-radius:var(--r-md);
-  transition:color 150ms,background 150ms;}
-.nav__link:hover{color:var(--text);background:rgba(255,255,255,.04);}
+  transition:color 150ms,background 150ms;white-space:nowrap;}
+.nav__link:hover,.nav__link.active{color:var(--text);background:rgba(255,255,255,.04);}
 .nav__actions{display:flex;align-items:center;gap:var(--s3);}
+
+/* Dropdown */
+.nav__item{position:relative;display:flex;align-items:center;}
+.nav__item .nav__link{display:flex;align-items:center;gap:5px;}
+.nav__item .nav__link .chevron{width:10px;height:10px;transition:transform 200ms var(--ease);flex-shrink:0;}
+.nav__item:hover .chevron,.nav__item.open .chevron{transform:rotate(180deg);}
+.nav__dropdown{
+  position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  min-width:220px;
+  background:color-mix(in oklch,var(--bg-2) 97%,transparent);
+  border:1px solid var(--border-hi);
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  opacity:0;pointer-events:none;
+  transform:translateX(-50%) translateY(-6px);
+  transition:opacity 180ms var(--ease),transform 180ms var(--ease);
+  box-shadow:0 16px 48px rgba(0,0,0,.35),0 0 0 1px var(--border);
+  z-index:200;
+}
+.nav__item:hover .nav__dropdown,
+.nav__item.open .nav__dropdown{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.nav__dropdown-header{padding:var(--s3) var(--s4) var(--s2);font-size:9px;color:var(--text-3);
+  text-transform:uppercase;letter-spacing:.14em;border-bottom:1px solid var(--border);}
+.nav__dropdown-item{display:flex;align-items:center;gap:var(--s3);
+  padding:var(--s3) var(--s4);font-size:var(--text-xs);color:var(--text-2);
+  transition:color 120ms,background 120ms;text-transform:none;letter-spacing:.02em;}
+.nav__dropdown-item:hover{color:var(--teal);background:var(--teal-glow);}
+.nav__dropdown-item .dd-dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;opacity:.6;}
+.nav__dropdown-footer{padding:var(--s3) var(--s4);border-top:1px solid var(--border);}
+.nav__dropdown-footer a{font-size:var(--text-xs);color:var(--teal);display:inline-flex;align-items:center;gap:var(--s2);}
+
+/* Hamburger */
+.nav__hamburger{display:none;flex-direction:column;justify-content:center;
+  gap:4px;width:32px;height:32px;padding:4px;border-radius:var(--r-md);
+  color:var(--text-2);cursor:pointer;transition:background 150ms;}
+.nav__hamburger:hover{background:rgba(255,255,255,.06);}
+.nav__hamburger span{display:block;height:1.5px;background:currentColor;
+  border-radius:2px;transition:transform 250ms var(--ease),opacity 200ms;}
+.nav__hamburger.is-open span:nth-child(1){transform:translateY(5.5px) rotate(45deg);}
+.nav__hamburger.is-open span:nth-child(2){opacity:0;}
+.nav__hamburger.is-open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg);}
+
+/* Mobile drawer */
+.nav__mobile{
+  display:none;position:fixed;top:52px;left:0;right:0;
+  background:color-mix(in oklch,var(--bg) 98%,transparent);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  z-index:99;padding:var(--s4) var(--s6) var(--s6);
+  transform:translateY(-8px);opacity:0;pointer-events:none;
+  transition:opacity 200ms var(--ease),transform 200ms var(--ease);
+}
+.nav__mobile.is-open{opacity:1;pointer-events:auto;transform:translateY(0);}
+.nav__mobile-link{display:block;padding:var(--s3) 0;font-size:var(--text-sm);
+  color:var(--text-2);border-bottom:1px solid var(--border);
+  letter-spacing:.04em;transition:color 120ms;}
+.nav__mobile-link:hover,.nav__mobile-link:last-child{border-bottom:none;}
+.nav__mobile-link:hover{color:var(--teal);}
+.nav__mobile-section{font-size:9px;color:var(--text-3);text-transform:uppercase;
+  letter-spacing:.14em;padding:var(--s4) 0 var(--s2);}
 .btn-nav-primary{padding:var(--s2) var(--s4);font-size:var(--text-xs);font-family:var(--font-body);
   font-weight:500;color:var(--bg);background:var(--text);border-radius:var(--r-sm);
   letter-spacing:.03em;transition:all 150ms var(--ease);}
@@ -330,14 +451,20 @@ button{cursor:pointer;font:inherit;border:none;background:none;color:inherit;}
   vertical-align:text-bottom;animation:blink-cur .9s step-end infinite;}
 @keyframes blink-cur{0%,100%{opacity:1}50%{opacity:0}}
 
-.footer{background:var(--bg-2);border-top:1px solid var(--border);padding:var(--s12) 0 var(--s8);}
-.footer__inner{display:grid;grid-template-columns:1fr auto auto auto;gap:var(--s8);
-  align-items:center;padding-bottom:var(--s8);border-bottom:1px solid var(--border);margin-bottom:var(--s6);}
-.footer__brand{display:flex;align-items:center;gap:var(--s3);}
-.footer__brand-text{font-family:var(--font-display);font-weight:700;font-size:.85rem;letter-spacing:-.02em;}
+.footer{background:var(--bg-2);border-top:1px solid var(--border);padding:var(--s16) 0 var(--s10);}
+.footer__top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:var(--s10);padding-bottom:var(--s12);border-bottom:1px solid var(--border);margin-bottom:var(--s8);}
+.footer__brand-col{}
+.footer__brand{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s4);}
+.footer__brand-mark{width:18px;height:18px;background:var(--text);flex-shrink:0;transition:background 200ms;}
+.footer__brand-mark:hover{background:var(--teal);}
+.footer__brand-text{font-family:var(--font-display);font-weight:700;font-size:.9rem;letter-spacing:-.02em;}
 .footer__brand-text span{color:var(--teal);}
-.footer__link{font-size:var(--text-xs);color:var(--text-3);transition:color 150ms;text-transform:uppercase;letter-spacing:.08em;}
+.footer__brand-desc{font-size:var(--text-xs);color:var(--text-3);line-height:1.7;max-width:26ch;}
+.footer__col-title{font-size:9px;color:var(--text-3);text-transform:uppercase;letter-spacing:.16em;margin-bottom:var(--s5);padding-bottom:var(--s3);border-bottom:1px solid var(--border);}
+.footer__col-links{display:flex;flex-direction:column;gap:var(--s3);}
+.footer__link{font-size:var(--text-xs);color:var(--text-3);transition:color 150ms;letter-spacing:.04em;display:inline-flex;align-items:center;gap:var(--s2);}
 .footer__link:hover{color:var(--teal);}
+.footer__link--ext::after{content:'↗';font-size:9px;opacity:.5;}
 .footer__bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--s4);}
 .footer__copy{font-size:var(--text-xs);color:var(--text-3);}
 .footer__copy span{color:var(--teal);}
@@ -356,16 +483,21 @@ button{cursor:pointer;font:inherit;border:none;background:none;color:inherit;}
   .projects__intro,.projects__grid,.arch__inner,.about__inner{grid-template-columns:1fr;}
   .project-card--featured{grid-column:auto;}
   .project-card__body{grid-template-columns:1fr;}
-  .footer__inner{grid-template-columns:1fr 1fr;}
+  .footer__top{grid-template-columns:1fr 1fr;}
+  .footer__brand-col{grid-column:1/-1;}
   .hero__meta{grid-template-columns:1fr;}
   .hero__stats{flex-direction:row;}
   .hero__stat{text-align:left;}
   .nav__links{display:none;}
+  .nav__hamburger{display:flex;}
+  .nav__mobile{display:block;}
+  .about-page__grid{grid-template-columns:1fr !important;}
+  .about-page__manifesto-grid{grid-template-columns:1fr !important;}
 }
 @media(max-width:480px){
   .hero__stats{flex-direction:column;gap:var(--s6);}
   .project-card__modalities{grid-template-columns:1fr;}
-  .footer__inner{grid-template-columns:1fr;}
+  .footer__top{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -373,21 +505,78 @@ button{cursor:pointer;font:inherit;border:none;background:none;color:inherit;}
 
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav__inner">
-    <a class="nav__logo" href="#" aria-label="terminalBio home">
-      <div id="logo-square" role="img" aria-label="terminalBio logo" title="Drag me"></div>
+    <a class="nav__logo" href="index.html" aria-label="terminalBio home">
+      <div id="logo-wrap">
+        <!-- Biological double-helix orbiting the square -->
+        <svg id="logo-helix" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Strand 1: sine wave arc top -->
+          <path d="M4 26 Q13 10 26 26 Q39 42 48 26" stroke="rgba(0,240,180,0.9)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <!-- Strand 2: sine wave arc bottom (180° phase) -->
+          <path d="M4 26 Q13 42 26 26 Q39 10 48 26" stroke="rgba(106,180,255,0.65)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <!-- Base pairs (rungs) -->
+          <line x1="13.5" y1="18" x2="13.5" y2="34" stroke="rgba(0,240,180,0.35)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="26" y1="13" x2="26" y2="39" stroke="rgba(0,240,180,0.35)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="38.5" y1="18" x2="38.5" y2="34" stroke="rgba(0,240,180,0.35)" stroke-width="1" stroke-linecap="round"/>
+          <!-- Node dots on strand 1 -->
+          <circle cx="13.5" cy="18" r="2" fill="var(--teal)" opacity="0.9"/>
+          <circle cx="26" cy="26" r="2.5" fill="var(--teal)" opacity="1"/>
+          <circle cx="38.5" cy="34" r="2" fill="var(--teal)" opacity="0.9"/>
+          <!-- Node dots on strand 2 -->
+          <circle cx="13.5" cy="34" r="1.5" fill="rgba(106,180,255,0.8)"/>
+          <circle cx="38.5" cy="18" r="1.5" fill="rgba(106,180,255,0.8)"/>
+        </svg>
+        <div id="logo-bio" aria-hidden="true">
+          <span id="logo-bio-label">DNA</span>
+        </div>
+        <div id="logo-corners" aria-hidden="true"></div>
+        <div id="logo-square" role="img" aria-label="terminalBio logo" title="Drag me"></div>
+      </div>
       <span class="nav__logo-text">terminal<span>Bio</span></span>
     </a>
     <div class="nav__links">
-      <a class="nav__link" href="#models">Models</a>
-      <a class="nav__link" href="#architecture">Architecture</a>
-      <a class="nav__link" href="#about">About</a>
+      <a class="nav__link" href="index.html#models">Models</a>
+      <a class="nav__link" href="index.html#architecture">Architecture</a>
+      <!-- Research dropdown -->
+      <div class="nav__item" id="research-nav-item">
+        <a class="nav__link" href="research.html" aria-haspopup="true" aria-expanded="false" id="research-toggle">
+          Research
+          <svg class="chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,3 5,7 8,3"/></svg>
+        </a>
+        <div class="nav__dropdown" role="menu" aria-label="Research areas">
+          <div class="nav__dropdown-header">Research Areas</div>
+          <a class="nav__dropdown-item" href="research.html#cancer" role="menuitem"><span class="dd-dot"></span>Cancer Research</a>
+          <a class="nav__dropdown-item" href="research.html#drug-design" role="menuitem"><span class="dd-dot"></span>Drug Design &amp; Development</a>
+          <a class="nav__dropdown-item" href="research.html#proteomics" role="menuitem"><span class="dd-dot"></span>Proteomics &amp; Genomics</a>
+          <a class="nav__dropdown-item" href="research.html#computational" role="menuitem"><span class="dd-dot"></span>Computational Biology</a>
+          <a class="nav__dropdown-item" href="research.html#aging" role="menuitem"><span class="dd-dot"></span>Aging</a>
+          <div class="nav__dropdown-footer"><a href="research.html">View all research →</a></div>
+        </div>
+      </div>
+      <a class="nav__link" href="about.html">About</a>
     </div>
     <div class="nav__actions">
       <button class="theme-toggle" data-theme-toggle aria-label="Switch to light mode">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
       <a href="https://github.com/iamhamzaabdullah" target="_blank" rel="noopener noreferrer" class="btn-nav-primary">GitHub ↗</a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+  </div>
+  <!-- Mobile drawer -->
+  <div class="nav__mobile" id="mobile-menu" role="dialog" aria-label="Mobile navigation">
+    <a class="nav__mobile-link" href="index.html#models">Models</a>
+    <a class="nav__mobile-link" href="index.html#architecture">Architecture</a>
+    <div class="nav__mobile-section">Research</div>
+    <a class="nav__mobile-link" href="research.html#cancer">Cancer Research</a>
+    <a class="nav__mobile-link" href="research.html#drug-design">Drug Design &amp; Development</a>
+    <a class="nav__mobile-link" href="research.html#proteomics">Proteomics &amp; Genomics</a>
+    <a class="nav__mobile-link" href="research.html#computational">Computational Biology</a>
+    <a class="nav__mobile-link" href="research.html#aging">Aging</a>
+    <div class="nav__mobile-section">Company</div>
+    <a class="nav__mobile-link" href="about.html">About</a>
+    <a class="nav__mobile-link" href="https://github.com/iamhamzaabdullah" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
   </div>
 </nav>
 
@@ -696,7 +885,11 @@ button{cursor:pointer;font:inherit;border:none;background:none;color:inherit;}
       <div class="reveal">
         <div class="section__label">About</div>
         <h2 class="section__title">Built from<br><em>first principles.</em></h2>
-        <p class="section__desc">terminalBio is an independent computational biology research lab focused on building open foundation models that treat molecular biology as a unified physics problem — not a collection of domain-specific benchmarks.</p>
+        <p class="section__desc">terminalBio is a BioAI startup building the foundational layer for molecular intelligence — open models that treat every atom, sequence, and structure as part of <strong>Unified TB Biocompute</strong>: the OS for synthetic biology.</p>
+        <p class="section__desc" style="margin-top:var(--s5)">Where most AI biology tools fragment the problem, terminalBio builds one model that speaks all modalities. The same encoder. The same weights. One representation space — because at the atomic level, biology is one problem.</p>
+        <div style="margin-top:var(--s8)">
+          <a href="about.html" class="btn-hero btn-hero--ghost" style="display:inline-flex">Full story →</a>
+        </div>
         <div class="about__principles">
           <div class="principle">
             <div class="principle__num">01</div>
@@ -760,17 +953,41 @@ aptamer = <span class="c">XUZU</span>.<span class="m">design</span>(<br>
 
 <footer class="footer">
   <div class="container">
-    <div class="footer__inner">
-      <div class="footer__brand">
-        <div style="width:16px;height:16px;background:var(--text);flex-shrink:0" aria-hidden="true"></div>
-        <span class="footer__brand-text">terminal<span>Bio</span></span>
+    <div class="footer__top">
+      <div class="footer__brand-col">
+        <div class="footer__brand">
+          <div class="footer__brand-mark" aria-hidden="true"></div>
+          <span class="footer__brand-text">terminal<span>Bio</span></span>
+        </div>
+        <p class="footer__brand-desc">The foundational layer for molecular intelligence. One compute substrate. One biology.</p>
       </div>
-      <a href="https://github.com/iamhamzaabdullah/BindFM" target="_blank" rel="noopener noreferrer" class="footer__link">BindFM</a>
-      <a href="https://github.com/iamhamzaabdullah/xuzu" target="_blank" rel="noopener noreferrer" class="footer__link">XUZU</a>
-      <a href="https://github.com/iamhamzaabdullah/RNX" target="_blank" rel="noopener noreferrer" class="footer__link">RNX</a>
+      <div>
+        <div class="footer__col-title">Company</div>
+        <div class="footer__col-links">
+          <a href="index.html" class="footer__link">Home</a>
+          <a href="about.html" class="footer__link">About</a>
+          <a href="research.html" class="footer__link">Research</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__col-title">Models</div>
+        <div class="footer__col-links">
+          <a href="https://github.com/iamhamzaabdullah/BindFM" target="_blank" rel="noopener noreferrer" class="footer__link footer__link--ext">BindFM</a>
+          <a href="https://github.com/iamhamzaabdullah/xuzu" target="_blank" rel="noopener noreferrer" class="footer__link footer__link--ext">XUZU</a>
+          <a href="https://github.com/iamhamzaabdullah/RNX" target="_blank" rel="noopener noreferrer" class="footer__link footer__link--ext">RNJ</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__col-title">Open Source</div>
+        <div class="footer__col-links">
+          <a href="https://github.com/iamhamzaabdullah" target="_blank" rel="noopener noreferrer" class="footer__link footer__link--ext">GitHub</a>
+          <a href="https://huggingface.co" target="_blank" rel="noopener noreferrer" class="footer__link footer__link--ext">Hugging Face</a>
+          <span class="footer__link" style="cursor:default;opacity:.5;">MIT License</span>
+        </div>
+      </div>
     </div>
     <div class="footer__bottom">
-      <p class="footer__copy">© 2026 <span>terminalBio</span> · MIT License · Independent Research</p>
+      <p class="footer__copy">© 2026 <span>terminalBio</span> · Independent Research</p>
       <p class="footer__tagline">Every atom speaks the same language.</p>
     </div>
   </div>
@@ -792,23 +1009,21 @@ aptamer = <span class="c">XUZU</span>.<span class="m">design</span>(<br>
   const sq=document.getElementById('logo-square');
   if(!sq) return;
   let active=false,clone=null,ox=0,oy=0,rx=0,ry=0;
-
   function start(e){
     e.preventDefault();
     const p=e.touches?e.touches[0]:e;
     const rc=sq.getBoundingClientRect();
     rx=rc.left; ry=rc.top;
     ox=p.clientX-rc.left; oy=p.clientY-rc.top;
-
     clone=document.createElement('div');
     clone.style.cssText='position:fixed;z-index:9999;width:22px;height:22px;'
-      +'background:var(--text);pointer-events:none;transition:box-shadow 120ms;'
-      +'box-shadow:0 8px 32px rgba(0,0,0,.5),0 0 0 1px var(--teal);'
+      +'background:var(--teal);pointer-events:none;transition:box-shadow 120ms;'
+      +'box-shadow:0 8px 32px rgba(0,0,0,.5),0 0 0 1px var(--teal),0 0 20px rgba(0,240,180,.35);'
       +'left:'+rc.left+'px;top:'+rc.top+'px;';
     document.body.appendChild(clone);
     active=true;
+    sq.style.opacity='.3';
   }
-
   function move(e){
     if(!active||!clone) return;
     e.preventDefault();
@@ -816,10 +1031,10 @@ aptamer = <span class="c">XUZU</span>.<span class="m">design</span>(<br>
     clone.style.left=(p.clientX-ox)+'px';
     clone.style.top=(p.clientY-oy)+'px';
   }
-
   function end(){
     if(!active) return;
     active=false;
+    sq.style.opacity='';
     if(clone){
       clone.style.transition='left 480ms cubic-bezier(.16,1,.3,1),top 480ms cubic-bezier(.16,1,.3,1),opacity 280ms ease,box-shadow 280ms';
       clone.style.left=rx+'px';
@@ -833,7 +1048,6 @@ aptamer = <span class="c">XUZU</span>.<span class="m">design</span>(<br>
     document.removeEventListener('mouseup',end);
     document.removeEventListener('touchend',end);
   }
-
   sq.addEventListener('mousedown',e=>{start(e);document.addEventListener('mousemove',move);document.addEventListener('mouseup',end);});
   sq.addEventListener('touchstart',e=>{start(e);document.addEventListener('touchmove',move,{passive:false});document.addEventListener('touchend',end);},{passive:false});
 })();
@@ -845,6 +1059,58 @@ aptamer = <span class="c">XUZU</span>.<span class="m">design</span>(<br>
       ?'color-mix(in oklch,var(--bg) 95%,transparent)'
       :'color-mix(in oklch,var(--bg) 80%,transparent)';
   },{passive:true});
+})();
+// Hamburger
+(function(){
+  const btn=document.getElementById('hamburger');
+  const menu=document.getElementById('mobile-menu');
+  if(!btn||!menu) return;
+  btn.addEventListener('click',()=>{
+    const open=btn.classList.toggle('is-open');
+    menu.classList.toggle('is-open',open);
+    btn.setAttribute('aria-expanded',open);
+  });
+  // close on link click
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    btn.classList.remove('is-open');
+    menu.classList.remove('is-open');
+    btn.setAttribute('aria-expanded','false');
+  }));
+})();
+
+// DNA → RNA → Protein cycling label
+(function(){
+  const label = document.getElementById('logo-bio-label');
+  if(!label) return;
+  const stages = ['DNA','→ RNA','→ Protein'];
+  const colors = ['var(--teal)','var(--blue)','var(--purple)'];
+  let i = 0;
+  setInterval(()=>{
+    label.style.opacity = '0';
+    setTimeout(()=>{
+      i = (i+1) % stages.length;
+      label.textContent = stages[i];
+      label.style.color = colors[i];
+      label.style.textShadow = '0 0 8px ' + colors[i];
+      label.style.opacity = '';
+    }, 300);
+  }, 1400);
+})();
+
+(function(){
+  const item=document.getElementById('research-nav-item');
+  if(!item) return;
+  const toggle=document.getElementById('research-toggle');
+  toggle&&toggle.addEventListener('click',function(e){
+    // only toggle on click for keyboard/touch; hover handles mouse
+    if(window.matchMedia('(hover:none)').matches){
+      e.preventDefault();
+      item.classList.toggle('open');
+    }
+  });
+  document.addEventListener('click',function(e){
+    if(!item.contains(e.target)) item.classList.remove('open');
+  });
 })();
 </script>
 </body>
