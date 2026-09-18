@@ -15,7 +15,7 @@ Create a production build with `npm run build`.
 
 ## GitHub Pages
 
-The repository includes `.github/workflows/deploy-pages.yml`. Commit it with the site, then select **GitHub Actions** in the repository's **Settings → Pages** panel. Every push to `main` will build and publish the `dist` folder.
+The repository includes `.github/workflows/deploy-pages.yml`. Commit it with the site, then select **GitHub Actions** in the repository's **Settings → Pages** panel. Every push to `main` publishes the static site directly—no Node.js install or build step is required.
 
 ## Structure
 

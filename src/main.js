@@ -1,5 +1,3 @@
-import './style.css';
-
 const detail = {
   1: ['01 / OBSERVE', 'Integrate multimodal evidence—from molecular assays to longitudinal clinical signals—into a coherent starting state.'],
   2: ['02 / MODEL', 'Learn the relationships between biological state, mechanism, and outcome across every available source of evidence.'],
