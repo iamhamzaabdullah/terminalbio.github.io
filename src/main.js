@@ -28,6 +28,12 @@ if (!document.querySelector('link[href="src/visual-reset.css"]')) {
   resetStyles.href = 'src/visual-reset.css';
   document.head.append(resetStyles);
 }
+if (!document.querySelector('link[href="src/precision-fixes.css"]')) {
+  const precisionStyles = document.createElement('link');
+  precisionStyles.rel = 'stylesheet';
+  precisionStyles.href = 'src/precision-fixes.css';
+  document.head.append(precisionStyles);
+}
 
 const detail = {
   1: ['01 / OBSERVE', 'Integrate multimodal evidence—from molecular assays to longitudinal clinical signals—into a coherent starting state.'],
