@@ -40,6 +40,20 @@ if (!document.querySelector('link[href="src/rebuild.css"]')) {
   rebuildStyles.href = 'src/rebuild.css';
   document.head.append(rebuildStyles);
 }
+if (!document.querySelector('link[href="src/site-refinement.css"]')) {
+  const siteStyles = document.createElement('link');
+  siteStyles.rel = 'stylesheet';
+  siteStyles.href = 'src/site-refinement.css';
+  document.head.append(siteStyles);
+}
+if (document.querySelector('.xira-page')) {
+  const existingXiraStyles = document.querySelector('link[href="src/xira.css"]');
+  if (existingXiraStyles) existingXiraStyles.remove();
+  const xiraStyles = document.createElement('link');
+  xiraStyles.rel = 'stylesheet';
+  xiraStyles.href = 'src/xira.css';
+  document.head.append(xiraStyles);
+}
 
 const detail = {
   1: ['01 / OBSERVE', 'Integrate multimodal evidence—from molecular assays to longitudinal clinical signals—into a coherent starting state.'],
@@ -63,11 +77,19 @@ const models = {
   biocompute: ['04 / TB BIOCOMPUTE', 'Composable biological infrastructure.', 'TB Biocompute makes models, data, evaluations, and experimental outputs interoperable and traceable across a research program.', 'Model operations & evaluation', 'Connects the complete learning loop']
 };
 const drawer = document.querySelector('.model-drawer');
+if (drawer) drawer.id = 'home-model-details';
 document.querySelectorAll('[data-model]').forEach(button => button.addEventListener('click', () => {
+  if (!drawer) return;
   const [index, title, copy, useCase, loopRole] = models[button.dataset.model];
   drawer.innerHTML = `<div><span class="drawer-index">${index}</span><h3>${title}</h3><p>${copy}</p></div><div class="drawer-meta"><span>USE CASE</span><strong>${useCase}</strong><span>LOOP ROLE</span><strong>${loopRole}</strong></div>`;
   drawer.classList.add('open');
-  document.querySelectorAll('[data-model]').forEach(item => { const active = item === button; item.setAttribute('aria-expanded', active); item.textContent = active ? '−' : '+'; });
+  document.querySelectorAll('[data-model]').forEach(item => {
+    const active = item === button;
+    item.setAttribute('aria-expanded', String(active));
+    item.setAttribute('aria-controls', drawer.id);
+    item.setAttribute('aria-label', `${active ? 'Hide' : 'Show'} ${models[item.dataset.model][0].replace(/^\d+ \/ /, '')} details`);
+    item.textContent = active ? '−' : '+';
+  });
 }));
 
 const applicationList = document.querySelector('.application-list');
@@ -89,10 +111,51 @@ if (applicationList) {
   }));
 }
 
-const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-  if (entry.isIntersecting) { entry.target.classList.add('in'); observer.unobserve(entry.target); }
-}), { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+if ('IntersectionObserver' in window) {
+  const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (entry.isIntersecting) { entry.target.classList.add('in'); observer.unobserve(entry.target); }
+  }), { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+} else {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+}
 
-document.querySelector('.menu').addEventListener('click', () => document.querySelector('header').classList.toggle('nav-open'));
-document.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => document.querySelector('header').classList.remove('nav-open')));
+const menuButton = document.querySelector('.menu');
+const siteHeader = document.querySelector('.site-header');
+document.querySelectorAll('footer div').forEach(footerLinks => {
+  if (footerLinks.querySelector('a[href="xira40.html"]')) return;
+  const researchLink = footerLinks.querySelector('a[href="research.html"]');
+  if (!researchLink) return;
+  const strategyLink = document.createElement('a');
+  strategyLink.href = 'xira40.html';
+  strategyLink.textContent = 'XIRA 2040';
+  const portfolioLink = document.createElement('a');
+  portfolioLink.href = 'xira3.html';
+  portfolioLink.textContent = 'XIRA3';
+  researchLink.after(strategyLink, portfolioLink);
+});
+if (menuButton && siteHeader) {
+  const siteNav = siteHeader.querySelector('nav');
+  if (siteNav) {
+    if (!siteNav.id) siteNav.id = 'site-navigation';
+    menuButton.setAttribute('aria-controls', siteNav.id);
+    menuButton.setAttribute('aria-expanded', 'false');
+    menuButton.addEventListener('click', () => {
+      const open = siteHeader.classList.toggle('nav-open');
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    });
+    siteNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      siteHeader.classList.remove('nav-open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'Open menu');
+    }));
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        siteHeader.classList.remove('nav-open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Open menu');
+      }
+    });
+  }
+}
