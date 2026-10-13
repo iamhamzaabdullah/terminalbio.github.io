@@ -123,14 +123,14 @@ if ('IntersectionObserver' in window) {
 const menuButton = document.querySelector('.menu');
 const siteHeader = document.querySelector('.site-header');
 document.querySelectorAll('footer div').forEach(footerLinks => {
-  if (footerLinks.querySelector('a[href="xira40.html"]')) return;
-  const researchLink = footerLinks.querySelector('a[href="research.html"]');
+  if (footerLinks.querySelector('a[href="xira40/"]')) return;
+  const researchLink = footerLinks.querySelector('a[href="research/"]');
   if (!researchLink) return;
   const strategyLink = document.createElement('a');
-  strategyLink.href = 'xira40.html';
+  strategyLink.href = 'xira40/';
   strategyLink.textContent = 'XIRA 2040';
   const portfolioLink = document.createElement('a');
-  portfolioLink.href = 'xira3.html';
+  portfolioLink.href = 'xira3/';
   portfolioLink.textContent = 'XIRA3';
   researchLink.after(strategyLink, portfolioLink);
 });
