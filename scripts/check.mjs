@@ -1,6 +1,6 @@
 import {readFile,stat} from 'node:fs/promises';
 import {resolve} from 'node:path';
-const pages=['index.html',...['about','applications','contact','models','platform','research','xira3','xira40','biocompute'].map(p=>p+'/index.html')];
+const pages=['index.html',...['about','applications','contact','models','platform','research','xira3','xira40','biocompute','blog','admin'].map(p=>p+'/index.html')];
 let checked=0;
 for(const page of pages){
  const html=await readFile(page,'utf8');

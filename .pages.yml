@@ -1,0 +1,60 @@
+media:
+  input: src/uploads
+  output: /src/uploads
+content:
+  - name: posts
+    label: Blog articles
+    type: collection
+    path: content/posts
+    format: json
+    subfolders: false
+    filename:
+      template: "{primary}.json"
+      field: create
+    view:
+      primary: title
+      fields: [title, published, date, author]
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Article title
+        type: string
+        required: true
+      - name: published
+        label: Publish on the website
+        type: boolean
+        default: false
+        description: "Turn on and save to publish. Off hides this article from the website, NOT from the public GitHub repository."
+      - name: date
+        label: Publication date
+        type: date
+        required: true
+      - name: author
+        label: Author
+        type: string
+        default: terminalbio
+        required: true
+      - name: excerpt
+        label: Short summary
+        type: text
+        required: true
+      - name: topic
+        label: Topic
+        type: select
+        options:
+          values: [Biological intelligence, TB Biocompute, Research, Company]
+        default: Research
+      - name: cover
+        label: Cover image
+        type: image
+      - name: cover_alt
+        label: Describe the cover image for screen readers
+        type: string
+      - name: body
+        label: Article
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          switcher: false
