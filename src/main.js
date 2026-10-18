@@ -15,31 +15,6 @@ document.querySelectorAll('.loop-node').forEach(button => button.addEventListene
   document.querySelector('.loop-stage').dataset.stage=String(index+1);
   document.querySelector('.loop-detail').innerHTML='<span>0'+(index+1)+' / '+name.toUpperCase()+'</span><h3>'+title+'</h3><p>'+copy+'</p>';
 }));
-const models={
-bindfm:['BindFM','Molecular interaction intelligence.','BindFM represents proteins, nucleic acids, small molecules, and cofactors in one interaction-aware space—so teams can rank candidates and decide what to test next.','Binder discovery & interface design','Ranks candidates for validation'],
-xuzu:['XUZU','Generative aptamer design.','XUZU generates focused sequence libraries under explicit target and diversity constraints, then learns directly from experimental readouts.','Aptamer discovery','Generates information-rich libraries'],
-rnx:['RNJ / RNX','RNA structure intelligence.','RNJ / RNX connects RNA sequence and structural reasoning to context, function, and the measurements that resolve uncertainty.','RNA therapeutics','Links structure to experimental response'],
-biocompute:['TB Biocompute','Composable biological infrastructure.','TB Biocompute makes models, data, evaluations, and experimental outputs interoperable and traceable across a research program.','Model operations & evaluation','Connects the complete learning loop']
-};
-const drawer=document.querySelector('.model-drawer');
-if(drawer) drawer.id='home-model-details';
-document.querySelectorAll('[data-model]').forEach(button=>{
-  button.setAttribute('aria-controls','home-model-details');
-  button.addEventListener('click',()=>{
-    const open=button.getAttribute('aria-expanded')!=='true';
-    document.querySelectorAll('[data-model]').forEach(b=>{
-      const active=open && b===button;
-      b.setAttribute('aria-expanded',String(active));
-      b.setAttribute('aria-label',(active?'Hide ':'Show ')+models[b.dataset.model][0]+' details');
-      b.textContent=active?'−':'+';
-    });
-    drawer.hidden=!open;
-    if(!open)return;
-    const [name,title,copy,use,role]=models[button.dataset.model];
-    drawer.innerHTML='<div><span class="drawer-index">'+name+'</span><h3>'+title+'</h3><p>'+copy+'</p></div><div class="drawer-meta"><span>USE CASE</span><strong>'+use+'</strong><span>LOOP ROLE</span><strong>'+role+'</strong></div>';
-    button.closest('article').after(drawer);
-  });
-});
 const apps=[
 ['MOLECULAR INTERACTIONS','Find the right interaction.','Connect target interface features to candidate sequence diversity. Generate and rank binders, then validate their behavior experimentally.','Sequence context and structural compatibility shape what deserves a test.'],
 ['EVOLUTION & RESPONSE','Understand the escape routes.','Explore how biological systems adapt under selective pressure. Prioritize experiments that distinguish plausible resistance mechanisms.','Sequence variation, clonal context, and fitness trade-offs inform resistance hypotheses.'],
@@ -53,7 +28,7 @@ function sequence(index){
  for(let i=0;i<30;i++){
   const bar=document.createElement('i');
   bar.style.height=(18+Math.abs(Math.sin(i*.37+index*.8))*68)+'px';
-  bar.style.background=i%5===index?'#b53a26':'#ec977b';
+  bar.style.background=i%5===index?'#188648':'#6941df';
   art.append(bar);
  }
 }
@@ -88,37 +63,47 @@ if(menu&&nav){
  nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>toggle(false)));
  document.addEventListener('keydown',event=>{if(event.key==='Escape'){toggle(false);if(document.activeElement.closest('nav'))menu.focus();}});
 }
-// Preserve the XIRA portfolio and its existing category counts.
-document.querySelectorAll('.xira-filter').forEach(button=>button.addEventListener('click',()=>{
- const category=button.dataset.filter;
- document.querySelectorAll('.xira-filter').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
- let count=0;
- document.querySelectorAll('.xira-study').forEach(study=>{study.hidden=category!=='all'&&study.dataset.category!==category;if(!study.hidden)count++;});
- const output=document.querySelector('#xira-count');if(output)output.textContent='Showing '+count+' planned studies';
-}));
-// Original, lightweight point-cloud artwork. Illustrative only; no fabricated model metrics.
+// Particle artwork is independent of the navigation and disclosure controls.
 const canvas=document.querySelector('#biology-field');
 if(canvas){
  const ctx=canvas.getContext('2d'),reduced=matchMedia('(prefers-reduced-motion: reduce)'),pause=document.querySelector('.motion-toggle');
  let width=0,height=0,angle=0,frame=0,paused=reduced.matches,visible=true;
- const points=[];
- for(let i=0;i<1100;i++){
-  const y=1-2*(i+.5)/1100,r=Math.sqrt(1-y*y),theta=i*2.3999632297;
-  points.push([Math.cos(theta)*r,y,Math.sin(theta)*r]);
- }
+ let pointerX=0,pointerY=0;
+ canvas.addEventListener('pointermove',event=>{
+  if(paused||reduced.matches)return;
+  const box=canvas.getBoundingClientRect();
+  pointerX=(event.clientX-box.left)/box.width-.5;
+  pointerY=(event.clientY-box.top)/box.height-.5;
+ });
+ canvas.addEventListener('pointerleave',()=>{pointerX=0;pointerY=0;});
  function draw(){
   if(!ctx)return;
   ctx.clearRect(0,0,width,height);
-  const size=Math.min(width*.3,height*.34),cos=Math.cos(angle),sin=Math.sin(angle);
-  const sorted=points.map(([x,y,z],i)=>{
-   const ripple=1+.11*Math.sin(y*12+angle*2)+.06*Math.cos(i*.09);
-   return {x:(x*cos-z*sin)*ripple,y:y*ripple,z:x*sin+z*cos,i};
-  }).sort((a,b)=>a.z-b.z);
-  sorted.forEach(p=>{
-   const perspective=2.8/(2.8-p.z*.35),x=width*.5+p.x*size*1.55*perspective,y=height*.49+p.y*size*perspective;
-   ctx.fillStyle='rgba(204,59,32,'+(.2+(p.z+1)*.34)+')';
-   ctx.beginPath();ctx.arc(x,y,(p.z+2)*.65,0,Math.PI*2);ctx.fill();
-   if(p.i%6===0){ctx.strokeStyle='rgba(193,53,28,.09)';ctx.beginPath();ctx.moveTo(width*.5,height*.49);ctx.lineTo(x,y);ctx.stroke();}
+  const size=Math.min(width*.42,height*.43),turn=angle*.35+pointerX*.2;
+  const cx=width*.55,cy=height*.46;
+  const segments=[];
+  for(let ring=0;ring<40;ring++){
+   const u=ring/40*Math.PI*2;
+   let points=[];
+   for(let step=0;step<=90;step++){
+    const v=step/90*Math.PI*2;
+    const wave=.065*Math.sin(u*3+angle*2);
+    const radius=.67+(.24+wave)*Math.cos(v);
+    const x=radius*Math.cos(u),y=radius*Math.sin(u),z=(.24+wave)*Math.sin(v)+.16*Math.sin(u*2+angle);
+    const rx=x*Math.cos(turn)-z*Math.sin(turn),rz=x*Math.sin(turn)+z*Math.cos(turn);
+    const tilt=.8+pointerY*.15;
+    const ry=y*Math.cos(tilt)-rz*Math.sin(tilt),depth=y*Math.sin(tilt)+rz*Math.cos(tilt);
+    const diagonal=-.5;
+    points.push({x:cx+(rx*Math.cos(diagonal)-ry*Math.sin(diagonal))*size,y:cy+(rx*Math.sin(diagonal)+ry*Math.cos(diagonal))*size,depth});
+   }
+   segments.push({points,depth:points.reduce((sum,p)=>sum+p.depth,0)/points.length,ring});
+  }
+  segments.sort((a,b)=>a.depth-b.depth).forEach(({points,depth,ring})=>{
+   const alpha=.18+(depth+1)*.27;
+   ctx.strokeStyle=ring%7===0?'rgba(24,134,72,'+alpha+')':'rgba(65,73,222,'+alpha+')';
+   ctx.lineWidth=ring%7===0?1.2:.8;
+   ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();
+   if(ring%4===0){const p=points[20];ctx.fillStyle='#5938c7';ctx.beginPath();ctx.arc(p.x,p.y,1.7,0,Math.PI*2);ctx.fill();}
   });
  }
  function tick(){frame=0;draw();if(!paused&&visible&&!document.hidden){angle+=.0025;frame=requestAnimationFrame(tick);}}

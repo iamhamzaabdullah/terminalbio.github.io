@@ -1,26 +1,26 @@
-# terminalBio website
+# terminalbio website
 
-A responsive, dependency-light landing site for terminalBio's new biological-intelligence positioning.
+Static, responsive website for terminalbio, including TB Biocompute, the Biological World Model, specialist models, and the XIRA research programs.
 
 ## Run locally
 
-This project uses Vite. With Node.js 20+ installed:
+Run `npm run build`, then `python -m http.server 4173 --directory dist`. Open http://localhost:4173.
 
-```sh
-npm install
-npm run dev
-```
+The build uses Node's standard library; it needs no dependency installation.
 
-Create a production build with `npm run build`.
+## Check and build
 
-## GitHub Pages
+- `npm run check`: validate local links, assets, and the 26 XIRA3 study records.
+- `npm run build`: produce the deployment in `dist/`.
 
-The repository includes `.github/workflows/deploy-pages.yml`. Commit it with the site, then select **GitHub Actions** in the repository's **Settings → Pages** panel. Every push to `main` publishes the static site directly—no Node.js install or build step is required.
+## Publish to GitHub Pages
 
-## Structure
+Upload the project files to the repository root, retaining `.github/workflows/deploy-pages.yml`, `scripts/`, all page folders, and `src/`. Push to main. The workflow builds the site and deploys only `dist/`.
 
-- `index.html` — complete page structure and content
-- `src/style.css` — responsive visual system, diagrams, motion, and layout
-- `src/main.js` — interactive model-loop controls and reveal behavior
+`CNAME` retains terminalbio.com. All page links use clean directory routes, including `/biocompute/`.
 
-The site is intentionally self-contained: its visual diagrams are authored in CSS/SVG rather than relying on stock imagery or copied reference-site assets.
+## Interactions
+
+Homepage model details are native HTML disclosures and work without JavaScript. XIRA40 includes a research-stage explorer, chapter navigation, and expandable roadmap/flagships. XIRA3 includes combined search/category filtering, reset, empty states, and expandable study details. Scientific caveats and all planned studies remain.
+
+The public product pages describe terminalbio's research and infrastructure direction; no performance figures, client endorsements, or public API availability have been invented.
