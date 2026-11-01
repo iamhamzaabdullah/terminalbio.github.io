@@ -15,6 +15,10 @@ geno is an in-development pedigree documentation tool. It does not validate ISCN
 
 Affected, unaffected and unknown states are distinct. The app allows up to five inferred generations and records genetic parents and couple relationships. Adoption, twins, donors, assisted reproduction, pregnancy outcomes and other complex scenarios are captured as text only: their standard symbols and relationship semantics are not fully implemented. Automated layout can cross lines or otherwise mislead. A warning detects some but not all overlaps. A clinician must verify all relationships, symbols, and labels; the app is not suitable as a standalone clinical record.
 
+Structured fields for parentage context, multiple birth, pregnancy outcome and reported consanguinity are displayed as annotations; they do not create standardized symbols or establish biological, adoptive or gestational links. Horizontal offsets provide limited manual layout adjustment. The local review summarizes entries and flags selected missing or duplicate information; it does not classify inheritance or calculate risk. Counts by inferred generation depend on the entered genetic parent links and can be misleading if the pedigree is incomplete.
+
+Pedigree nomenclature reference: Bennett RL, Steinhaus French K, Resta RG, Austin J. Standardized pedigree nomenclature update centered on sex and gender inclusivity: NSGC practice resource. J Genet Couns. 2022;31:1238–1248. doi:10.1002/jgc4.1621; correction doi:10.1002/jgc4.2020.
+
 ## Evidence still required
 
 Independent genetic-counselor review of representative and difficult cases, accessibility and cross-browser testing, clinically reviewed symbol and layout acceptance criteria, security assessment, institutional approvals, regulatory analysis by jurisdiction, and formal release/version/DOI work remain outstanding. No professional society or institution has approved or endorsed this software.

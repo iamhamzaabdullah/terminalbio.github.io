@@ -1,5 +1,5 @@
 /* The diagram and visible text are rendered locally; a text layer supports search. */
-window.genoExportPDF = async function (svg, people, relationships, record = {}, diagramWarning = '') {
+window.genoExportPDF = async function (svg, people, relationships, record = {}, diagramWarning = '', review = null) {
   if (!window.jspdf?.jsPDF) throw Error('The PDF component could not be loaded.');
   const pdf = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4', compress: true });
   const W = 1754, H = 1240, M = 90, bottom = H - 100;
@@ -140,7 +140,7 @@ window.genoExportPDF = async function (svg, people, relationships, record = {}, 
     ['Parentage / relationship context','parentageContext'], ['Twin / pregnancy context','twinContext'],
     ['Age / age at death','age'], ['Diagnosis','diagnosis'], ['Genetic test results','testResults'],
     ['Ancestry','ancestry'], ['Pregnancy / birth history','pregnancy'], ['Source and verification','source'],
-    ['ISCN finding','iscn'], ['Notes','notes']];
+    ['ISCN finding','iscn'], ['Parentage context','parentageType'], ['Multiple birth','twinType'], ['Pregnancy outcome','pregnancyOutcome'], ['Horizontal position adjustment','layoutOffset'], ['Notes','notes']];
   const known = new Set(['id','name','sex','affectedStatus','affected','deceased','proband','parent1','parent2','condition', ...fields.map(([, key]) => key)]);
   for (const person of people) {
     ensure(100);
@@ -157,14 +157,20 @@ window.genoExportPDF = async function (svg, people, relationships, record = {}, 
   }
   if (relationships.length) {
     heading('Couple relationships');
-    for (const rel of relationships) text(name(rel.a) + ' + ' + name(rel.b) + '  ·  ' + String(rel.status || 'unspecified').replaceAll('-', ' '), { size: 18, after: 2 });
+    for (const rel of relationships) text(name(rel.a) + ' + ' + name(rel.b) + '  ·  ' + String(rel.status || 'unspecified').replaceAll('-', ' ') + (rel.consanguinity ? ' · consanguinity reported' : ''), { size: 18, after: 2 });
   }
   const recordExtra = Object.fromEntries(Object.entries(record).filter(([key, value]) => !['author','date','source'].includes(key) && filled(value)));
   if (Object.keys(recordExtra).length) text('Additional record fields: ' + JSON.stringify(recordExtra), { size: 18 });
+  if (review) {
+    heading('Pedigree review');
+    for (const item of review.summary || []) text(item, { size: 17, after: 2 });
+    for (const item of review.notes || []) text('Review: ' + item, { size: 17, after: 2 });
+  }
   heading('Notes and references');
   text('Citation: Abdullah H. geno: Pedigree documentation workspace [software]. terminalbio.', { size: 17, after: 1 });
   text('Zenodo (latest DOI): https://zenodo.org/badge/latestdoi/1441464136', { size: 17, after: 4 });
   text('Reference: Hastings RJ, Moore S, Chia N, editors. ISCN 2024. Karger; 2024. doi:10.1159/isbn.978-3-318-07331-7. See also the published erratum (2025).', { size: 17, after: 4 });
+  text('Bennett RL, Steinhaus French K, Resta RG, Austin J. Standardized pedigree nomenclature update centered on sex and gender inclusivity: NSGC practice resource. J Genet Couns. 2022;31:1238–1248. doi:10.1002/jgc4.1621. See correction doi:10.1002/jgc4.2020.', { size: 17, after: 4 });
   text('Geno supports pedigree documentation; it does not validate ISCN nomenclature, interpret genetic findings or provide a diagnosis. Verify the pedigree and findings against the source report and current professional guidance. Clinical decisions remain the responsibility of qualified professionals.', { size: 17 });
   finish(); pdf.save('geno-pedigree.pdf');
 };

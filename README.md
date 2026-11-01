@@ -10,6 +10,7 @@ geno is an in-development, browser-based workspace for documenting family relati
 
 - Creates a pedigree from person, parent and couple records, with up to five inferred generations.
 - Records affected status, selected clinical information, and notes alongside the diagram.
+- Records selected parentage, multiple-birth, pregnancy and consanguinity contexts as text annotations, with local review of selected gaps and descriptive family-history counts.
 - Opens editable backups and saves passphrase-encrypted backups using browser cryptography.
 - Exports a PDF report with a searchable text layer for tested Latin and Greek examples.
 - Works in a browser without an application server for the pedigree workspace.
@@ -18,7 +19,7 @@ geno is an in-development, browser-based workspace for documenting family relati
 
 geno is under development and has **not** undergone independent clinical validation, institutional security assessment, or professional society approval. It does not validate ISCN nomenclature, interpret genetic results, calculate risk, or provide a diagnosis. Qualified professionals must verify pedigrees and findings against source records and current guidance.
 
-Parent links represent genetic parents. Adoption, twins, donor conception, assisted reproduction, pregnancy outcomes and other complex scenarios are recorded as text rather than complete standardized graphical representations. The automatic layout can cross or misrepresent relationships, and its warnings do not catch every issue. Do not rely on geno as a standalone clinical record.
+Parent links represent genetic parents. Adoption, twins, donor conception, assisted reproduction, pregnancy outcomes and other complex scenarios are recorded as text rather than complete standardized graphical representations. Horizontal position can be adjusted, but the automatic layout can cross or misrepresent relationships, and its warnings do not catch every issue. The review does not classify inheritance or calculate risk. Do not rely on geno as a standalone clinical record.
 
 ## Privacy and security
 
@@ -39,7 +40,7 @@ Open [http://localhost:8000/p/geno/](http://localhost:8000/p/geno/) in a browser
 To run the included encryption tests with a recent Node.js installation:
 
 ```sh
-node --test scripts/geno-crypto.test.mjs
+node --test scripts/geno-crypto.test.mjs scripts/geno-analysis.test.cjs
 ```
 
 These tests cover selected backup operations; they are not a clinical or security validation.
@@ -60,6 +61,8 @@ The repository includes a citation file with the creator's name and affiliation.
 ## Reference
 
 Hastings RJ, Moore S, Chia N, editors. *ISCN 2024: An International System for Human Cytogenomic Nomenclature*. Basel: Karger; 2024. [https://doi.org/10.1159/isbn.978-3-318-07331-7](https://doi.org/10.1159/isbn.978-3-318-07331-7). Consult the published erratum and current guidance as applicable. This reference does not imply that geno validates ISCN nomenclature or has been endorsed by its authors or publisher.
+
+Bennett RL, Steinhaus French K, Resta RG, Austin J. Standardized pedigree nomenclature update centered on sex and gender inclusivity: NSGC practice resource. *J Genet Couns*. 2022;31:1238–1248. [https://doi.org/10.1002/jgc4.1621](https://doi.org/10.1002/jgc4.1621); [correction](https://doi.org/10.1002/jgc4.2020).
 
 ## Creator and attribution
 
