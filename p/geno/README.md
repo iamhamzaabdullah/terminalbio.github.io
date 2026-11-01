@@ -1,5 +1,7 @@
 # geno: current implementation and safety boundaries
 
+Created by Hamza Abdullah (terminalbio).
+
 geno is an in-development pedigree documentation tool. It does not validate ISCN descriptions, calculate risk, diagnose, or provide treatment recommendations. It has not undergone independent clinical or institutional security validation.
 
 ## Data handling

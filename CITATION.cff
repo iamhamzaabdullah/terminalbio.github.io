@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use geno, please cite this software."
+title: "geno: Pedigree documentation workspace"
+type: software
+authors:
+  - family-names: Abdullah
+    given-names: Hamza
+    affiliation: terminalbio
+url: "https://terminalbio.com/p/geno/"
+keywords:
+  - pedigree
+  - genetic counseling
+  - family history

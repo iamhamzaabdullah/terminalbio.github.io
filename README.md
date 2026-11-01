@@ -1,40 +1,70 @@
-# terminalbio website
+# geno
 
-Static, responsive website for terminalbio, including TB Biocompute, the Biological World Model, specialist models, and the XIRA research programs.
+**Pedigree documentation workspace**
+
+Created by **Hamza Abdullah**, terminalbio.
+
+geno is an in-development, browser-based workspace for documenting family relationships and genetic information in pedigree form. It is intended to support genetics professionals and researchers with the organization and review of family history. The project's intended public address is [terminalbio.com/p/geno/](https://terminalbio.com/p/geno/).
+
+## What geno does
+
+- Creates a pedigree from person, parent and couple records, with up to five inferred generations.
+- Records affected status, selected clinical information, and notes alongside the diagram.
+- Opens editable backups and saves passphrase-encrypted backups using browser cryptography.
+- Exports a PDF report with a searchable text layer for tested Latin and Greek examples.
+- Works in a browser without an application server for the pedigree workspace.
+
+## Current status and responsible use
+
+geno is under development and has **not** undergone independent clinical validation, institutional security assessment, or professional society approval. It does not validate ISCN nomenclature, interpret genetic results, calculate risk, or provide a diagnosis. Qualified professionals must verify pedigrees and findings against source records and current guidance.
+
+Parent links represent genetic parents. Adoption, twins, donor conception, assisted reproduction, pregnancy outcomes and other complex scenarios are recorded as text rather than complete standardized graphical representations. The automatic layout can cross or misrepresent relationships, and its warnings do not catch every issue. Do not rely on geno as a standalone clinical record.
+
+## Privacy and security
+
+Records are held in browser memory during a session; the application does not intentionally transmit pedigree data to a server. Encrypted backups use AES-256-GCM and PBKDF2 with a user-provided passphrase. A lost passphrase cannot be recovered. PDF exports and legacy JSON backups are **not encrypted**. The browser, device, extensions, hosting environment and handling of exported files remain outside geno's control.
+
+The static application does not provide institutional authentication, access controls, audit logs, managed backups or key management. Before using real patient information, obtain the necessary institutional approvals and assess applicable privacy, security and regulatory requirements. See [implementation and safety boundaries](p/geno/README.md) for details.
 
 ## Run locally
 
-Run `npm run build`, then `python -m http.server 4173 --directory dist`. Open http://localhost:4173.
+From the repository root, start a local static server, for example:
 
-Run `npm ci` once before building. Dependencies are locked; Markdown is rendered and sanitized at build time.
+```sh
+python -m http.server 8000
+```
 
-## Check and build
+Open [http://localhost:8000/p/geno/](http://localhost:8000/p/geno/) in a browser. Keep the directory structure intact: the application uses the shared terminalbio wordmark in `src/assets/`. Python is needed only for this example server; another static server can also be used.
 
-- `npm run check`: validate local links, assets, and the 26 XIRA3 study records.
-- `npm run build`: produce the deployment in `dist/`.
+To run the included encryption tests with a recent Node.js installation:
 
-## Publish to GitHub Pages
+```sh
+node --test scripts/geno-crypto.test.mjs
+```
 
-Upload the project files to the repository root, retaining `.github/workflows/deploy-pages.yml`, `scripts/`, all page folders, and `src/`. Push to main. The workflow builds the site and deploys only `dist/`.
+These tests cover selected backup operations; they are not a clinical or security validation.
 
-`CNAME` retains terminalbio.com. All page links use clean directory routes, including `/biocompute/`.
+## Repository contents
 
-## Interactions
+- `p/geno/` — application source, implementation notes and bundled dependencies.
+- `src/assets/terminalbio-wordmark.svg` — terminalbio wordmark used by the application.
+- `scripts/geno-crypto.test.mjs` — encryption and backup tests.
+- `CITATION.cff` — machine-readable software citation for GitHub and archives.
 
-## Blog and browser editor
+## Cite geno
 
-The approved visual design is preserved. Blog articles build to `/blog/<filename>/` from JSON records in `content/posts/`. Only records with `published: true` appear on the website. Dates are display dates, not a scheduler. No example article is published.
+Abdullah H. *geno: Pedigree documentation workspace* [software]. terminalbio. Available at: https://terminalbio.com/p/geno/ (accessed date of use).
 
-After uploading this project (including the hidden `.pages.yml`, `package-lock.json`, and updated workflow), visit https://app.pagescms.org/, sign in with GitHub, and authorize the Pages CMS GitHub App for **only** `iamhamzaabdullah/terminalbio.github.io`. Select `main`, then **Blog articles**. The editor also has an entry page at `/admin/`. This third-party permission must be approved by the repository owner; it has not been granted by this implementation.
+The repository includes a citation file with the creator's name and affiliation. If a version is archived and assigned a DOI, cite that specific version and its DOI. No DOI or peer-reviewed publication is claimed here.
 
-Write in the rich-text editor, review the formatted content, and save with **Publish on the website** disabled to draft. Enable it and save to publish. The existing GitHub Actions workflow installs locked dependencies, tests the renderer, and deploys the blog automatically. The editor previews content formatting; it is not a pixel-identical live-site preview. A future date does not delay publication.
+## Reference
 
-**Public repository warning:** drafts are excluded from the deployed article pages, but draft source and uploaded media remain visible in the public repository and Git history. Do not save confidential research. Deleting a post does not erase its Git history. Unpublishing takes effect after a successful deployment.
+Hastings RJ, Moore S, Chia N, editors. *ISCN 2024: An International System for Human Cytogenomic Nomenclature*. Basel: Karger; 2024. [https://doi.org/10.1159/isbn.978-3-318-07331-7](https://doi.org/10.1159/isbn.978-3-318-07331-7). Consult the published erratum and current guidance as applicable. This reference does not imply that geno validates ISCN nomenclature or has been endorsed by its authors or publisher.
 
-Use lowercase, hyphen-separated filenames and keep them stable after publishing: filenames determine article URLs. Images go in `src/uploads`; a cover image needs alt text. The CMS only exposes blog records/media, not the design files, though its GitHub App permission scope is controlled by GitHub.
+## Creator and attribution
 
-Run `node --test scripts/blog.test.mjs` to check draft exclusion, clean routes, escaping, and unsafe HTML removal. To preview full article layouts locally, run `npm run build` and serve `dist/`. A fixture is tested in the temporary directory and never published.
+geno was created by **Hamza Abdullah (terminalbio)**.
 
-Homepage model details are native HTML disclosures and work without JavaScript. XIRA40 includes a research-stage explorer, chapter navigation, and expandable roadmap/flagships. XIRA3 includes combined search/category filtering, reset, empty states, and expandable study details. Scientific caveats and all planned studies remain.
+## Licensing
 
-The public product pages describe terminalbio's research and infrastructure direction; no performance figures, client endorsements, or public API availability have been invented.
+No license for the original geno source is specified in this package. The bundled third-party components retain their own licenses; their license notices are included in `p/geno/vendor/`. A license for geno should be selected and added before specifying reuse permissions.
