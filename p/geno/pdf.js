@@ -1,19 +1,166 @@
-/* PDF pages are rendered locally as images to preserve international text. */
-window.genoExportPDF=async function(svg,people,relationships,record={},diagramWarning=''){
- if(!window.jspdf?.jsPDF)throw Error('The PDF component could not be loaded.');
- const pdf=new window.jspdf.jsPDF({orientation:'landscape',unit:'mm',format:'a4',compress:true});
- const width=1754,height=1240,margin=90;
- const fontResponse=await fetch('vendor/DejaVuSans.ttf');if(!fontResponse.ok)throw Error('The report font could not be loaded.');const fontBytes=new Uint8Array(await fontResponse.arrayBuffer());let binary='';for(let i=0;i<fontBytes.length;i+=16384)binary+=String.fromCharCode(...fontBytes.subarray(i,i+16384));pdf.addFileToVFS('DejaVuSans.ttf',btoa(binary));pdf.addFont('DejaVuSans.ttf','DejaVu','normal');pdf.setFont('DejaVu');const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
- const ctx=canvas.getContext('2d');let page=0,y=0,textLayer=[];
- const imgFrom=src=>new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=()=>reject(Error('Unable to render the pedigree image.'));i.src=src});
- const logo=await imgFrom('../../src/assets/terminalbio-wordmark.svg');
- function start(title){textLayer=[];ctx.fillStyle='#fff';ctx.fillRect(0,0,width,height);ctx.fillStyle='#343c70';ctx.fillRect(0,0,width,10);ctx.drawImage(logo,margin,46,185,32);ctx.fillStyle='#343c70';ctx.font='bold 26px sans-serif';ctx.fillText('/ geno',290,73);ctx.font='bold 16px sans-serif';ctx.fillStyle='#59646b';ctx.textAlign='right';ctx.fillText('PEDIGREE DOCUMENTATION',width-margin,67);ctx.textAlign='left';ctx.strokeStyle='#d6dddd';ctx.beginPath();ctx.moveTo(margin,100);ctx.lineTo(width-margin,100);ctx.stroke();ctx.fillStyle='#8b5549';ctx.font='bold 14px sans-serif';ctx.fillText('FAMILY HISTORY  /  RECORD',margin,138);ctx.fillStyle='#273144';ctx.font='bold 34px sans-serif';ctx.fillText(title,margin,185);y=230;}
- function finish(){ctx.strokeStyle='#d6dddd';ctx.beginPath();ctx.moveTo(margin,height-76);ctx.lineTo(width-margin,height-76);ctx.stroke();ctx.fillStyle='#59646b';ctx.font='14px sans-serif';ctx.fillText('PEDIGREE DOCUMENTATION  ·  For professional review',margin,height-45);ctx.textAlign='right';ctx.fillText('terminalbio · geno   /   '+(page+1),width-margin,height-45);ctx.textAlign='left';if(page++)pdf.addPage();pdf.addImage(canvas.toDataURL('image/png'),'PNG',0,0,297,210);pdf.setFont('DejaVu');pdf.setFontSize(10.7);for(const item of textLayer)pdf.text(item.text,item.x*297/width,item.y*210/height,{renderingMode:'invisible'});}
- function wrap(text,maxWidth){let result=[];for(const paragraph of String(text||'—').split(/\r?\n/)){let line='';for(const word of paragraph.split(/\s+/)){if(ctx.measureText(word).width>maxWidth){if(line){result.push(line);line=''}let piece='';for(const c of word){if(ctx.measureText(piece+c).width>maxWidth){result.push(piece);piece=''}piece+=c}line=piece;continue}let candidate=line?line+' '+word:word;if(ctx.measureText(candidate).width>maxWidth&&line){result.push(line);line=word}else line=candidate}result.push(line||' ')}return result;}
- function paragraph(text,bold=false){ctx.font=(bold?'bold ':'')+'22px sans-serif';for(const line of wrap(text,width-2*margin)){if(y>height-110){finish();start('Pedigree details (continued)');ctx.font=(bold?'bold ':'')+'22px sans-serif'}ctx.fillStyle='#26313b';ctx.fillText(line,margin,y);textLayer.push({text:line,x:margin,y});y+=32;}y+=12;}
- start('Family map');const clone=svg.cloneNode(true);clone.setAttribute('xmlns','http://www.w3.org/2000/svg');clone.setAttribute('width',svg.viewBox.baseVal.width);clone.setAttribute('height',svg.viewBox.baseVal.height);const url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(clone)],{type:'image/svg+xml'}));try{const picture=await imgFrom(url);const factor=Math.min((width-2*margin)/picture.width,800/picture.height);const offsetX=(width-picture.width*factor)/2;ctx.drawImage(picture,offsetX,230,picture.width*factor,picture.height*factor);clone.querySelectorAll('text').forEach(t=>{const x=Number(t.getAttribute('x')),y=Number(t.getAttribute('y'));if(Number.isFinite(x)&&Number.isFinite(y)&&t.textContent)textLayer.push({text:t.textContent,x:offsetX+x*factor,y:230+y*factor})});finish();if(picture.width>1050||picture.height>800){const tileW=1000,tileH=650,stepX=900,stepY=550;const cols=Math.max(1,Math.ceil((picture.width-tileW)/stepX)+1),rows=Math.max(1,Math.ceil((picture.height-tileH)/stepY)+1);for(let row=0;row<rows;row++)for(let col=0;col<cols;col++){start('Family map detail '+(row+1)+'.'+(col+1)+' of '+rows+'.'+cols);let sx=Math.min(col*stepX,Math.max(0,picture.width-tileW)),sy=Math.min(row*stepY,Math.max(0,picture.height-tileH)),sw=Math.min(tileW,picture.width-sx),sh=Math.min(tileH,picture.height-sy);let scale=Math.min((width-2*margin)/tileW,800/tileH);ctx.drawImage(picture,sx,sy,sw,sh,margin,230,sw*scale,sh*scale);finish()}}}finally{URL.revokeObjectURL(url)}
- start('Pedigree details');
- if(diagramWarning){paragraph('Diagram review needed',true);paragraph(diagramWarning)}paragraph('Record author: '+(record.author||'Not recorded')+' | Updated: '+(record.date||'Not recorded'));paragraph('Family history source: '+(record.source||'Not recorded'));const get=id=>people.find(p=>p.id===id);for(const p of people){if(y>height-280){finish();start('Pedigree details (continued)')}ctx.fillStyle='#eef2f4';ctx.fillRect(margin,y-20,width-2*margin,42);paragraph(p.name||'Unnamed person',true);paragraph('Symbol: '+(p.sex||'unknown')+' | Affected status: '+(p.affectedStatus||(p.affected?'affected':'unknown'))+' | '+([p.deceased?'Deceased':'',p.proband?'Proband':''].filter(Boolean).join(', ')||'No additional status'));paragraph('Condition represented: '+(p.condition||'Not recorded'));paragraph('Parent 1: '+(get(p.parent1)?.name||'Not recorded')+' | Parent 2: '+(get(p.parent2)?.name||'Not recorded'));for(const [label,key] of [['Sex assigned at birth','sexAtBirth'],['Gender identity','genderIdentity'],['Other parentage / relationship context','parentageContext'],['Twin / pregnancy context','twinContext'],['Age / age at death','age'],['Diagnosis and age at diagnosis','diagnosis'],['Genetic test results','testResults'],['Ancestry','ancestry'],['Pregnancy / birth history','pregnancy'],['Source and verification','source'],['ISCN finding','iscn'],['Notes','notes']])paragraph(label+': '+(p[key]||'Not recorded'));}
- if(relationships.length){paragraph('Couple relationships',true);for(const r of relationships)paragraph((get(r.a)?.name||'Unknown')+' + '+(get(r.b)?.name||'Unknown')+' — '+r.status.replaceAll('-',' '));}
- const knownPerson=new Set(['id','name','sex','affectedStatus','affected','deceased','proband','parent1','parent2','condition','age','diagnosis','testResults','ancestry','pregnancy','source','sexAtBirth','genderIdentity','parentageContext','twinContext','iscn','notes']);for(const p of people){const extras=Object.fromEntries(Object.entries(p).filter(([key])=>!knownPerson.has(key)));if(Object.keys(extras).length){paragraph('Additional record fields: '+(p.name||p.id),true);paragraph(JSON.stringify(extras))}}paragraph('Cite geno',true);paragraph('terminalbio. geno: Pedigree documentation software. https://terminalbio.com/p/geno/');paragraph('Reference',true);paragraph('Hastings RJ, Moore S, Chia N, editors. ISCN 2024: An International System for Human Cytogenomic Nomenclature (2024). Basel: Karger; 2024. doi:10.1159/isbn.978-3-318-07331-7. See also the published erratum (2025).');paragraph('Disclaimer',true);paragraph('Geno supports pedigree documentation and does not validate ISCN nomenclature, interpret genetic findings, or provide a diagnosis. Review each pedigree and verify reported findings against the original laboratory report and current professional guidance. Clinical interpretation and decisions remain the responsibility of qualified healthcare professionals.');finish();pdf.save('geno-pedigree.pdf');
+/* The diagram and visible text are rendered locally; a text layer supports search. */
+window.genoExportPDF = async function (svg, people, relationships, record = {}, diagramWarning = '') {
+  if (!window.jspdf?.jsPDF) throw Error('The PDF component could not be loaded.');
+  const pdf = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4', compress: true });
+  const W = 1754, H = 1240, M = 90, bottom = H - 100;
+  const response = await fetch('vendor/DejaVuSans.ttf');
+  if (!response.ok) throw Error('The report font could not be loaded.');
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  let binary = '';
+  for (let i = 0; i < bytes.length; i += 16384) binary += String.fromCharCode(...bytes.subarray(i, i + 16384));
+  pdf.addFileToVFS('DejaVuSans.ttf', btoa(binary));
+  pdf.addFont('DejaVuSans.ttf', 'DejaVu', 'normal');
+  const canvas = document.createElement('canvas');
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  const image = src => new Promise((resolve, reject) => {
+    const img = new Image(); img.onload = () => resolve(img);
+    img.onerror = () => reject(Error('Unable to render the pedigree image.')); img.src = src;
+  });
+  const logo = await image('../../src/assets/terminalbio-wordmark.svg');
+  let page = 0, y = 0, layer = [];
+  function start(continuation = false) {
+    layer = [];
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#343c70'; ctx.fillRect(0, 0, W, 7);
+    ctx.drawImage(logo, M, 37, 158, 28);
+    ctx.fillStyle = '#343c70'; ctx.font = '600 23px sans-serif'; ctx.fillText('/ geno', 264, 60);
+    ctx.fillStyle = '#718087'; ctx.textAlign = 'right'; ctx.font = '600 15px sans-serif';
+    ctx.fillText('PEDIGREE REPORT', W - M, 57); ctx.textAlign = 'left';
+    ctx.strokeStyle = '#dce3e4'; ctx.beginPath(); ctx.moveTo(M, 83); ctx.lineTo(W - M, 83); ctx.stroke();
+    y = 122;
+    if (continuation) heading('Pedigree report · continued');
+  }
+  function finish() {
+    ctx.strokeStyle = '#dce3e4'; ctx.beginPath(); ctx.moveTo(M, H - 70); ctx.lineTo(W - M, H - 70); ctx.stroke();
+    ctx.fillStyle = '#718087'; ctx.font = '15px sans-serif';
+    ctx.fillText('geno  /  For professional review', M, H - 42);
+    ctx.textAlign = 'right'; ctx.fillText(String(page + 1), W - M, H - 42); ctx.textAlign = 'left';
+    if (page++) pdf.addPage();
+    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 297, 210);
+    pdf.setFont('DejaVu'); pdf.setFontSize(9.4);
+    for (const item of layer) pdf.text(item.text, item.x * 297 / W, item.y * 210 / H, { renderingMode: 'invisible' });
+  }
+  function ensure(space) { if (y + space > bottom) { finish(); start(true); } }
+  function wrap(value, maxWidth) {
+    const lines = [];
+    for (const part of String(value).split(/\r?\n/)) {
+      let line = '';
+      for (const word of part.split(/\s+/)) {
+        if (ctx.measureText(word).width > maxWidth) {
+          if (line) { lines.push(line); line = ''; }
+          for (const ch of word) {
+            if (ctx.measureText(line + ch).width > maxWidth) { lines.push(line); line = ''; }
+            line += ch;
+          }
+        } else {
+          const next = line ? line + ' ' + word : word;
+          if (line && ctx.measureText(next).width > maxWidth) { lines.push(line); line = word; }
+          else line = next;
+        }
+      }
+      lines.push(line || ' ');
+    }
+    return lines;
+  }
+  function text(value, options = {}) {
+    const size = options.size || 20, leading = size + 9;
+    ctx.font = (options.bold ? '600 ' : '') + size + 'px sans-serif';
+    const lines = wrap(value, W - 2 * M);
+    for (const line of lines) {
+      ensure(leading);
+      ctx.font = (options.bold ? '600 ' : '') + size + 'px sans-serif';
+      ctx.fillStyle = options.color || '#33434a'; ctx.fillText(line, M, y);
+      layer.push({ text: line, x: M, y }); y += leading;
+    }
+    y += options.after ?? 5;
+  }
+  function heading(title) {
+    ensure(62); y += 9;
+    text(title, { size: 23, bold: true, color: '#343c70', after: 8 });
+  }
+  const filled = value => value !== undefined && value !== null && String(value).trim() !== '';
+  const get = id => people.find(person => person.id === id);
+  const name = id => get(id)?.name || id || 'Unknown';
+  start();
+  text('Pedigree report', { size: 31, bold: true, color: '#263748', after: 7 });
+  const metadata = [['Prepared by', record.author], ['Updated', record.date], ['Family history source', record.source]]
+    .filter(([, value]) => filled(value)).map(([label, value]) => label + ': ' + value);
+  text(metadata.length ? metadata.join('   |   ') : 'Record details not provided', { size: 18, color: '#67777c', after: 8 });
+  heading('Pedigree');
+  if (diagramWarning) text('Review: ' + diagramWarning, { size: 18, color: '#945140', after: 8 });
+  const clone = svg.cloneNode(true);
+  clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+  const bounds = svg.getBBox();
+  const view = svg.viewBox.baseVal;
+  const left = Math.max(view.x, bounds.x - 55), topEdge = Math.max(view.y, bounds.y - 55);
+  const right = Math.min(view.x + view.width, bounds.x + bounds.width + 55);
+  const bottomEdge = Math.min(view.y + view.height, bounds.y + bounds.height + 55);
+  const cropped = bounds.width > 0 && bounds.height > 0 && right > left && bottomEdge > topEdge;
+  const originX = cropped ? left : view.x, originY = cropped ? topEdge : view.y;
+  const diagramWidth = cropped ? right - left : view.width, diagramHeight = cropped ? bottomEdge - topEdge : view.height;
+  clone.setAttribute('viewBox', [originX, originY, diagramWidth, diagramHeight].join(' '));
+  clone.setAttribute('width', diagramWidth); clone.setAttribute('height', diagramHeight);
+  const url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(clone)], { type: 'image/svg+xml' }));
+  try {
+    const picture = await image(url);
+    const available = Math.max(300, bottom - y - 25);
+    const scale = Math.min((W - 2 * M) / picture.width, available / picture.height, 1.5);
+    const x = (W - picture.width * scale) / 2, top = y;
+    ctx.drawImage(picture, x, top, picture.width * scale, picture.height * scale);
+    clone.querySelectorAll('text').forEach(t => {
+      const tx = Number(t.getAttribute('x')), ty = Number(t.getAttribute('y'));
+      if (Number.isFinite(tx) && Number.isFinite(ty) && t.textContent) layer.push({ text: t.textContent, x: x + (tx - originX) * scale, y: top + (ty - originY) * scale });
+    });
+    y += picture.height * scale + 25;
+    // For large diagrams, include overlapping detail views in addition to the complete overview.
+    if (scale < 0.65) {
+      finish();
+      const tileW = 1000, tileH = 650, stepX = 900, stepY = 550;
+      const cols = Math.max(1, Math.ceil((picture.width - tileW) / stepX) + 1);
+      const rows = Math.max(1, Math.ceil((picture.height - tileH) / stepY) + 1);
+      for (let row = 0; row < rows; row++) for (let col = 0; col < cols; col++) {
+        start(); heading('Pedigree detail ' + (row + 1) + '.' + (col + 1) + ' of ' + rows + '.' + cols);
+        const sx = Math.min(col * stepX, Math.max(0, picture.width - tileW));
+        const sy = Math.min(row * stepY, Math.max(0, picture.height - tileH));
+        const sw = Math.min(tileW, picture.width - sx), sh = Math.min(tileH, picture.height - sy);
+        const factor = Math.min((W - 2 * M) / sw, (bottom - y) / sh, 1.5);
+        ctx.drawImage(picture, sx, sy, sw, sh, M, y, sw * factor, sh * factor);
+        finish();
+      }
+      start(true);
+    }
+  } finally { URL.revokeObjectURL(url); }
+  heading('Person details');
+  const fields = [['Sex assigned at birth','sexAtBirth'], ['Gender identity','genderIdentity'],
+    ['Parentage / relationship context','parentageContext'], ['Twin / pregnancy context','twinContext'],
+    ['Age / age at death','age'], ['Diagnosis','diagnosis'], ['Genetic test results','testResults'],
+    ['Ancestry','ancestry'], ['Pregnancy / birth history','pregnancy'], ['Source and verification','source'],
+    ['ISCN finding','iscn'], ['Notes','notes']];
+  const known = new Set(['id','name','sex','affectedStatus','affected','deceased','proband','parent1','parent2','condition', ...fields.map(([, key]) => key)]);
+  for (const person of people) {
+    ensure(100);
+    text(person.name || person.id || 'Unnamed person', { bold: true, size: 20, color: '#283d49', after: 2 });
+    const status = ['Symbol: ' + (person.sex || 'unknown'), 'Status: ' + (person.affectedStatus || (person.affected ? 'affected' : 'unknown'))];
+    if (person.deceased) status.push('Deceased'); if (person.proband) status.push('Proband');
+    if (filled(person.condition)) status.push('Condition: ' + person.condition);
+    text(status.join('  ·  '), { size: 18, after: 2 });
+    if (person.parent1 || person.parent2) text('Genetic parents: ' + [person.parent1, person.parent2].filter(Boolean).map(name).join(' / '), { size: 18, after: 2 });
+    for (const [label, key] of fields) if (filled(person[key])) text(label + ': ' + person[key], { size: 18, after: 2 });
+    const extra = Object.fromEntries(Object.entries(person).filter(([key, value]) => !known.has(key) && filled(value)));
+    if (Object.keys(extra).length) text('Additional record fields: ' + JSON.stringify(extra), { size: 18, after: 2 });
+    y += 9;
+  }
+  if (relationships.length) {
+    heading('Couple relationships');
+    for (const rel of relationships) text(name(rel.a) + ' + ' + name(rel.b) + '  ·  ' + String(rel.status || 'unspecified').replaceAll('-', ' '), { size: 18, after: 2 });
+  }
+  const recordExtra = Object.fromEntries(Object.entries(record).filter(([key, value]) => !['author','date','source'].includes(key) && filled(value)));
+  if (Object.keys(recordExtra).length) text('Additional record fields: ' + JSON.stringify(recordExtra), { size: 18 });
+  heading('Notes and references');
+  text('Citation: Abdullah H. geno: Pedigree documentation workspace [software]. terminalbio.', { size: 17, after: 1 });
+  text('Zenodo (latest DOI): https://zenodo.org/badge/latestdoi/1441464136', { size: 17, after: 4 });
+  text('Reference: Hastings RJ, Moore S, Chia N, editors. ISCN 2024. Karger; 2024. doi:10.1159/isbn.978-3-318-07331-7. See also the published erratum (2025).', { size: 17, after: 4 });
+  text('Geno supports pedigree documentation; it does not validate ISCN nomenclature, interpret genetic findings or provide a diagnosis. Verify the pedigree and findings against the source report and current professional guidance. Clinical decisions remain the responsibility of qualified professionals.', { size: 17 });
+  finish(); pdf.save('geno-pedigree.pdf');
 };
