@@ -23,3 +23,18 @@ test('reports consanguinity and recorded conditions', () => {
   assert.match(result.notes.join(' '), /consanguineous/);
   assert.doesNotMatch(result.notes.join(' '), /No proband|source is not recorded/);
 });
+
+test('warns when additional-condition shading would be incomplete', () => {
+  const result = review([{name:'I-1', additionalCondition:'Example', additionalStatus:'', otherConditions:'Another condition'}], [], {});
+  assert.match(result.notes.join(' '), /incomplete entries are not drawn/);
+  assert.match(result.notes.join(' '), /free-text notes are not shaded/);
+});
+
+test('flags unspecified donor roles and undrawn gestational links', () => {
+  const result = review([
+    {id:'child',name:'II-1',parentageType:'donor-conception',gestationalParent:'carrier'},
+    {id:'carrier',name:'I-1'}
+  ], [], {});
+  assert.match(result.notes.join(' '), /no donor role is selected/);
+  assert.match(result.notes.join(' '), /gestational link is not drawn/);
+});

@@ -25,7 +25,32 @@
       else labels.set(label.toLowerCase(), (labels.get(label.toLowerCase()) || 0) + 1);
       if ((p.affectedStatus === 'affected' || (!p.affectedStatus && p.affected)) && !(p.condition || '').trim())
         notes.push((label || 'A person') + ': affected status has no condition recorded.');
+      if (Boolean((p.additionalCondition || '').trim()) !== Boolean(p.additionalStatus))
+        notes.push((label || 'A person') + ': enter both the second condition and its status; incomplete entries are not drawn.');
+      if (p.additionalCondition && !['', 'affected', 'carrier', undefined].includes(p.additionalStatus))
+        notes.push((label || 'A person') + ': the second condition has an unsupported status and is not drawn.');
+      for (const [conditionKey, statusKey, ordinal] of [['condition3','condition3Status','third'], ['condition4','condition4Status','fourth']]) {
+        const value = typeof p[conditionKey] === 'string' ? p[conditionKey].trim() : '';
+        if (Boolean(value) !== Boolean(p[statusKey]) || (p[statusKey] && !['affected','carrier'].includes(p[statusKey])))
+          notes.push((label || 'A person') + ': enter both a valid ' + ordinal + ' condition and its status; incomplete entries are not drawn.');
+      }
+      if (p.otherConditions && p.otherConditions.trim())
+        notes.push((label || 'A person') + ': conditions in free-text notes are not shaded in the pedigree; review them separately.');
       if (Boolean(p.parent1) !== Boolean(p.parent2)) notes.push((label || 'A person') + ': only one genetic parent is recorded.');
+      for (const [parentKey, roleKey] of [['parent1','parent1Role'], ['parent2','parent2Role']]) {
+        if (p[roleKey] && !p[parentKey]) notes.push((label || 'A person') + ': a genetic parent role has no person selected.');
+      }
+      if (p.parentageType === 'donor-conception' && ![p.parent1Role,p.parent2Role].includes('donor'))
+        notes.push((label || 'A person') + ': donor conception is recorded but no donor role is selected; verify the relationship.');
+      if (p.gestationalParent) {
+        const gestational = byId.get(p.gestationalParent);
+        if (!p.parent1 && !p.parent2)
+          notes.push((label || 'A person') + ': the gestational link is not drawn without a genetic parent entry; record and review this relationship separately.');
+        else if (!gestational || gestational.id === p.id || level(gestational) >= level(p))
+          notes.push((label || 'A person') + ': the gestational carrier is missing or not in an earlier inferred generation; the gestational link is not drawn.');
+        else if (p.gestationalParent === p.parent1 || p.gestationalParent === p.parent2)
+          notes.push((label || 'A person') + ': the gestational carrier is also a genetic parent; confirm both roles in the record.');
+      }
       const adoptiveParents = [p.adoptiveParent1, p.adoptiveParent2].filter(Boolean);
       if (new Set(adoptiveParents).size !== adoptiveParents.length) notes.push((label || 'A person') + ': the same adoptive parent was entered twice.');
       for (const id of adoptiveParents) {

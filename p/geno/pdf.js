@@ -94,12 +94,14 @@ window.genoExportPDF = async function (svg, people, relationships, record = {}, 
   heading('Pedigree');
   if (diagramWarning) text('Review: ' + diagramWarning, { size: 18, color: '#945140', after: 8 });
   const clone = svg.cloneNode(true);
+  const reportKey = clone.querySelector('.condition-svg-key');
+  if (reportKey) reportKey.setAttribute('style', 'display:block');
   clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
   const bounds = svg.getBBox();
   const view = svg.viewBox.baseVal;
-  const left = Math.max(view.x, bounds.x - 55), topEdge = Math.max(view.y, bounds.y - 55);
-  const right = Math.min(view.x + view.width, bounds.x + bounds.width + 55);
-  const bottomEdge = Math.min(view.y + view.height, bounds.y + bounds.height + 55);
+  const left = reportKey ? view.x : Math.max(view.x, bounds.x - 55), topEdge = Math.max(view.y, bounds.y - 55);
+  const right = reportKey ? view.x + view.width : Math.min(view.x + view.width, bounds.x + bounds.width + 55);
+  const bottomEdge = reportKey ? view.y + view.height : Math.min(view.y + view.height, bounds.y + bounds.height + 55);
   const cropped = bounds.width > 0 && bounds.height > 0 && right > left && bottomEdge > topEdge;
   const originX = cropped ? left : view.x, originY = cropped ? topEdge : view.y;
   const diagramWidth = cropped ? right - left : view.width, diagramHeight = cropped ? bottomEdge - topEdge : view.height;
@@ -136,11 +138,11 @@ window.genoExportPDF = async function (svg, people, relationships, record = {}, 
     }
   } finally { URL.revokeObjectURL(url); }
   heading('Person details');
-  const fields = [['Sex assigned at birth','sexAtBirth'], ['Gender identity','genderIdentity'],
+  const fields = [['Sex assigned at birth','sexAtBirth'], ['Gender identity','genderIdentity'], ['Family history availability','familyHistory'],
     ['Parentage / relationship context','parentageContext'], ['Twin / pregnancy context','twinContext'],
     ['Age / age at death','age'], ['Diagnosis','diagnosis'], ['Genetic test results','testResults'],
     ['Ancestry','ancestry'], ['Pregnancy / birth history','pregnancy'], ['Source and verification','source'],
-    ['ISCN finding','iscn'], ['Parentage context','parentageType'], ['Adoptive parent 1','adoptiveParent1'], ['Adoptive parent 2','adoptiveParent2'], ['Multiple birth','twinType'], ['Multiple-birth group','twinGroup'], ['Pregnancy outcome','pregnancyOutcome'], ['Condition category','conditionCategory'], ['Cancer type / primary site','cancerSite'], ['Age at diagnosis','diagnosisAge'], ['Gene / variant / test result','geneVariant'], ['Other conditions and ages','otherConditions'], ['Horizontal position adjustment','layoutOffset'], ['Notes','notes']];
+    ['ISCN finding','iscn'], ['Parentage context','parentageType'], ['Genetic parent 1 role','parent1Role'], ['Genetic parent 2 role','parent2Role'], ['Gestational carrier','gestationalParent'], ['Adoptive parent 1','adoptiveParent1'], ['Adoptive parent 2','adoptiveParent2'], ['Multiple birth','twinType'], ['Multiple-birth group','twinGroup'], ['Pregnancy outcome','pregnancyOutcome'], ['Condition category','conditionCategory'], ['Cancer type / primary site','cancerSite'], ['Age at diagnosis','diagnosisAge'], ['Gene / variant / test result','geneVariant'], ['Second condition','additionalCondition'], ['Second condition status','additionalStatus'], ['Third condition','condition3'], ['Third condition status','condition3Status'], ['Fourth condition','condition4'], ['Fourth condition status','condition4Status'], ['Other conditions and ages','otherConditions'], ['Horizontal position adjustment','layoutOffset'], ['Notes','notes']];
   const known = new Set(['id','name','sex','affectedStatus','affected','deceased','proband','parent1','parent2','condition', ...fields.map(([, key]) => key)]);
   for (const person of people) {
     ensure(100);
@@ -150,7 +152,7 @@ window.genoExportPDF = async function (svg, people, relationships, record = {}, 
     if (filled(person.condition)) status.push('Condition: ' + person.condition);
     text(status.join('  ·  '), { size: 18, after: 2 });
     if (person.parent1 || person.parent2) text('Genetic parents: ' + [person.parent1, person.parent2].filter(Boolean).map(name).join(' / '), { size: 18, after: 2 });
-    for (const [label, key] of fields) if (filled(person[key])) text(label + ': ' + (key.startsWith('adoptiveParent') ? name(person[key]) : person[key]), { size: 18, after: 2 });
+    for (const [label, key] of fields) if (filled(person[key])) text(label + ': ' + ((key.startsWith('adoptiveParent') || key==='gestationalParent') ? name(person[key]) : person[key]), { size: 18, after: 2 });
     const extra = Object.fromEntries(Object.entries(person).filter(([key, value]) => !known.has(key) && filled(value)));
     if (Object.keys(extra).length) text('Additional record fields: ' + JSON.stringify(extra), { size: 18, after: 2 });
     y += 9;

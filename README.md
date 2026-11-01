@@ -9,7 +9,7 @@ geno is an in-development, browser-based workspace for documenting family relati
 ## What geno does
 
 - Creates a pedigree from person, parent and couple records, with up to five inferred generations.
-- Records affected status, selected clinical information, and notes alongside the diagram.
+- Records affected status, selected clinical information, and notes alongside the diagram. Up to three additional named affected or reported-carrier conditions can be displayed with a per-person key.
 - Records parentage, multiple-birth, pregnancy and consanguinity contexts, including selected diagram symbols, with local review of selected gaps and descriptive family-history counts.
 - Opens editable backups and saves passphrase-encrypted backups using browser cryptography.
 - Exports a PDF report with a searchable text layer for tested Latin and Greek examples.
@@ -40,7 +40,7 @@ Open [http://localhost:8000/p/geno/](http://localhost:8000/p/geno/) in a browser
 To run the included encryption tests with a recent Node.js installation:
 
 ```sh
-node --test scripts/geno-crypto.test.mjs scripts/geno-analysis.test.cjs
+node --test scripts/geno-crypto.test.mjs scripts/geno-analysis.test.cjs scripts/geno-conditions.test.cjs scripts/geno-routing.test.cjs
 ```
 
 These tests cover selected backup operations; they are not a clinical or security validation.

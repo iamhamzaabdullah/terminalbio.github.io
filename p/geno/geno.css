@@ -64,3 +64,20 @@ dialog{max-width:min(460px,calc(100vw - 32px));border:1px solid #e7ddd1;border-r
   .geno-footer{border-color:rgba(186,200,207,.55)}
 }
 @media (prefers-reduced-motion:reduce){button{transition:none}}
+/* Date controls have browser-specific intrinsic widths, especially on mobile. */
+.details fieldset,.details label{min-width:0;max-width:100%}
+.details input:not([type=checkbox]),.details select,.details textarea{box-sizing:border-box;min-width:0;max-width:100%}
+.details input[type=date]{display:block;width:100%;min-width:0;max-width:100%;-webkit-appearance:none;appearance:none}
+.relationship-list>summary,.legend>summary{cursor:pointer;color:#343c62;font-size:13px;font-weight:700;line-height:1.5;padding:6px 0}
+.relationship-list>summary:focus-visible,.legend>summary:focus-visible{outline:3px solid #5965ad;outline-offset:3px;border-radius:4px}
+.legend{margin-top:12px;padding-top:12px}
+.relationship-list{margin-top:10px}
+.relationship-item{display:block;width:100%;margin:8px 0;text-align:left;overflow-wrap:anywhere;font-size:12px;line-height:1.4}
+.form-section{border:1px solid #d5dfe1;border-radius:14px;padding:12px;margin:16px 0;background:rgba(255,255,255,.38)}
+.form-section>summary{cursor:pointer;color:#343c62;font-size:13px;font-weight:700;line-height:1.5}
+.form-section>summary:focus-visible{outline:3px solid #5965ad;outline-offset:3px;border-radius:4px}
+.condition-key{margin-top:10px;padding:10px 12px;border:1px solid #dce4e4;border-radius:12px;color:#40565a;background:rgba(255,255,255,.7);font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+.condition-key[hidden]{display:none}
+.condition-key p{margin:3px 0}.condition-key ul{margin:5px 0 0;padding-left:18px}.condition-key li+li{margin-top:3px}
+@media screen{.condition-svg-key{display:none}}
+@media screen and (min-width:1101px) and (min-height:650px){.canvas-panel{overflow:auto}.canvas-panel .canvas{flex:1 0 320px}}
