@@ -23,8 +23,9 @@ window.genoExportPDF = async function (svg, people, relationships, record = {}, 
     layer = [];
     ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H);
     ctx.fillStyle = '#343c70'; ctx.fillRect(0, 0, W, 7);
-    ctx.drawImage(logo, M, 37, 158, 28);
-    ctx.fillStyle = '#343c70'; ctx.font = '600 23px sans-serif'; ctx.fillText('/ geno', 264, 60);
+    ctx.fillStyle = '#343c70'; ctx.font = '700 32px sans-serif'; ctx.fillText('geno', M, 62);
+    const wordWidth = ctx.measureText('geno').width;
+    ctx.fillStyle = '#bb5142'; ctx.fillText('.', M + wordWidth, 62);
     ctx.fillStyle = '#718087'; ctx.textAlign = 'right'; ctx.font = '600 15px sans-serif';
     ctx.fillText('PEDIGREE REPORT', W - M, 57); ctx.textAlign = 'left';
     ctx.strokeStyle = '#dce3e4'; ctx.beginPath(); ctx.moveTo(M, 83); ctx.lineTo(W - M, 83); ctx.stroke();
@@ -33,8 +34,11 @@ window.genoExportPDF = async function (svg, people, relationships, record = {}, 
   }
   function finish() {
     ctx.strokeStyle = '#dce3e4'; ctx.beginPath(); ctx.moveTo(M, H - 70); ctx.lineTo(W - M, H - 70); ctx.stroke();
+    ctx.drawImage(logo, M, H - 57, 108, 19);
+    ctx.fillStyle = '#343c70'; ctx.font = '600 16px sans-serif';
+    ctx.fillText('/ geno', M + 118, H - 42);
     ctx.fillStyle = '#718087'; ctx.font = '15px sans-serif';
-    ctx.fillText('geno  /  For professional review', M, H - 42);
+    ctx.fillText('For professional review', M + 205, H - 42);
     ctx.textAlign = 'right'; ctx.fillText(String(page + 1), W - M, H - 42); ctx.textAlign = 'left';
     if (page++) pdf.addPage();
     pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 297, 210);
