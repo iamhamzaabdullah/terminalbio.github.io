@@ -81,3 +81,40 @@ dialog{max-width:min(460px,calc(100vw - 32px));border:1px solid #e7ddd1;border-r
 .condition-key p{margin:3px 0}.condition-key ul{margin:5px 0 0;padding-left:18px}.condition-key li+li{margin-top:3px}
 @media screen{.condition-svg-key{display:none}}
 @media screen and (min-width:1101px) and (min-height:650px){.canvas-panel{overflow:auto}.canvas-panel .canvas{flex:1 0 320px}}
+
+/* A full-width map with accessible, on-demand side panels. */
+@media screen{
+ .intro{margin:0 0 10px;padding:0}.intro .eyebrow{margin:0}
+ .workspace{position:relative!important;display:block!important;height:calc(100dvh - 160px)!important;min-height:430px;max-height:none;isolation:isolate}
+ .workspace>.canvas-panel{position:relative;display:flex!important;flex-direction:column;width:100%;height:100%;min-width:0;overflow:auto;padding:16px;gap:10px}
+ .workspace>.workspace-drawer{position:absolute!important;z-index:10;top:8px;bottom:8px;width:min(360px,calc(100% - 20px));height:auto;max-height:none;overflow:auto;padding:20px;background:rgba(255,255,255,.96);box-shadow:0 18px 55px rgba(32,43,65,.22);animation:drawer-appear .18s ease-out}
+ .workspace>#people-panel{left:8px}.workspace>#details-panel{right:8px}
+ .workspace>.workspace-drawer[hidden]{display:none!important}
+ .workspace-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+ .panel-controls,.zoom-controls{display:flex;align-items:center;gap:6px}
+ .panel-controls button,.zoom-controls button{min-height:40px;padding:8px 12px;white-space:nowrap}
+ .zoom-controls button{min-width:40px;font-size:17px;line-height:1}
+ .zoom-controls #zoom-reset{min-width:62px;font-size:12px}
+ .workspace .canvas-panel>.hint,.workspace .canvas-panel>.note{margin:0;font-size:11px}
+ .workspace .canvas-panel>.hint,.workspace .canvas-panel>.note{display:none}
+ .workspace .canvas{position:relative;display:block;flex:1 1 0!important;height:auto!important;min-height:210px!important;overflow:hidden!important;touch-action:none;cursor:grab}
+ .workspace .canvas.is-panning{cursor:grabbing}
+ .workspace .canvas:focus-visible{outline:3px solid #5965ad;outline-offset:3px}
+ .workspace .canvas svg{display:block;min-width:0!important;width:100%!important;height:100%!important;max-width:none;transform-origin:center center;touch-action:none}
+ .workspace .canvas svg [role=button]{cursor:pointer}
+ .workspace .review-panel{flex:0 0 auto;margin-top:0}.workspace .review-panel[open]{max-height:180px;overflow:auto}
+ .workspace .condition-key{flex:0 0 auto;max-height:110px;overflow:auto}
+ .drawer-close{min-width:40px;min-height:40px;padding:4px 10px;font-size:23px;line-height:1}
+ #people-panel>.add{margin-top:14px}
+ @keyframes drawer-appear{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+}
+@media screen and (max-width:650px){
+ main{padding:18px 12px}.intro{margin-bottom:8px}
+ .workspace{height:calc(100dvh - 185px)!important;min-height:400px}
+ .workspace>.canvas-panel{padding:12px;gap:8px}
+ .workspace-toolbar{gap:6px}.panel-controls{flex:1}.panel-controls button{font-size:12px;padding:8px 9px}
+ .zoom-controls{gap:4px}.zoom-controls button{min-width:34px;padding:7px}.zoom-controls #zoom-reset{min-width:53px}
+ .workspace-toolbar>.pill{font-size:11px;padding:5px 8px}
+ .workspace .canvas{min-height:180px!important}
+}
+@media (prefers-reduced-motion:reduce){.workspace>.workspace-drawer{animation:none}}

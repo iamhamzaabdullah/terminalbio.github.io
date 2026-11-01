@@ -4,6 +4,10 @@ Created by Hamza Abdullah (terminalbio).
 
 geno is an in-development pedigree documentation tool. It does not validate ISCN descriptions, calculate risk, diagnose, or provide treatment recommendations. It has not undergone independent clinical or institutional security validation.
 
+## Workspace
+
+The pedigree fills the workspace. Open the Family or Person & record drawer from the toolbar; close it with its close button, Escape, or by interacting with the canvas. Use the zoom controls and drag the canvas to pan. When the canvas has keyboard focus, use its arrow keys to pan. Reset returns the view to its initial position. PDF export uses the full pedigree, independently of the current zoom and pan.
+
 ## Data handling
 
 - Data is held in page memory during a session. The application does not intentionally send patient data to a server. It loads the interface and fonts locally from the website. The host, browser, device, extensions and network environment remain outside the application's control.

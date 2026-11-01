@@ -94,6 +94,7 @@ window.genoExportPDF = async function (svg, people, relationships, record = {}, 
   heading('Pedigree');
   if (diagramWarning) text('Review: ' + diagramWarning, { size: 18, color: '#945140', after: 8 });
   const clone = svg.cloneNode(true);
+  clone.style.removeProperty('transform');
   const reportKey = clone.querySelector('.condition-svg-key');
   if (reportKey) reportKey.setAttribute('style', 'display:block');
   clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
