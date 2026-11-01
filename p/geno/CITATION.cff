@@ -1,0 +1,7 @@
+cff-version: 1.2.0
+message: "Please cite geno as software and include the date you accessed it."
+title: "geno: Pedigree documentation workspace"
+type: software
+authors:
+  - name: terminalbio
+url: "https://terminalbio.com/p/geno/"
