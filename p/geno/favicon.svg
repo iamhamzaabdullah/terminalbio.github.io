@@ -1,5 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="18" fill="#f6f7fa"/>
-  <path d="M39 17v25c0 9-5 14-15 14-4 0-8-1-11-3l3-6c2 2 5 3 8 3 5 0 7-2 7-7v-1c-2 2-5 3-8 3-8 0-13-6-13-14s5-14 13-14c4 0 7 1 9 4v-4h7zM31 31c0-4-3-7-7-7s-7 3-7 7 3 7 7 7 7-3 7-7z" fill="#343c70"/>
-  <circle cx="49" cy="45" r="4" fill="#bb5142"/>
+  <style>
+    .letter{fill:#343c70}.dot{fill:#b44e3b}
+    @media (prefers-color-scheme:dark){.letter{fill:#f5f6ff}.dot{fill:#ffab95}}
+  </style>
+  <path class="letter" d="M39 17v25c0 9-5 14-15 14-4 0-8-1-11-3l3-6c2 2 5 3 8 3 5 0 7-2 7-7v-1c-2 2-5 3-8 3-8 0-13-6-13-14s5-14 13-14c4 0 7 1 9 4v-4h7zM31 31c0-4-3-7-7-7s-7 3-7 7 3 7 7 7 7-3 7-7z"/>
+  <circle class="dot" cx="49" cy="45" r="4"/>
 </svg>
