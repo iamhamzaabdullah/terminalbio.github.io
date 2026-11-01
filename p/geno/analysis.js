@@ -26,8 +26,24 @@
       if ((p.affectedStatus === 'affected' || (!p.affectedStatus && p.affected)) && !(p.condition || '').trim())
         notes.push((label || 'A person') + ': affected status has no condition recorded.');
       if (Boolean(p.parent1) !== Boolean(p.parent2)) notes.push((label || 'A person') + ': only one genetic parent is recorded.');
+      const adoptiveParents = [p.adoptiveParent1, p.adoptiveParent2].filter(Boolean);
+      if (new Set(adoptiveParents).size !== adoptiveParents.length) notes.push((label || 'A person') + ': the same adoptive parent was entered twice.');
+      for (const id of adoptiveParents) {
+        const parent = byId.get(id);
+        if (!parent || parent.id === p.id || level(parent) >= level(p))
+          notes.push((label || 'A person') + ': an adoptive parent is missing or not in an earlier inferred generation; the dotted line is not drawn. Check placement and record the relationship in notes.');
+      }
       if (p.parentageType || p.twinType || p.pregnancyOutcome)
-        notes.push((label || 'A person') + ': verify structured relationship and pregnancy details; these are annotations, not standardized relationship symbols.');
+        notes.push((label || 'A person') + ': verify parentage, multiple-birth and pregnancy details; some contexts remain text annotations and genetic parent lines do not represent adoptive relationships.');
+      if (p.twinType || p.twinGroup) {
+        const group = (p.twinGroup || '').trim();
+        const peers = people.filter(q => group && (q.twinGroup || '').trim() === group);
+        const parents = q => [q.parent1, q.parent2].filter(Boolean).sort().join('|');
+        if (!group || peers.length !== 2 || peers.some(q => !q.twinType || parents(q) !== parents(p)) || !parents(p))
+          notes.push((label || 'A person') + ': a paired twin branch requires exactly two entries with the same group ID, recorded genetic parents and twin type.');
+        else if (peers.some(q => q.twinType !== p.twinType))
+          notes.push((label || 'A person') + ': multiple-birth entries have different twin types; verify zygosity.');
+      }
     }
     for (const [label, count] of labels) if (count > 1) notes.push('Identifier "' + label + '" is used more than once.');
     if (people.length && !people.some(p => p.proband)) notes.push('No proband is marked.');

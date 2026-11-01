@@ -10,7 +10,7 @@ geno is an in-development, browser-based workspace for documenting family relati
 
 - Creates a pedigree from person, parent and couple records, with up to five inferred generations.
 - Records affected status, selected clinical information, and notes alongside the diagram.
-- Records selected parentage, multiple-birth, pregnancy and consanguinity contexts as text annotations, with local review of selected gaps and descriptive family-history counts.
+- Records parentage, multiple-birth, pregnancy and consanguinity contexts, including selected diagram symbols, with local review of selected gaps and descriptive family-history counts.
 - Opens editable backups and saves passphrase-encrypted backups using browser cryptography.
 - Exports a PDF report with a searchable text layer for tested Latin and Greek examples.
 - Works in a browser without an application server for the pedigree workspace.
@@ -19,7 +19,7 @@ geno is an in-development, browser-based workspace for documenting family relati
 
 geno is under development and has **not** undergone independent clinical validation, institutional security assessment, or professional society approval. It does not validate ISCN nomenclature, interpret genetic results, calculate risk, or provide a diagnosis. Qualified professionals must verify pedigrees and findings against source records and current guidance.
 
-Parent links represent genetic parents. Adoption, twins, donor conception, assisted reproduction, pregnancy outcomes and other complex scenarios are recorded as text rather than complete standardized graphical representations. Horizontal position can be adjusted, but the automatic layout can cross or misrepresent relationships, and its warnings do not catch every issue. The review does not classify inheritance or calculate risk. Do not rely on geno as a standalone clinical record.
+Parent links represent genetic parents. Adoption brackets, dotted adoptive-parent lines in eligible layouts, consanguinity lines, twin branches for eligible pairs, and selected pregnancy symbols are supported. Donor conception, assisted reproduction and other complex scenarios still require annotations and are not fully represented graphically. Horizontal position can be adjusted, but the automatic layout can cross or misrepresent relationships, and its warnings do not catch every issue. The review does not classify inheritance or calculate risk. Do not rely on geno as a standalone clinical record.
 
 ## Privacy and security
 

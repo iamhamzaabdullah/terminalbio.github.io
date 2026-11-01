@@ -140,7 +140,7 @@ window.genoExportPDF = async function (svg, people, relationships, record = {}, 
     ['Parentage / relationship context','parentageContext'], ['Twin / pregnancy context','twinContext'],
     ['Age / age at death','age'], ['Diagnosis','diagnosis'], ['Genetic test results','testResults'],
     ['Ancestry','ancestry'], ['Pregnancy / birth history','pregnancy'], ['Source and verification','source'],
-    ['ISCN finding','iscn'], ['Parentage context','parentageType'], ['Multiple birth','twinType'], ['Pregnancy outcome','pregnancyOutcome'], ['Horizontal position adjustment','layoutOffset'], ['Notes','notes']];
+    ['ISCN finding','iscn'], ['Parentage context','parentageType'], ['Adoptive parent 1','adoptiveParent1'], ['Adoptive parent 2','adoptiveParent2'], ['Multiple birth','twinType'], ['Multiple-birth group','twinGroup'], ['Pregnancy outcome','pregnancyOutcome'], ['Condition category','conditionCategory'], ['Cancer type / primary site','cancerSite'], ['Age at diagnosis','diagnosisAge'], ['Gene / variant / test result','geneVariant'], ['Other conditions and ages','otherConditions'], ['Horizontal position adjustment','layoutOffset'], ['Notes','notes']];
   const known = new Set(['id','name','sex','affectedStatus','affected','deceased','proband','parent1','parent2','condition', ...fields.map(([, key]) => key)]);
   for (const person of people) {
     ensure(100);
@@ -150,7 +150,7 @@ window.genoExportPDF = async function (svg, people, relationships, record = {}, 
     if (filled(person.condition)) status.push('Condition: ' + person.condition);
     text(status.join('  ·  '), { size: 18, after: 2 });
     if (person.parent1 || person.parent2) text('Genetic parents: ' + [person.parent1, person.parent2].filter(Boolean).map(name).join(' / '), { size: 18, after: 2 });
-    for (const [label, key] of fields) if (filled(person[key])) text(label + ': ' + person[key], { size: 18, after: 2 });
+    for (const [label, key] of fields) if (filled(person[key])) text(label + ': ' + (key.startsWith('adoptiveParent') ? name(person[key]) : person[key]), { size: 18, after: 2 });
     const extra = Object.fromEntries(Object.entries(person).filter(([key, value]) => !known.has(key) && filled(value)));
     if (Object.keys(extra).length) text('Additional record fields: ' + JSON.stringify(extra), { size: 18, after: 2 });
     y += 9;
