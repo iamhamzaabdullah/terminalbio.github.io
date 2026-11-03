@@ -269,3 +269,25 @@ dialog{max-width:min(460px,calc(100vw - 32px));border:1px solid #e7ddd1;border-r
 }
 @media (prefers-reduced-transparency:reduce){body>header,body>header .identity,body>header .actions .primary{background:#fafbfc;backdrop-filter:none}body>header .file-actions{background:#efd085}}
 @media (forced-colors:active){body>header,body>header .identity,body>header .file-actions,body>header .actions .primary{background:Canvas;color:CanvasText;border:1px solid CanvasText;box-shadow:none}body>header .file-actions button{color:CanvasText}}
+
+/* Let the page show through between the floating header capsules. */
+@media screen{
+ body>header{
+  position:sticky;
+  top:0;
+  z-index:30;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+  pointer-events:none;
+ }
+ body>header .identity,body>header .file-actions,body>header .actions .primary{pointer-events:auto}
+ body>header .identity,body>header .file-actions,body>header .actions .primary{
+  -webkit-backdrop-filter:blur(20px) saturate(145%);
+  backdrop-filter:blur(20px) saturate(145%);
+ }
+}
+@media (prefers-reduced-transparency:reduce){body>header{background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}body>header .identity,body>header .file-actions,body>header .actions .primary{-webkit-backdrop-filter:none;backdrop-filter:none}}
+@media (forced-colors:active){body>header{background:transparent;border:0;box-shadow:none}}
