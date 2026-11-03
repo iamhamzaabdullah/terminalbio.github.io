@@ -291,3 +291,21 @@ dialog{max-width:min(460px,calc(100vw - 32px));border:1px solid #e7ddd1;border-r
 }
 @media (prefers-reduced-transparency:reduce){body>header{background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}body>header .identity,body>header .file-actions,body>header .actions .primary{-webkit-backdrop-filter:none;backdrop-filter:none}}
 @media (forced-colors:active){body>header{background:transparent;border:0;box-shadow:none}}
+
+/* As the page scrolls, let a little more of the content show through. */
+@media screen{
+ body>header .identity,body>header .file-actions,body>header .actions .primary{
+  transition:background .2s ease,backdrop-filter .2s ease,box-shadow .2s ease;
+ }
+ body>header.is-scrolled .identity{background:rgba(255,255,255,.62)}
+ body>header.is-scrolled .file-actions{background:linear-gradient(120deg,rgba(236,199,108,.67),rgba(229,181,71,.69))}
+ body>header.is-scrolled .actions .primary{background:rgba(255,255,255,.66)}
+ body>header.is-scrolled .identity,body>header.is-scrolled .file-actions,body>header.is-scrolled .actions .primary{
+  -webkit-backdrop-filter:blur(8px) saturate(135%);
+  backdrop-filter:blur(8px) saturate(135%);
+ }
+ body>header.is-scrolled .actions .primary:hover:not(:disabled){background:rgba(255,255,255,.88)}
+}
+@media (prefers-reduced-motion:reduce){body>header .identity,body>header .file-actions,body>header .actions .primary{transition:none}}
+@media (prefers-reduced-transparency:reduce){body>header.is-scrolled .identity,body>header.is-scrolled .actions .primary{background:#fafbfc;-webkit-backdrop-filter:none;backdrop-filter:none}body>header.is-scrolled .file-actions{background:#efd085;-webkit-backdrop-filter:none;backdrop-filter:none}}
+@media (forced-colors:active){body>header.is-scrolled .identity,body>header.is-scrolled .file-actions,body>header.is-scrolled .actions .primary{background:Canvas;border-color:CanvasText;box-shadow:none}}
