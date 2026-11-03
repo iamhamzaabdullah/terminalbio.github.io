@@ -56,6 +56,11 @@ document.querySelectorAll('.application-list article').forEach((article,i)=>{
  });
 });
 const header=document.querySelector('.site-header'),menu=header?.querySelector('.menu'),nav=header?.querySelector('nav');
+if(header){
+ const updateHeader=()=>header.classList.toggle('is-scrolled',window.scrollY>8);
+ window.addEventListener('scroll',updateHeader,{passive:true});
+ updateHeader();
+}
 if(menu&&nav){
  nav.id='site-navigation';menu.setAttribute('aria-controls',nav.id);menu.setAttribute('aria-expanded','false');
  const toggle=(open)=>{header.classList.toggle('nav-open',open);menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close menu':'Open menu');};

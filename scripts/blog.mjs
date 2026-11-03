@@ -19,7 +19,7 @@ export function pageShell(home,{title,description,path,content,base='../',noinde
  head='<base href="'+base+'">'+head+'<link rel="stylesheet" href="src/blog.css">'+(noindex?'<meta name="robots" content="noindex,nofollow">':'');
  const header=home.match(/<header[\s\S]*?<\/header>/)[0].replace('href="#systems"','href="/#systems"');
  const footer=home.match(/<footer[\s\S]*?<\/footer>/)[0];
- return '<!doctype html><html lang="en"><head>'+head+'</head><body><a class="skip-link" href="'+path+'#main">Skip to content</a>'+header+'<main id="main">'+content+'</main>'+footer+'<script src="src/main.js" defer></script></body></html>';
+ return '<!doctype html><html lang="en"><head>'+head+'</head><body><a class="skip-link" href="'+path+'#main">Skip to content</a>'+header+'<main id="main">'+content+'</main>'+footer+'<script src="src/main.js?v=20261103-header" defer></script></body></html>';
 }
 export async function buildBlog(root,out){
  const home=await readFile(resolve(root,'index.html'),'utf8');
