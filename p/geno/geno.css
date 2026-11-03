@@ -207,3 +207,65 @@ dialog{max-width:min(460px,calc(100vw - 32px));border:1px solid #e7ddd1;border-r
 }
 @media (prefers-reduced-transparency:reduce){body>header .identity{background:#fafbfc;-webkit-backdrop-filter:none;backdrop-filter:none}}
 @media (forced-colors:active){body>header .identity{background:Canvas;border-color:CanvasText;box-shadow:none}}
+
+/* Separate, rounded identity and file-control capsules. */
+@media screen{
+ body>header{
+  padding:12px 3vw;
+  background:linear-gradient(110deg,rgba(222,244,242,.88),rgba(245,241,220,.83) 58%,rgba(251,232,184,.86));
+  border-bottom:1px solid rgba(255,255,255,.85);
+  box-shadow:0 8px 28px rgba(55,70,73,.08);
+ }
+ body>header .identity{
+  padding:9px 16px;
+  border-radius:999px;
+  background:rgba(255,255,255,.84);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 4px 18px rgba(56,77,76,.08),inset 0 1px rgba(255,255,255,.98);
+ }
+ body>header .actions{
+  display:flex;
+  gap:10px;
+  padding:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+ }
+ body>header .file-actions{
+  display:flex;
+  align-items:stretch;
+  padding:4px;
+  border-radius:999px;
+  background:linear-gradient(120deg,rgba(236,199,108,.86),rgba(229,181,71,.88));
+  box-shadow:inset 0 1px rgba(255,255,255,.35),0 5px 18px rgba(122,89,29,.12);
+ }
+ body>header .file-actions button:not(.primary){
+  color:#332b1c;
+  background:transparent;
+  border:0;
+  border-radius:999px;
+  box-shadow:none;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+ }
+ body>header .file-actions button:hover:not(:disabled){background:rgba(255,255,255,.33)}
+ body>header .actions .primary{
+  min-width:110px;
+  border:1px solid rgba(255,255,255,.88);
+  border-radius:999px;
+  color:#273553;
+  background:rgba(255,255,255,.84);
+  box-shadow:0 4px 15px rgba(56,77,76,.10),inset 0 1px rgba(255,255,255,.95);
+ }
+ body>header .actions .primary:hover:not(:disabled){background:#fff;color:#273553;border-color:#fff}
+}
+@media screen and (max-width:650px){
+ body>header{padding:10px 14px;gap:9px}
+ body>header .identity{padding:6px 12px}
+ body>header .actions{width:100%;gap:7px;align-items:stretch}
+ body>header .file-actions{flex:1;min-width:0}
+ body>header .file-actions button{flex:1;min-width:0;padding:8px 5px}
+ body>header .actions .primary{flex:0 0 96px;min-width:0;padding:8px 10px}
+}
+@media (prefers-reduced-transparency:reduce){body>header,body>header .identity,body>header .actions .primary{background:#fafbfc;backdrop-filter:none}body>header .file-actions{background:#efd085}}
+@media (forced-colors:active){body>header,body>header .identity,body>header .file-actions,body>header .actions .primary{background:Canvas;color:CanvasText;border:1px solid CanvasText;box-shadow:none}body>header .file-actions button{color:CanvasText}}
