@@ -1,6 +1,6 @@
 # terminalbio website
 
-Static, responsive website for terminalbio, including TB Biocompute, the Biological World Model, specialist models, and the XIRA research programs.
+Static, responsive website for terminalbio, including Biocompute, the Biological World Model, specialist models, and the XIRA research programs.
 
 ## Run locally
 

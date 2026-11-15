@@ -43,7 +43,7 @@ content:
         label: Topic
         type: select
         options:
-          values: [Biological intelligence, TB Biocompute, Research, Company]
+          values: [Biological intelligence, Biocompute, Research, Company]
         default: Research
       - name: cover
         label: Cover image

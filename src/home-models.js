@@ -6,7 +6,7 @@ document.querySelectorAll('.model-card:not([data-model="xuzu"]) .model-reveal').
   button.setAttribute('aria-expanded',String(open));
   extra.hidden=!open;
   const name=button.closest('.model-card').querySelector('h3').textContent;
-  button.firstChild.textContent=open?'Close '+name:'Explore '+(name==='TB Biocompute'?'Biocompute':name);
+  button.firstChild.textContent=open?'Close '+name:'Explore '+name;
   button.querySelector('span').textContent=open?'−':'＋';
  });
 });
