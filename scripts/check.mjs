@@ -1,13 +1,15 @@
 import {readFile,stat} from 'node:fs/promises';
 import {resolve} from 'node:path';
 const pages=['index.html',...['about','applications','contact','models','platform','research','xira3','xira40','biocompute','blog','admin'].map(p=>p+'/index.html')];
+const kuiperPages=['','platform/','card/','app/','regions/','regions/malaysia/','regions/indonesia/','roadmap/','partnerships/'];
+pages.push(...kuiperPages.map(path=>'kuiperhealth/'+path+'index.html'));
 let checked=0;
 for(const page of pages){
  const html=await readFile(page,'utf8');
  if(!html.includes('src/design.css'))throw Error('Missing shared design: '+page);
  for(const match of html.matchAll(/(?:href|src)="([^"]+)"/g)){
   const url=match[1];
-  if(/^(https?:|mailto:|tel:|#)/.test(url)||url==='../')continue;
+  if(/^(https?:|mailto:|tel:|#)/.test(url)||/^(\.\.\/)+$/.test(url))continue;
   let path=url.split(/[?#]/)[0].replace(/^\//,'');
   if(!path||path.endsWith('/'))path+='index.html';
   await stat(resolve(path)).catch(()=>{throw Error('Broken link in '+page+': '+url);});
