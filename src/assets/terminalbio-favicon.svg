@@ -1,5 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <style>.mark{stroke:#182622}.accent{fill:#bd8100}@media (prefers-color-scheme:dark){.mark{stroke:#f5f5ec}.accent{fill:#f6bf46}}</style>
-  <path class="mark" d="M11 4v18c0 4 2.6 6 6.6 6H20M5 13h16" fill="none" stroke-width="3.4" stroke-linecap="square" stroke-linejoin="round"/>
-  <circle class="accent" cx="25.5" cy="25.5" r="2.5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <style>.glyph{stroke:#173448}@media(prefers-color-scheme:dark){.glyph{stroke:#f7f8f4}}</style>
+  <path class="glyph" d="M27 7v25c0 4.5 2 7 6.5 7H37M13 17h24" fill="none" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
