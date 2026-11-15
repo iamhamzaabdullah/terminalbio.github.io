@@ -44,7 +44,7 @@ h1,h2,h3{letter-spacing:-.04em;font-weight:500}h2{line-height:1.13}p{line-height
   background:rgba(255,255,255,.84);box-shadow:0 4px 18px rgba(56,77,76,.08);
   -webkit-backdrop-filter:blur(20px) saturate(145%);backdrop-filter:blur(20px) saturate(145%);
  }
- .site-header .brand img{width:165px;height:auto}
+ .site-header .brand img{width:152px;height:auto}
  .site-header nav{
   display:flex;align-items:center;gap:0;margin-left:auto;padding:5px 8px;border-radius:999px;
   background:linear-gradient(120deg,rgba(236,199,108,.86),rgba(229,181,71,.88));
@@ -91,8 +91,10 @@ h1,h2,h3{letter-spacing:-.04em;font-weight:500}h2{line-height:1.13}p{line-height
  }
  .site-header.nav-open nav a{padding:13px 15px;font-size:14px;color:#273553}
 }
-@media screen and (max-width:400px){.site-header{padding-left:14px;padding-right:14px}.site-header .brand img{width:145px}.site-header.nav-open nav{right:14px;width:calc(100vw - 28px)}}
+@media screen and (max-width:400px){.site-header{padding-left:14px;padding-right:14px}.site-header .brand img{width:134px}.site-header.nav-open nav{right:14px;width:calc(100vw - 28px)}}
 @media (prefers-reduced-motion:reduce){.site-header .brand,.site-header nav,.site-header .header-cta,.site-header .menu{transition:none}}
 @media (prefers-reduced-transparency:reduce){.site-header .brand,.site-header .header-cta,.site-header .menu,.site-header.is-scrolled .brand,.site-header.is-scrolled .header-cta,.site-header.is-scrolled .menu{background:#fff;backdrop-filter:none}.site-header nav,.site-header.is-scrolled nav{background:#efd085;backdrop-filter:none}.site-header.nav-open nav,.site-header.is-scrolled.nav-open nav{background:#fff}}
 @media (forced-colors:active){.site-header .brand,.site-header nav,.site-header .header-cta,.site-header .menu,.site-header.is-scrolled .brand,.site-header.is-scrolled nav,.site-header.is-scrolled .header-cta,.site-header.is-scrolled .menu{background:Canvas;color:CanvasText;border:1px solid CanvasText;box-shadow:none}.site-header nav a,.site-header.nav-open nav a{color:CanvasText}}
 @media(prefers-reduced-motion:reduce){.program-jump a{transition:none}.program-jump a:hover{transform:none}}
+
+footer .brand img{width:152px;height:auto}

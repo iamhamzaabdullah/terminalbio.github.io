@@ -145,8 +145,131 @@
 .kh-note, .kh-next { margin: 26px var(--space); }
 .kh-note { max-width: 70ch; color: var(--kuiper-muted); line-height: 1.6; }
 
+.kh-intro {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 5vw, 72px);
+  align-items: start;
+}
+
+.kh-intro > div > p:not(.section-kicker),
+.kh-roadmap-intro {
+  max-width: 64ch;
+  color: var(--kuiper-muted);
+  line-height: 1.65;
+}
+
+.kh-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+}
+
+.kh-timeline > li {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 14px;
+}
+
+.kh-timeline > li:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  right: -36px;
+  top: 20px;
+  border-top: 2px solid #9bb9aa;
+}
+
+.kh-marker {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #f2c76c;
+  color: #3c2e12;
+  border: 1px solid #997238;
+  font: 13px var(--mono);
+}
+
+.kh-timeline .kh-stage {
+  margin: 0 0 9px;
+  font: 11px/1.45 var(--mono);
+  text-transform: uppercase;
+}
+
+.kh-timeline .kh-evidence {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--kuiper-line);
+  font-size: 14px;
+}
+
+.kh-evidence strong {
+  display: block;
+  color: var(--kuiper-ink);
+  margin-bottom: 4px;
+}
+
+.kh-card > a { display: inline-block; margin-top: 14px; }
+
+.kh-country-hero {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(22px, 4vw, 70px);
+}
+
+.kh-country-hero h1 { font-size: clamp(42px, 5.9vw, 88px); }
+
+.kh-photo {
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--kuiper-line);
+  background: #dce9e1;
+}
+
+.kh-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.kh-photo-malaysia img { object-position: 50% 49%; }
+.kh-photo-indonesia img { object-position: 50% 55%; }
+
+.kh-photo figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 3px 12px;
+  padding: 8px 12px;
+  background: #f7faf7;
+  color: var(--kuiper-muted);
+  font: 11px/1.5 var(--mono);
+}
+
+@media (max-width: 1000px) {
+  .kh-timeline { grid-template-columns: 1fr; gap: 12px; }
+  .kh-timeline > li { grid-template: auto / 42px minmax(0, 1fr); gap: 10px; }
+  .kh-timeline > li:not(:last-child)::before {
+    top: 20px;
+    bottom: -32px;
+    right: auto;
+    border-top: 0;
+    border-left: 2px solid #9bb9aa;
+  }
+}
+
 @media (max-width: 760px) {
   .kh-hero { grid-template-columns: minmax(0, 1fr); }
+  .kh-intro { grid-template-columns: minmax(0, 1fr); }
   .kh-visual { width: 100%; max-width: 440px; }
   .kh-nav { gap: 4px; }
 }
