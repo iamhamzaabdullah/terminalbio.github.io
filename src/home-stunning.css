@@ -1,0 +1,76 @@
+/* Homepage art direction: a biological instrument, not a generic hero template. */
+body.home{--home-ink:#172b3b;--home-blue:#2857dc;--home-mint:#c8eadc;--home-lime:#d6f581;background:#fbfcf8}
+body.home main{overflow:hidden}
+body.home .future-hero{
+ position:relative;display:grid;grid-template-columns:minmax(360px,.88fr) minmax(0,1.12fr);grid-template-rows:minmax(540px, min(49vw,690px)) auto;gap:0 2vw;align-items:center;
+ min-height:0;padding:22px var(--space) 0;background:radial-gradient(ellipse at 73% 37%,#e9f0ff 0,#f8faf8 36%,#fbfcf8 72%);isolation:isolate
+}
+body.home .hero-heading{grid-column:1;grid-row:1;display:block;align-self:center;z-index:4;padding:36px 0 44px;margin:0;max-width:720px}
+body.home .hero-heading>.section-kicker{display:inline-flex;align-items:center;gap:10px;margin:0 0 33px;padding:9px 13px;border:1px solid #dce4df;border-radius:99px;background:#ffffffa8;color:#48615e;font:10px var(--mono);letter-spacing:.08em}
+body.home .status-dot{width:7px;height:7px;border-radius:50%;background:#4eb88b;box-shadow:0 0 0 4px #4eb88b20}
+body.home .hero-heading h1{max-width:700px;margin:0;color:var(--home-ink);font:500 clamp(64px,7.3vw,112px)/.98 'Space Grotesk',var(--sans);letter-spacing:-.075em;text-wrap:balance}
+body.home .hero-heading h1 span{display:block;margin-top:.06em;color:var(--home-blue);-webkit-text-stroke:0;letter-spacing:-.08em}
+body.home .hero-summary{display:grid;grid-template-columns:1fr;justify-items:start;gap:17px;margin-top:32px;max-width:370px}
+body.home .hero-summary p{margin:0;color:#4b6064;font-size:17px;line-height:1.65;letter-spacing:-.01em}
+body.home .hero-summary .button{box-shadow:0 9px 22px #2857dc27;transition:transform .2s,box-shadow .2s}
+body.home .hero-summary .button:hover{transform:translateY(-2px);box-shadow:0 13px 28px #2857dc36}
+body.home .hero-secondary{padding:4px 0;border-bottom:1px solid #b8c6d6;color:#405d73}
+body.home .living-field{position:relative;grid-column:2;grid-row:1;inset:auto;align-self:center;justify-self:stretch;width:100%;height:clamp(490px,48vw,650px);margin:0 -3.5vw 0 0;overflow:hidden;border:1px solid #e1e8e6;border-radius:48% 48% 4% 48%;background:#eaf0fb url('./assets/biological-field.svg') center/cover no-repeat;box-shadow:0 35px 90px #263b5c12;isolation:isolate}
+body.home .living-field:before{display:block;position:absolute;inset:0;z-index:0;content:"";background:linear-gradient(135deg,#f5f9fa9c 0%,transparent 36%,#dce7f37a 100%),radial-gradient(circle at 48% 48%,transparent 20%,#f7faf566 74%)}
+body.home .living-field:after{position:absolute;z-index:1;inset:6% 6% 7%;content:"";border:1px solid #ffffff9c;border-radius:49% 49% 4% 49%;pointer-events:none}
+body.home .living-field canvas{position:absolute;inset:0;z-index:1;width:100%;height:100%;opacity:.9;mix-blend-mode:multiply}
+body.home .field-top{z-index:2;top:8%;right:9%;left:9%;display:flex;justify-content:space-between;gap:14px;color:#365b65;font:9px var(--mono);letter-spacing:.1em}
+body.home .field-bottom{z-index:2;left:9%;right:9%;bottom:8%;align-items:end}
+body.home .field-bottom p{color:#193c4c;font:500 clamp(18px,1.7vw,25px)/1.25 'Space Grotesk',var(--sans);letter-spacing:-.04em}
+body.home .motion-toggle{border-color:#7899a1;border-radius:99px;background:#faffffb5;color:#32545e;font-size:9px;backdrop-filter:blur(12px)}
+body.home .hero-foot{grid-column:1/-1;position:relative;z-index:3;margin:0;min-height:77px;padding:16px 0;border-color:#dce4df;background:transparent}
+body.home .hero-foot>span{color:#315a60;font-size:9px;letter-spacing:.1em}
+body.home .hero-foot p{max-width:52ch;color:#53696b;font-size:12px}
+
+/* Project cards become a visual portfolio strip with a single clear focal point. */
+body.home .home-projects{grid-template-columns:1.15fr 1fr 1fr;gap:16px;padding:34px var(--space) 78px;background:#fbfcf8}
+body.home .home-project{position:relative;grid-template-rows:250px 1fr;border-color:#dce5e2;border-radius:18px;box-shadow:0 12px 34px #20364909;transition:transform .28s cubic-bezier(.2,.7,.2,1),box-shadow .28s,border-color .28s}
+body.home .home-project:hover{transform:translateY(-7px);border-color:#b9cbe0;box-shadow:0 25px 55px #20364917}
+body.home .home-project-art{background-color:#e8f0f2}
+body.home .home-project--biocompute .home-project-art{background:radial-gradient(ellipse at 53% 50%,#f9e8bd 0 3%,#d9e6fb 4% 18%,#e8effa 55%,#dfeae6 100%)}
+body.home .home-project--biocompute .compute-orbit{width:205px;height:132px;border-color:#587cb2;animation:orbit-breathe 9s ease-in-out infinite}
+body.home .home-project--biocompute .compute-core{width:27px;height:27px;background:#f0b84d;box-shadow:0 0 0 11px #f0b84d32,0 0 38px #f0b84d80}
+body.home .home-project--kuiper .home-project-art>img{filter:saturate(.78)}
+body.home .home-project--kuiper .home-project-art:after{inset:42% 0 0;background:linear-gradient(transparent,#082f37c7)}
+body.home .home-project--xira .home-project-art{background:linear-gradient(135deg,#f0edfb,#e2ebf8)}
+body.home .home-project--xira .home-project-art>img{opacity:.38;mix-blend-mode:multiply}
+body.home .xira-art-ring{width:205px;height:120px;border-color:#526bb1;animation:orbit-breathe 12s ease-in-out infinite reverse}
+body.home .home-project-copy{gap:12px;padding:22px 23px 25px}
+body.home .home-project-copy .section-kicker{font-size:9px;letter-spacing:.1em}
+body.home .home-project-copy>strong{color:#1e3548;font:500 clamp(23px,2.15vw,30px)/1.1 'Space Grotesk',var(--sans);letter-spacing:-.055em}
+body.home .home-project-copy>span:not(.section-kicker){max-width:32ch;color:#54666b;font-size:13px;line-height:1.65}
+body.home .home-project-copy>b{margin-top:7px;color:#2953c3;font-size:12px}
+
+body.home .home-models{padding-top:64px;padding-bottom:86px;background:#f1f5f3}
+body.home .home-models>.section-heading{display:grid;grid-template-columns:1fr auto;align-items:end;gap:14px 40px;margin-bottom:30px}
+body.home .home-models .section-heading .section-kicker{grid-column:1/-1;margin:0}
+body.home .home-models .section-heading h2{margin:0;color:#193548;font:500 clamp(36px,4.5vw,60px)/1.04 'Space Grotesk',var(--sans);letter-spacing:-.065em}
+body.home .home-models .section-heading>p:last-child{max-width:24ch;margin:0 0 4px;font-size:13px;line-height:1.6}
+body.home .model-card{border-color:#d9e3df;border-radius:17px;background:#fff;box-shadow:0 9px 26px #20364908}
+body.home .model-card:hover{box-shadow:0 19px 36px #20364915}
+body.home .model-art{height:190px}
+body.home .model-card-body{padding:21px 21px 22px}
+body.home .model-card h3{font-family:'Space Grotesk',var(--sans);font-size:28px;letter-spacing:-.055em}
+body.home .model-card-body>p{font-size:13px;line-height:1.7}
+body.home .model-reveal{font-size:12px}
+
+@keyframes orbit-breathe{0%,100%{transform:rotate(-32deg) scale(1)}50%{transform:rotate(-27deg) scale(1.07)}}
+@media(max-width:1100px){body.home .future-hero{grid-template-columns:minmax(320px,.9fr) minmax(0,1.1fr);grid-template-rows:minmax(500px,62vw) auto}body.home .hero-heading h1{font-size:clamp(60px,8vw,92px)}body.home .living-field{height:clamp(450px,54vw,590px);margin-right:-2vw}body.home .home-projects{grid-template-columns:repeat(3,minmax(0,1fr))}body.home .home-project{grid-template-rows:210px 1fr}}
+@media(max-width:760px){body.home .future-hero{display:grid;grid-template-columns:1fr;grid-template-rows:auto auto auto;gap:0;padding:36px 22px 0;background:radial-gradient(ellipse at 80% 55%,#e5eefc 0,#f9fbf9 47%,#fbfcf8 76%)}body.home .hero-heading{grid-column:1;grid-row:1;padding:15px 0 0}body.home .hero-heading>.section-kicker{margin-bottom:24px;padding:8px 11px;font-size:8px}body.home .hero-heading h1{font-size:clamp(54px,11.6vw,82px);line-height:.98}body.home .hero-summary{grid-template-columns:1fr auto;align-items:center;gap:12px 15px;margin-top:24px;max-width:100%}body.home .hero-summary p{grid-column:1/-1;font-size:15px}body.home .hero-summary .button{padding:13px 18px;font-size:12px}body.home .hero-secondary{font-size:11px;white-space:nowrap}body.home .living-field{grid-column:1;grid-row:2;height:min(112vw,460px);min-height:330px;margin:27px -22px 0;border-radius:42% 42% 0 42%;}body.home .field-top{top:8%;font-size:7px}body.home .field-bottom{left:9%;right:9%;bottom:8%}body.home .field-bottom p{font-size:20px}body.home .hero-foot{grid-column:1;grid-row:3;display:flex;flex-wrap:wrap;gap:8px 20px;padding:16px 0 20px;min-height:0}body.home .hero-foot p{margin:0;font-size:11px}body.home .home-projects{grid-template-columns:1fr;padding:23px 22px 55px;gap:13px}body.home .home-project{grid-template-columns:.92fr 1.08fr;grid-template-rows:minmax(190px,34vw);border-radius:15px}body.home .home-project-art{min-height:190px}body.home .home-project-copy{align-content:center;padding:17px}body.home .home-project-copy>strong{font-size:22px}body.home .home-project-copy>span:not(.section-kicker){font-size:12px}body.home .home-models{padding:54px 22px 66px}body.home .home-models>.section-heading{display:block;margin-bottom:25px}body.home .home-models .section-heading h2{font-size:clamp(37px,8.5vw,53px)}body.home .home-models .section-heading>p:last-child{margin-top:14px;max-width:36ch}body.home .model-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}body.home .model-card{display:block}body.home .model-art{height:150px;min-height:0}body.home .model-card-body{padding:16px}body.home .model-card h3{font-size:24px}body.home .model-card-body>p{font-size:12px;min-height:0}body.home .model-card-tag{font-size:8px}}
+@media(max-width:460px){body.home .hero-summary{grid-template-columns:1fr;justify-items:start}body.home .hero-summary p{grid-column:auto}body.home .living-field{height:340px;min-height:0}body.home .field-top span:last-child{max-width:105px;text-align:right;line-height:1.5}body.home .home-project{grid-template-columns:1fr;grid-template-rows:168px auto}body.home .home-project-art{min-height:168px}body.home .home-project-copy{padding:17px 18px 19px}body.home .home-project-copy>span:not(.section-kicker){max-width:38ch}body.home .model-cards{grid-template-columns:1fr}body.home .model-card{display:grid;grid-template-columns:.78fr 1.22fr;min-height:188px}body.home .model-art{height:100%;min-height:188px}body.home .model-card-body{align-self:center;padding:15px}body.home .model-card h3{font-size:23px}body.home .model-card-body>p{line-height:1.55}}
+@media(prefers-reduced-motion:reduce){body.home .home-project--biocompute .compute-orbit,body.home .xira-art-ring{animation:none}body.home .hero-summary .button{transition:none}}
+
+/* Keep the scientific animation crisp and its controls clear of the artwork. */
+body.home .living-field{background:radial-gradient(ellipse at 53% 47%,#e5eefb 0,#edf2f3 42%,#e5eee9 100%)}
+body.home .living-field:before{background-image:linear-gradient(135deg,#f8fbf8a8,transparent 38%,#dce7f36b),radial-gradient(circle at 50% 50%,transparent 30%,#f7faf566 100%)}
+body.home .field-top{display:none}
+body.home .field-bottom{display:flex;align-items:end;justify-content:space-between;gap:14px}
+body.home .field-bottom p{max-width:27ch;margin:0;padding:12px 15px;border:1px solid #ffffffa8;border-radius:12px;background:#f8fbf4b8;backdrop-filter:blur(12px);box-shadow:0 8px 22px #314b5610}
+body.home .motion-toggle{flex:0 0 auto}
+@media(min-width:761px){body.home .field-bottom{left:14%}}
+@media(max-width:760px){body.home .living-field{width:calc(100% + 44px)}body.home .field-bottom p{max-width:19ch;padding:9px 11px;font-size:16px}body.home .field-bottom{gap:8px}body.home .motion-toggle{padding:8px 10px;font-size:8px}}
