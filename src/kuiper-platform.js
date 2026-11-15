@@ -1,4 +1,4 @@
-const demo = document.querySelector('.kh-demo');
+const demo = document.querySelector('.kh-platform-demo');
 if (demo) {
   const steps = {
     identity: {
@@ -27,7 +27,7 @@ if (demo) {
     }
   };
 
-  const tabs = [...demo.querySelectorAll('[role="tab"]')];
+  const tabs = [...demo.querySelectorAll('.kh-journey [role="tab"]')];
   const panel = demo.querySelector('[role="tabpanel"]');
   const setStep = tab => {
     const key = tab.dataset.step;
