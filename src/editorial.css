@@ -47,7 +47,7 @@ h1,h2,h3{letter-spacing:-.04em;font-weight:500}h2{line-height:1.13}p{line-height
  .site-header .brand img{width:152px;height:auto}
  .site-header nav{
   display:flex;align-items:center;gap:0;margin-left:auto;padding:5px 8px;border-radius:999px;
-  background:linear-gradient(120deg,rgba(236,199,108,.86),rgba(229,181,71,.88));
+  background:linear-gradient(120deg,var(--nav-start,rgba(236,199,108,.86)),var(--nav-end,rgba(229,181,71,.88)));
   box-shadow:inset 0 1px rgba(255,255,255,.35),0 5px 18px rgba(122,89,29,.12);
   -webkit-backdrop-filter:blur(20px) saturate(145%);backdrop-filter:blur(20px) saturate(145%);
  }
@@ -67,7 +67,7 @@ h1,h2,h3{letter-spacing:-.04em;font-weight:500}h2{line-height:1.13}p{line-height
  .site-header .header-cta:hover{background:#fff;color:#273553}
  .site-header .brand,.site-header nav,.site-header .header-cta,.site-header .menu{transition:background .2s ease,backdrop-filter .2s ease}
  .site-header.is-scrolled .brand,.site-header.is-scrolled .header-cta,.site-header.is-scrolled .menu{background:rgba(255,255,255,.64);-webkit-backdrop-filter:blur(8px) saturate(135%);backdrop-filter:blur(8px) saturate(135%)}
- .site-header.is-scrolled nav{background:linear-gradient(120deg,rgba(236,199,108,.67),rgba(229,181,71,.69));-webkit-backdrop-filter:blur(8px) saturate(135%);backdrop-filter:blur(8px) saturate(135%)}
+ .site-header.is-scrolled nav{background:linear-gradient(120deg,var(--nav-scrolled-start,rgba(236,199,108,.67)),var(--nav-scrolled-end,rgba(229,181,71,.69)));-webkit-backdrop-filter:blur(8px) saturate(135%);backdrop-filter:blur(8px) saturate(135%)}
  .site-header a:focus-visible,.site-header button:focus-visible{outline:3px solid #40599b;outline-offset:3px}
 }
 @media screen and (max-width:1000px){
@@ -89,13 +89,42 @@ h1,h2,h3{letter-spacing:-.04em;font-weight:500}h2{line-height:1.13}p{line-height
   border:1px solid rgba(255,255,255,.95);border-radius:22px;
   background:rgba(255,255,255,.95);box-shadow:0 16px 42px rgba(36,49,70,.18);
  }
+ .site-header.nav-open nav,.site-header.is-scrolled.nav-open nav{
+  background:linear-gradient(155deg,var(--nav-open-start,#fff4d8f2),var(--nav-open-end,#f8e7bbf5));
+ }
  .site-header.nav-open nav a{padding:13px 15px;font-size:14px;color:#273553}
 }
 @media screen and (max-width:400px){.site-header{padding-left:14px;padding-right:14px}.site-header .brand img{width:134px}.site-header.nav-open nav{right:14px;width:calc(100vw - 28px)}}
 @media (prefers-reduced-motion:reduce){.site-header .brand,.site-header nav,.site-header .header-cta,.site-header .menu{transition:none}}
-@media (prefers-reduced-transparency:reduce){.site-header .brand,.site-header .header-cta,.site-header .menu,.site-header.is-scrolled .brand,.site-header.is-scrolled .header-cta,.site-header.is-scrolled .menu{background:#fff;backdrop-filter:none}.site-header nav,.site-header.is-scrolled nav{background:#efd085;backdrop-filter:none}.site-header.nav-open nav,.site-header.is-scrolled.nav-open nav{background:#fff}}
+@media (prefers-reduced-transparency:reduce){.site-header .brand,.site-header .header-cta,.site-header .menu,.site-header.is-scrolled .brand,.site-header.is-scrolled .header-cta,.site-header.is-scrolled .menu{background:#fff;backdrop-filter:none}.site-header nav,.site-header.is-scrolled nav{background:linear-gradient(120deg,var(--nav-solid-start,#ead090),var(--nav-solid-end,#ddb95f));backdrop-filter:none}.site-header.nav-open nav,.site-header.is-scrolled.nav-open nav{background:linear-gradient(155deg,var(--nav-open-start,#fff4d8),var(--nav-open-end,#f8e7bb))}}
 @media (forced-colors:active){.site-header .brand,.site-header nav,.site-header .header-cta,.site-header .menu,.site-header.is-scrolled .brand,.site-header.is-scrolled nav,.site-header.is-scrolled .header-cta,.site-header.is-scrolled .menu{background:Canvas;color:CanvasText;border:1px solid CanvasText;box-shadow:none}.site-header nav a,.site-header.nav-open nav a{color:CanvasText}}
 @media(prefers-reduced-motion:reduce){.program-jump a{transition:none}.program-jump a:hover{transform:none}}
+
+/* Give the shared navigation capsule a page-specific color story. */
+body:has(.home-projects){--nav-start:rgba(237,196,104,.88);--nav-end:rgba(226,164,59,.9);--nav-scrolled-start:rgba(237,196,104,.68);--nav-scrolled-end:rgba(226,164,59,.7);--nav-solid-start:#edc468;--nav-solid-end:#e2a43b;--nav-open-start:#fff3d1f5;--nav-open-end:#f5dfb0f5}
+body:has(.kh){--nav-start:rgba(119,190,158,.88);--nav-end:rgba(57,143,133,.9);--nav-scrolled-start:rgba(119,190,158,.68);--nav-scrolled-end:rgba(57,143,133,.7);--nav-solid-start:#77be9e;--nav-solid-end:#398f85;--nav-open-start:#e2f4e9f5;--nav-open-end:#d2ece9f5}
+body:has(.project-hero){--nav-start:rgba(153,173,230,.9);--nav-end:rgba(110,112,199,.92);--nav-scrolled-start:rgba(153,173,230,.7);--nav-scrolled-end:rgba(110,112,199,.72);--nav-solid-start:#99ade6;--nav-solid-end:#6e70c7;--nav-open-start:#edf0fff5;--nav-open-end:#e1defaf5}
+body:has(.xira-hero){--nav-start:rgba(173,155,225,.9);--nav-end:rgba(119,104,190,.92);--nav-scrolled-start:rgba(173,155,225,.7);--nav-scrolled-end:rgba(119,104,190,.72);--nav-solid-start:#ad9be1;--nav-solid-end:#7768be;--nav-open-start:#f1edfff5;--nav-open-end:#e7e0fff5}
+body:has(.contact-page){--nav-start:rgba(123,190,199,.9);--nav-end:rgba(66,139,166,.92);--nav-scrolled-start:rgba(123,190,199,.7);--nav-scrolled-end:rgba(66,139,166,.72);--nav-solid-start:#7bbec7;--nav-solid-end:#428ba6;--nav-open-start:#e6f8faf5;--nav-open-end:#d8eef6f5}
+body:has(.team-section){--nav-start:rgba(226,176,154,.9);--nav-end:rgba(181,119,129,.92);--nav-scrolled-start:rgba(226,176,154,.7);--nav-scrolled-end:rgba(181,119,129,.72);--nav-solid-start:#e2b09a;--nav-solid-end:#b57781;--nav-open-start:#fff0e8f5;--nav-open-end:#f8e4e9f5}
+body:has(.model-detail){--nav-start:rgba(157,190,157,.9);--nav-end:rgba(94,151,126,.92);--nav-scrolled-start:rgba(157,190,157,.7);--nav-scrolled-end:rgba(94,151,126,.72);--nav-solid-start:#9dbe9d;--nav-solid-end:#5e977e;--nav-open-start:#eef7eaf5;--nav-open-end:#dcefe6f5}
+body:has(.application-list){--nav-start:rgba(235,174,127,.9);--nav-end:rgba(208,123,101,.92);--nav-scrolled-start:rgba(235,174,127,.7);--nav-scrolled-end:rgba(208,123,101,.72);--nav-solid-start:#ebae7f;--nav-solid-end:#d07b65;--nav-open-start:#fff0e0f5;--nav-open-end:#fbe1d7f5}
+body:has(.system-map){--nav-start:rgba(133,183,188,.9);--nav-end:rgba(78,142,155,.92);--nav-scrolled-start:rgba(133,183,188,.7);--nav-scrolled-end:rgba(78,142,155,.72);--nav-solid-start:#85b7bc;--nav-solid-end:#4e8e9b;--nav-open-start:#e9f7f7f5;--nav-open-end:#dceef3f5}
+body:has(.journal-hero){--nav-start:rgba(198,172,216,.9);--nav-end:rgba(147,125,188,.92);--nav-scrolled-start:rgba(198,172,216,.7);--nav-scrolled-end:rgba(147,125,188,.72);--nav-solid-start:#c6acd8;--nav-solid-end:#937dbc;--nav-open-start:#f6effbf5;--nav-open-end:#eae1f7f5}
+body:has(.research-grid),body:has(.xira-portfolio){--nav-start:rgba(149,173,220,.9);--nav-end:rgba(96,125,184,.92);--nav-scrolled-start:rgba(149,173,220,.7);--nav-scrolled-end:rgba(96,125,184,.72);--nav-solid-start:#95addc;--nav-solid-end:#607db8;--nav-open-start:#eff4fff5;--nav-open-end:#e0e9fbf5}
+body:has(.home-projects) .site-header nav a,
+body:has(.kh) .site-header nav a,
+body:has(.project-hero) .site-header nav a,
+body:has(.xira-hero) .site-header nav a,
+body:has(.contact-page) .site-header nav a,
+body:has(.team-section) .site-header nav a,
+body:has(.model-detail) .site-header nav a,
+body:has(.application-list) .site-header nav a,
+body:has(.system-map) .site-header nav a,
+body:has(.journal-hero) .site-header nav a,
+body:has(.research-grid) .site-header nav a,
+body:has(.xira-portfolio) .site-header nav a{color:#26313b}
+
 
 /* The homepage presents each flagship through one visual project card. */
 .home-projects{
