@@ -335,6 +335,37 @@
 @media(max-width:580px){.kh-journey{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.kh-journey button{min-height:112px}.kh-layer-panel{grid-template-columns:1fr;gap:10px}.kh-layer-graphic{height:115px}}
 @media(prefers-reduced-motion:reduce){.kh-journey button,.kh-data-chip{transition:none}.kh-journey button:hover{transform:none}}
 
+
+.kh-roadmap-section{background:linear-gradient(145deg,#eff5ef,#fafbf8 70%)}
+.kh-roadmap{border:1px solid #d7e2d9;border-radius:18px;padding:clamp(16px,3vw,30px);background:#ffffffc9;box-shadow:0 14px 38px #1f46300c}
+.kh-roadmap-track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;position:relative;margin-bottom:18px}
+.kh-roadmap-track:before{content:"";position:absolute;z-index:0;left:8%;right:8%;top:22px;border-top:2px solid #d4e0d6}
+.kh-roadmap-track button{position:relative;z-index:1;display:grid;justify-items:start;gap:7px;min-height:105px;padding:12px;border:1px solid transparent;border-radius:12px;background:transparent;color:var(--kuiper-ink);text-align:left;cursor:pointer}
+.kh-roadmap-track button[aria-selected=true]{border-color:#b9d1c0;background:#f5faf5}
+.kh-roadmap-track button:focus-visible{outline:2px solid #2455b8;outline-offset:2px}
+.kh-roadmap-track button>span{display:grid;place-items:center;width:44px;height:44px;border:1px solid #b4cbb9;border-radius:50%;background:#f6faf6;color:#426f52;font:12px var(--mono)}
+.kh-roadmap-track button[aria-selected=true]>span{background:#e9c46c;border-color:#bd9d52;color:#3a2d11}
+.kh-roadmap-track strong{font-size:16px}
+.kh-roadmap-track small{color:var(--kuiper-muted);font-size:11px;line-height:1.35}
+.kh-roadmap-panel{display:grid;grid-template-columns:minmax(180px,.7fr) minmax(0,1.5fr);gap:clamp(20px,4vw,55px);align-items:center;min-height:290px;padding:clamp(20px,4vw,48px);overflow:hidden;border-radius:14px;background:#152d34;color:#f4f7f1}
+.kh-roadmap-visual{position:relative;display:grid;place-items:center;min-height:200px;border-radius:12px;background:radial-gradient(ellipse at center,#466b5b 0,#233e42 46%,transparent 75%)}
+.kh-roadmap-visual>span{position:relative;z-index:1;font:clamp(50px,8vw,100px) var(--sans);letter-spacing:-.08em;color:#f1cc76}
+.kh-roadmap-orbit{position:absolute;width:80%;height:42%;border:1px solid #b9d0bf;border-radius:50%;transform:rotate(-28deg)}
+.kh-roadmap-orbit:before,.kh-roadmap-orbit:after{content:"";position:absolute;inset:-1px;border:1px solid #729a82;border-radius:50%;transform:rotate(58deg)}
+.kh-roadmap-orbit:after{transform:rotate(118deg)}
+.kh-roadmap-visual i,.kh-roadmap-visual b{position:absolute;width:9px;height:9px;border-radius:50%;background:#f2cf7b;box-shadow:0 0 0 5px #f2cf7b24}
+.kh-roadmap-visual i{left:18%;top:31%}.kh-roadmap-visual b{right:19%;bottom:27%}
+.kh-roadmap-detail .section-kicker{color:#b6d9bf}
+.kh-roadmap-detail h3{margin:12px 0;font-size:clamp(27px,4vw,46px);line-height:1.08;color:#fff}
+.kh-roadmap-detail>p:not(.section-kicker){max-width:58ch;color:#d0ddd5;line-height:1.65}
+.kh-roadmap-proof{display:grid;gap:5px;margin-top:19px;padding-top:14px;border-top:1px solid #ffffff38;color:#d0ddd5;font-size:13px;line-height:1.55}
+.kh-roadmap-proof strong{color:#f2cf7b;font:11px var(--mono);text-transform:uppercase}
+.kh-roadmap-status{margin:14px 0 0;color:#b7c8bf;font:10px/1.5 var(--mono)}
+.kh-roadmap[data-phase=product] .kh-roadmap-visual{background:radial-gradient(ellipse at center,#647499,#26384d 48%,transparent 75%)}
+.kh-roadmap[data-phase=pilot] .kh-roadmap-visual{background:radial-gradient(ellipse at center,#63856c,#293f39 48%,transparent 75%)}
+.kh-roadmap[data-phase=regional] .kh-roadmap-visual{background:radial-gradient(ellipse at center,#527b80,#263e45 48%,transparent 75%)}
+@media(max-width:650px){.kh-roadmap-track{grid-template-columns:repeat(2,minmax(0,1fr))}.kh-roadmap-track:before{display:none}.kh-roadmap-track button{min-height:96px}.kh-roadmap-panel{grid-template-columns:1fr}.kh-roadmap-visual{min-height:150px}}
+
 @media (max-width: 850px) {
   .kh-system, .kh-system--wide { grid-template-columns: 1fr; }
   .kh-system li:not(:last-child)::after {
