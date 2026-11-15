@@ -68,6 +68,27 @@ if(menu&&nav){
  nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>toggle(false)));
  document.addEventListener('keydown',event=>{if(event.key==='Escape'){toggle(false);if(document.activeElement.closest('nav'))menu.focus();}});
 }
+// A contextual section bar appears on long-form pages and stays consistent site-wide.
+const mainContent=document.querySelector('main'),siteHeader=document.querySelector('.site-header');
+if(mainContent&&siteHeader&&!document.querySelector('.site-section-nav')){
+ const topSections=[...mainContent.children].flatMap(child=>child.matches('section')?[child]:[...child.children].filter(item=>item.matches('section')));
+ const sections=topSections.map(section=>{
+  const heading=section.matches('.insights-masthead')?section.querySelector('h1'):section.querySelector('h2');
+  if(!heading)return null;
+  const label=(section.dataset.navLabel||(heading.innerText||heading.textContent||'')).replace(/\s+/g,' ').trim();
+  if(!label)return null;
+  if(!section.id){let id=label.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'section';let unique=id,n=2;while(document.getElementById(unique)){unique=id+'-'+n++;}section.id=unique;}
+  return {section,label,id:section.id};
+ }).filter(Boolean);
+ if(sections.length>1){
+  const bar=document.createElement('div');bar.className='site-section-nav';bar.setAttribute('aria-label','Page sections');
+  const title=document.createElement('span');title.className='site-section-nav-label';title.textContent='ON THIS PAGE';
+  const links=document.createElement('nav');links.setAttribute('aria-label','On this page');
+  sections.forEach(({section,label,id},index)=>{const link=document.createElement('a');link.href='#'+id;link.textContent=label;link.setAttribute('data-section-link','');link.addEventListener('click',()=>{links.querySelectorAll('a').forEach(a=>a.removeAttribute('aria-current'));link.setAttribute('aria-current','location');});links.append(link);if(index===0)link.setAttribute('aria-current','location');section.classList.add('has-section-nav-target');});
+  bar.append(title,links);siteHeader.after(bar);
+  if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>{const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top)[0];if(visible){links.querySelectorAll('a').forEach(link=>{if(link.hash==='#'+visible.target.id)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});}},{rootMargin:'-20% 0px -68% 0px',threshold:0});sections.forEach(({section})=>observer.observe(section));}
+ }
+}
 // Particle artwork is independent of the navigation and disclosure controls.
 const canvas=document.querySelector('#biology-field');
 if(canvas){

@@ -1,0 +1,13 @@
+/* Shared page-level navigation sits beneath the global header and becomes a slim sticky index. */
+.site-section-nav{position:sticky;z-index:25;top:0;display:flex;align-items:center;gap:clamp(18px,4vw,58px);min-height:56px;padding:0 var(--space);border-bottom:1px solid #d7e2dc;background:linear-gradient(105deg,#fbfcf3eF,#f3f8f7eF 60%,#f3f5fceF);box-shadow:0 8px 24px #1d3d4c08;backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%)}
+.site-section-nav-label{flex:0 0 auto;color:#5c7774;font:8px var(--mono);letter-spacing:.12em;white-space:nowrap}
+.site-section-nav nav{display:flex;align-items:center;gap:clamp(16px,3vw,38px);min-width:0;overflow-x:auto;scrollbar-width:none}
+.site-section-nav nav::-webkit-scrollbar{display:none}
+.site-section-nav a{position:relative;display:flex;align-items:center;min-height:56px;color:#4e686d;font:10px/1.3 var(--sans);text-decoration:none;white-space:nowrap;transition:color .18s}
+.site-section-nav a:after{position:absolute;right:0;bottom:0;left:0;height:2px;transform:scaleX(0);transform-origin:left;background:#315bd7;content:"";transition:transform .18s}
+.site-section-nav a:hover,.site-section-nav a[aria-current=location]{color:#1d4051}
+.site-section-nav a[aria-current=location]:after{transform:scaleX(1)}
+.site-section-nav a:focus-visible{outline:2px solid #315bd7;outline-offset:-4px}
+.has-section-nav-target{scroll-margin-top:72px}
+@media(max-width:760px){.site-section-nav{top:0;gap:13px;min-height:49px;padding-inline:20px}.site-section-nav-label{font-size:7px}.site-section-nav nav{gap:19px}.site-section-nav a{min-height:49px;font-size:10px}.has-section-nav-target{scroll-margin-top:60px}}
+@media(prefers-reduced-motion:reduce){.site-section-nav a,.site-section-nav a:after{transition:none}}
