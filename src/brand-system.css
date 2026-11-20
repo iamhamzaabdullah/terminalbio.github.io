@@ -1,0 +1,104 @@
+/* terminalbio brand system: mineral neutrals, ink navy, and a measured vermilion accent. */
+:root{
+  --ink:#1c3042;
+  --paper:#fbfaf8;
+  --line:#dce2e6;
+  --muted:#5a6a78;
+  --acid:#b7443d;
+  --violet:#84535a;
+  --home-ink:#1c3042;
+  --home-blue:#456c87;
+  --home-teal:#557e79;
+  --home-paper:#fbfaf8;
+  --space:clamp(22px,5vw,88px);
+}
+body{background:var(--paper);color:var(--ink)}
+::selection{background:#b7443d;color:#fff}
+em{color:#a9443f}
+.section-kicker,.xira-kicker{color:#8d4d4a}
+.status-dot{background:#b7443d;box-shadow:0 0 0 4px #b7443d20}
+.site-header{border-color:#dce2e6;background:rgba(251,250,248,.86);-webkit-backdrop-filter:blur(18px) saturate(135%);backdrop-filter:blur(18px) saturate(135%)}
+.site-header nav a,.site-header nav a.active{color:#304657}
+.site-header nav a:hover,.site-header nav a.active{color:#a43c38}
+.site-header .menu i{background:#243a4d}
+.button,.xira-button,.header-cta{background:#a93e39;border-color:#a93e39;color:#fff}
+.button:hover,.xira-button:hover,.header-cta:hover{background:#87332f;border-color:#87332f;color:#fff;box-shadow:0 8px 20px #87332f1c}
+.text-link,.hero-secondary{color:#93423e;border-color:#c98b85}
+.text-link:hover,.hero-secondary:hover{color:#702f2d;border-color:#702f2d}
+.site-header a:focus-visible,.site-header button:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline-color:#b7443d}
+
+/* Keep the floating navigation distinct by page, but within one red family. */
+body:has(.home-projects){--nav-start:rgba(232,190,185,.92);--nav-end:rgba(213,151,150,.94);--nav-scrolled-start:rgba(232,190,185,.76);--nav-scrolled-end:rgba(213,151,150,.78);--nav-solid-start:#e8beb9;--nav-solid-end:#d59796;--nav-open-start:#fff4f0f5;--nav-open-end:#f2deddF5}
+body:has(.kh){--nav-start:rgba(229,188,181,.92);--nav-end:rgba(202,139,137,.94);--nav-scrolled-start:rgba(229,188,181,.76);--nav-scrolled-end:rgba(202,139,137,.78);--nav-solid-start:#e5bcb5;--nav-solid-end:#ca8b89;--nav-open-start:#fff2eff5;--nav-open-end:#f1dcdbf5}
+body:has(.project-hero){--nav-start:rgba(226,185,181,.92);--nav-end:rgba(193,131,136,.94);--nav-scrolled-start:rgba(226,185,181,.76);--nav-scrolled-end:rgba(193,131,136,.78);--nav-solid-start:#e2b9b5;--nav-solid-end:#c18388;--nav-open-start:#fff2eff5;--nav-open-end:#eedbddf5}
+body:has(.xira-hero){--nav-start:rgba(221,181,184,.92);--nav-end:rgba(182,119,130,.94);--nav-scrolled-start:rgba(221,181,184,.76);--nav-scrolled-end:rgba(182,119,130,.78);--nav-solid-start:#ddb5b8;--nav-solid-end:#b67782;--nav-open-start:#fff1f1f5;--nav-open-end:#eed9e0f5}
+body:has(.contact-page){--nav-start:rgba(237,199,188,.92);--nav-end:rgba(211,147,132,.94);--nav-scrolled-start:rgba(237,199,188,.76);--nav-scrolled-end:rgba(211,147,132,.78);--nav-solid-start:#edc7bc;--nav-solid-end:#d39384;--nav-open-start:#fff5eff5;--nav-open-end:#f4dfd7f5}
+body:has(.team-section){--nav-start:rgba(233,195,185,.92);--nav-end:rgba(203,143,137,.94);--nav-scrolled-start:rgba(233,195,185,.76);--nav-scrolled-end:rgba(203,143,137,.78);--nav-solid-start:#e9c3b9;--nav-solid-end:#cb8f89;--nav-open-start:#fff4eff5;--nav-open-end:#f3dfdcf5}
+body:has(.model-detail){--nav-start:rgba(224,190,179,.92);--nav-end:rgba(186,133,126,.94);--nav-scrolled-start:rgba(224,190,179,.76);--nav-scrolled-end:rgba(186,133,126,.78);--nav-solid-start:#e0beb3;--nav-solid-end:#ba857e;--nav-open-start:#fff5eff5;--nav-open-end:#efe0dcf5}
+body:has(.application-list){--nav-start:rgba(235,196,177,.92);--nav-end:rgba(207,143,125,.94);--nav-scrolled-start:rgba(235,196,177,.76);--nav-scrolled-end:rgba(207,143,125,.78);--nav-solid-start:#ebc4b1;--nav-solid-end:#cf8f7d;--nav-open-start:#fff5eff5;--nav-open-end:#f4dfd7f5}
+body:has(.system-map){--nav-start:rgba(222,192,187,.92);--nav-end:rgba(180,139,143,.94);--nav-scrolled-start:rgba(222,192,187,.76);--nav-scrolled-end:rgba(180,139,143,.78);--nav-solid-start:#dec0bb;--nav-solid-end:#b48b8f;--nav-open-start:#fff4f1f5;--nav-open-end:#ece0e2f5}
+body:has(.journal-hero){--nav-start:rgba(233,194,197,.92);--nav-end:rgba(196,139,152,.94);--nav-scrolled-start:rgba(233,194,197,.76);--nav-scrolled-end:rgba(196,139,152,.78);--nav-solid-start:#e9c2c5;--nav-solid-end:#c48b98;--nav-open-start:#fff3f4f5;--nav-open-end:#f1dfe5f5}
+body:has(.research-grid),body:has(.xira-portfolio){--nav-start:rgba(222,187,185,.92);--nav-end:rgba(184,132,137,.94);--nav-scrolled-start:rgba(222,187,185,.76);--nav-scrolled-end:rgba(184,132,137,.78);--nav-solid-start:#debbb9;--nav-solid-end:#b88489;--nav-open-start:#fff3f2f5;--nav-open-end:#eedfe1f5}
+.site-header nav{background:linear-gradient(120deg,var(--nav-start,#e8beb9),var(--nav-end,#d59796))}
+.site-header.is-scrolled nav{background:linear-gradient(120deg,var(--nav-scrolled-start,#e8beb9),var(--nav-scrolled-end,#d59796))}
+.site-header.nav-open nav,.site-header.is-scrolled.nav-open nav{background:linear-gradient(155deg,var(--nav-open-start,#fff4f0f5),var(--nav-open-end,#f2deddf5))}
+.site-header nav a,.site-header nav a.active{color:#263b4b}
+.site-header nav a:hover,.site-header nav a:focus-visible{color:#762e2c;background:rgba(255,255,255,.36)}
+.site-header .header-cta{background:rgba(255,255,255,.48);border-color:#ffffffa8;color:#263b4b}
+.site-header.is-scrolled .header-cta{background:rgba(255,255,255,.78)}
+
+/* Shared product, research, and editorial surfaces. */
+.page-hero-v2,.page-hero-v2.compact,.contact-page{background-color:#f3f4f3}
+.dark-panel,.arc-panel,.xira-note{background:#e9edf0;color:#1c3042}
+.dark-panel h2,.arc-panel h3,.xira-note p{color:#1c3042}
+.dark-panel em,.xira-hero h1 em{color:#a9443f}
+.dark-panel .button,.xira-note .xira-button{background:#a93e39;color:#fff}
+.map-grid{background:#dce2e6;border-color:#dce2e6}
+.map-grid article,.research-grid article,.xira-workstreams article,.capability-grid article,.project-card{background:#f7f8f7;color:#1c3042;border-color:#dce2e6}
+.map-grid b,.scale b,.model-index,.detail-grid b{color:#9b4641}
+.scale.active,.application-list article.selected,.application-list .inline-insight{background:#f5e8e5}
+.application-list .insight-toggle,.xira-filter{border-color:#d8b5b0}
+.program-jump a:hover{background:#f7ebe9}
+.program-jump b{color:#a9443f}
+.architecture-band strong{color:#27445b}
+.page-orbit{color:#a9443f}
+.xira-hero{background-color:#25394b;color:#fff}
+.xira-hero .xira-kicker,.xira-hero .xira-meta{color:#d5dfe7}
+.xira-hero:after{border-color:#c05c5433;box-shadow:0 0 0 5vw #c05c5408,0 0 0 10vw #c05c5405}
+.xira-flow{background:#dce2e6}
+.xira-workstreams article{border-top-color:#d3dce2}
+.xira-filter[aria-pressed="true"],.xira-filter.active{background:#a93e39;border-color:#a93e39;color:#fff}
+
+/* Homepage keeps its composition and gains the same quiet red signal. */
+body.home .hero-heading h1 span{color:#df9b91}
+body.home .hero-summary .button,body.home .final-cta .button{background:#a93e39;border-color:#a93e39;color:#fff}
+body.home .hero-summary .button:hover,body.home .final-cta .button:hover{background:#87332f;border-color:#87332f;color:#fff}
+body.home .hero-carousel-controls button[aria-pressed=true]{border-color:#e3b1a8;background:#e3b1a8;color:#20354a}
+body.home .hero-foot>span{color:#e4b6ad}
+body.home .home-project-copy>b,body.home .home-models .model-reveal{color:#a9443f}
+body.home .home-project:hover{border-color:#d0aaa5}
+body.home .program h3,body.home .program h3 span,body.home .program:last-child h3 span{color:#9f4845}
+body.home .program-link{color:#93423e}
+body.home .final-cta .section-kicker{color:#93423e}
+
+/* Biocompute and blog keep their own layouts, sharing the same signal color. */
+body:has(.bc-story){--bcv:#a9443f;--bct:#557e79}
+.bc-runtime-heading .bc-eyebrow,.bc-section-top .bc-eyebrow{color:#93423e}
+.bc-runtime-heading h2 em,.bc-model-section>h2 em,.bc-scale-section>h2 em{color:#a9443f}
+.bc-console-action,.bc-run-button,.bc-tool[aria-pressed="true"],.bc-tab[aria-selected="true"]{background:#a93e39!important;border-color:#a93e39!important;color:#fff!important}
+.journal-masthead h1 em,.journal-feature-label{color:#a9443f}
+.journal-mark-orbit i,.journal-card .journal-art>b{background:#b7443d;box-shadow:0 0 0 7px #b7443d26}
+.journal-mark-orbit b{background:#456c87;box-shadow:0 0 0 5px #456c872a}
+.journal-filters button[aria-pressed="true"]{border-color:#a93e39;background:#a93e39;color:#fff}
+.journal-search-label input:focus,.journal-search-label input:focus-visible{border-color:#b7443d;box-shadow:0 0 0 3px #b7443d1c}
+.journal-read-link{color:#93423e}
+.journal-read-link span{border-color:#d7b9b5}
+.journal-card:hover{border-color:#c8a19c}
+
+/* The compact mobile header remains readable over each tinted navigation capsule. */
+@media(max-width:760px){
+  .site-header.nav-open nav,.site-header.is-scrolled.nav-open nav{border-color:#d5b7b3;box-shadow:0 18px 36px #1c30421c}
+  .site-header.nav-open nav a,.site-header.is-scrolled.nav-open nav a{color:#263b4b}
+  .home-project,.model-card,.journal-card,.project-card{box-shadow:0 7px 20px #20354a0c}
+}
+@media(prefers-reduced-transparency:reduce){.site-header,.site-header.is-scrolled{background:#fbfaf8;backdrop-filter:none}}
