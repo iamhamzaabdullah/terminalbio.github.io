@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" fill="none">
+  <defs>
+    <linearGradient id="field" x1="180" y1="70" x2="1420" y2="980" gradientUnits="userSpaceOnUse"><stop stop-color="#172b3d"/><stop offset=".58" stop-color="#203b51"/><stop offset="1" stop-color="#152a3d"/></linearGradient>
+    <radialGradient id="cell" cx="0" cy="0" r="1" gradientTransform="matrix(0 410 -475 0 1140 470)" gradientUnits="userSpaceOnUse"><stop stop-color="#7399ac" stop-opacity=".26"/><stop offset=".72" stop-color="#56788e" stop-opacity=".11"/><stop offset="1" stop-color="#56788e" stop-opacity="0"/></radialGradient>
+    <radialGradient id="nucleus" cx="0" cy="0" r="1" gradientTransform="matrix(0 145 -175 0 1120 468)" gradientUnits="userSpaceOnUse"><stop stop-color="#c96f69" stop-opacity=".52"/><stop offset="1" stop-color="#c96f69" stop-opacity="0"/></radialGradient>
+    <linearGradient id="strand" x1="770" y1="230" x2="1510" y2="770" gradientUnits="userSpaceOnUse"><stop stop-color="#91b5c4" stop-opacity=".1"/><stop offset=".5" stop-color="#a9c8d1" stop-opacity=".8"/><stop offset="1" stop-color="#c86c65" stop-opacity=".55"/></linearGradient>
+    <pattern id="grid" width="52" height="52" patternUnits="userSpaceOnUse"><path d="M52 0H0v52" stroke="#dce7ec" stroke-opacity=".045"/></pattern>
+    <filter id="blur" x="690" y="85" width="850" height="830" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="55"/></filter>
+  </defs>
+  <path fill="url(#field)" d="M0 0h1600v1000H0z"/><path fill="url(#grid)" d="M0 0h1600v1000H0z"/>
+  <ellipse cx="1115" cy="492" rx="366" ry="346" fill="url(#cell)" filter="url(#blur)"/>
+  <g stroke="#a9c3ce" stroke-opacity=".22"><path d="M765 245c208-152 479-126 628 65s103 442-88 584-467 135-616-37"/><path d="M813 213c239-116 497-41 602 171s29 464-183 564-477 51-590-164"/><path d="M854 186c260-73 494 53 556 283s-48 466-279 523-476-30-534-265"/></g>
+  <ellipse cx="1122" cy="480" rx="187" ry="183" fill="url(#nucleus)"/>
+  <g stroke="url(#strand)" stroke-width="2"><path d="M746 713c168-203 244-426 431-457s250 145 402 38"/><path d="M720 648c184-142 280-305 443-296s228 203 406 164"/><path d="M748 551c167-78 264-172 408-111s232 206 389 231"/><path d="M807 415c130-16 230-66 345 27s215 191 350 256"/></g>
+  <g stroke="#d7e4e9" stroke-opacity=".54" stroke-width="1.5"><path d="m842 308 170 125 111-155 188 112 109-72"/><path d="m789 565 188-132 144 184 190-227 109 158"/><path d="m873 729 104-296 144 296 190-227 199 179"/></g>
+  <g fill="#d5e3e9"><circle cx="842" cy="308" r="4"/><circle cx="1012" cy="433" r="5"/><circle cx="1123" cy="278" r="4"/><circle cx="1311" cy="390" r="5"/><circle cx="1420" cy="318" r="4"/><circle cx="789" cy="565" r="4"/><circle cx="977" cy="433" r="4"/><circle cx="1121" cy="617" r="5"/><circle cx="1311" cy="390" r="4"/><circle cx="1420" cy="548" r="5"/><circle cx="873" cy="729" r="4"/><circle cx="977" cy="433" r="3"/><circle cx="1121" cy="729" r="4"/><circle cx="1311" cy="502" r="4"/><circle cx="1510" cy="681" r="4"/></g>
+  <g fill="#d38279"><circle cx="1012" cy="433" r="7"/><circle cx="1311" cy="502" r="7"/><circle cx="1420" cy="318" r="6"/></g>
+  <g stroke="#d8e5ea" stroke-opacity=".16"><path d="M730 840h770"/><path d="M902 166v672"/></g>
+  <g fill="#c7d6dd" font-family="Arial,sans-serif" font-size="12" letter-spacing="2"><text x="925" y="875">MOLECULAR STATE</text><text x="1260" y="875">HUMAN HEALTH</text></g>
+  <g fill="#d38279"><circle cx="746" cy="713" r="3"/><circle cx="1510" cy="681" r="3"/></g>
+</svg>
