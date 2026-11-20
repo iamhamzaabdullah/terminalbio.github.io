@@ -1,0 +1,54 @@
+/* Homepage art direction: editorial confidence, precise red signal, restrained surfaces. */
+body.home .future-hero{min-height:clamp(650px,calc(100svh - 90px),820px);margin:12px clamp(12px,1.6vw,24px) 0;padding-inline:clamp(26px,5.4vw,78px);border:1px solid #d8e0e6;border-radius:18px;background:#1c3042}
+body.home .hero-heading{max-width:850px;padding-bottom:34px}
+body.home .hero-slide{max-width:850px}
+body.home .hero-heading h1{max-width:850px;font-size:clamp(54px,7.4vw,104px);line-height:.99;letter-spacing:-.062em}
+body.home .hero-heading h1 span{letter-spacing:-.062em}
+body.home .hero-heading>.hero-slide .section-kicker{margin-bottom:24px;border-color:#ffffff38;background:#1c3042a6;color:#e8edf1}
+body.home .hero-summary{max-width:720px;margin-top:25px}
+body.home .hero-summary p{max-width:42ch;color:#eef2f5;font-size:16px;line-height:1.65}
+body.home .hero-summary .button{padding:14px 19px;border-radius:7px;font-size:11px;letter-spacing:.015em}
+body.home .living-field .hero-photo{filter:saturate(.55) brightness(.78)}
+body.home .living-field:before{background:linear-gradient(90deg,#172a3ef2 0%,#172a3ee8 29%,#172a3e9d 51%,#172a3e38 76%,#172a3e0a 100%),linear-gradient(0deg,#172a3e94 0%,transparent 29%)}
+body.home .hero-carousel-controls{gap:7px;margin-top:23px}
+body.home .hero-carousel-controls button{min-height:37px;border-radius:7px;background:#172a3e8c;color:#e5ebef}
+body.home .hero-carousel-controls button span{background:#ffffff1a;color:inherit}
+body.home .field-bottom p{border-radius:8px;background:#172a3ebd;color:#f7f8fa}
+body.home .motion-toggle{border-radius:7px;background:#172a3ebd;color:#f7f8fa}
+body.home .hero-foot{border-color:#ffffff34}
+body.home .home-projects{padding-top:82px;padding-bottom:88px;background:#fbfaf8}
+body.home .home-project-intro h2,body.home .home-models>.section-heading h2{letter-spacing:-.052em}
+body.home .home-project{border-radius:13px;box-shadow:0 12px 32px #1c30420b}
+body.home .home-project:hover{transform:translateY(-3px);box-shadow:0 20px 42px #1c304217}
+body.home .home-project-copy{gap:8px;padding:20px 23px 22px}
+body.home .home-project-copy>strong{letter-spacing:-.035em}
+body.home .home-models{background:#edf1f4}
+body.home .home-models .model-card{border-radius:12px;box-shadow:0 8px 22px #1c30420b}
+body.home .home-models .model-card:hover{transform:translateY(-3px);box-shadow:0 16px 32px #1c304217}
+body.home .home-models .model-card h3{letter-spacing:-.035em}
+body.home .home-models .model-card-body>p{line-height:1.65}
+body.home .applications{background:#fbfaf8}
+body.home .application-explorer{border-radius:13px;box-shadow:0 14px 36px #1c30420c}
+body.home .application-controls button{transition:background .2s,border-color .2s,color .2s}
+body.home .application-result{background:linear-gradient(135deg,#fff,#f0f3f5)}
+body.home .research-bridge{background:#f0f2f3}
+body.home .program,body.home .program:last-child{min-height:340px;border-radius:13px}
+body.home .program h3{letter-spacing:-.052em}
+body.home .final-cta{background:linear-gradient(140deg,#f3e9e7,#fbfaf8 64%)}
+body.home .final-cta h2{letter-spacing:-.052em}
+@media(max-width:760px){
+  body.home .future-hero{min-height:max(680px,calc(100svh - 76px));margin:8px 8px 0;padding-inline:20px;border-radius:14px}
+  body.home .hero-heading{padding-top:clamp(116px,18vh,155px);padding-bottom:22px}
+  body.home .hero-heading h1{font-size:clamp(47px,10.4vw,74px);line-height:1.02;letter-spacing:-.055em}
+  body.home .hero-heading h1 span{letter-spacing:-.055em}
+  body.home .hero-summary{margin-top:19px}
+  body.home .hero-summary p{font-size:14px;line-height:1.6}
+  body.home .hero-carousel-controls{margin-top:19px}
+  body.home .hero-carousel-controls button{min-height:35px;border-radius:6px}
+  body.home .home-projects{padding-top:58px!important;padding-bottom:64px!important}
+  body.home .home-project{border-radius:12px!important}
+  body.home .home-models{background:#edf1f4}
+  body.home .home-models .model-card{border-radius:11px!important}
+  body.home .research-bridge,.home .applications{background:#f4f5f5}
+}
+@media(prefers-reduced-motion:reduce){body.home .hero-photo,body.home .home-project,body.home .home-models .model-card{transition:none!important}}
