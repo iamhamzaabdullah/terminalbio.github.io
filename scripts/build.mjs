@@ -15,7 +15,8 @@ async function applyBrandStyles(dir,rel=''){
     if(item.isDirectory())await applyBrandStyles(dir,child);
     else if(item.isFile()&&item.name.endsWith('.html')&&!child.startsWith('p/geno/')){
       const path=resolve(dir,child),html=await readFile(path,'utf8');
-      if(!html.includes('src/brand-system.css'))await writeFile(path,html.replace('</head>','<link rel="stylesheet" href="/src/brand-system.css?v=20261120"></head>'));
+      if(!html.includes('src/brand-system.css'))await writeFile(path,html.replace('</head>','<link rel="stylesheet" href="/src/brand-system.css?v=20261121-header-panel"></head>'));
+      else await writeFile(path,html.replace(/src\/brand-system\.css\?v=[^"']+/, 'src/brand-system.css?v=20261121-header-panel'));
     }
   }
 }
