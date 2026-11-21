@@ -164,3 +164,6 @@ body:has(.xira-portfolio) .site-header nav a{color:#26313b}
 @media(prefers-reduced-motion:reduce){.home-project,.home-project-art>img{transition:none}.home-project:hover,.home-project:hover .home-project-art>img{transform:none}}
 
 footer .brand img{width:152px;height:auto}
+/* Scrolled header: keep the existing layout, remove the floating backplates. */
+.site-header.is-scrolled:not(.nav-open){background:transparent!important;border-bottom-color:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.site-header.is-scrolled:not(.nav-open) nav,.site-header.is-scrolled:not(.nav-open) .brand,.site-header.is-scrolled:not(.nav-open) .header-cta,.site-header.is-scrolled:not(.nav-open) .menu{background:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}

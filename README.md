@@ -1,33 +1,40 @@
-# terminalbio — Official Multi-Page Website
+# terminalbio website
 
-Static multi-page web architecture for **terminalbio** (`terminalbio.com`), engineered for zero-build deployment on **GitHub Pages**.
+Static, responsive website for terminalbio, including Biocompute, the Biological World Model, specialist models, and the XIRA research programs.
 
-## Directory Structure
+## Run locally
 
-```text
-├── index.html                  # Home — Biological Intelligence, Interactive Tensor Canvas & Closed Loop
-├── biocompute/index.html       # Flagship Platform — Biocompute Engine
-├── models/index.html           # Model Layer — BindFM, XUZU, and RNX
-├── applications/index.html     # Intervention Space — Interactive 4-Track Explorer
-├── research/index.html         # Research Horizons — XIRA 2040 & XIRA 3 Multi-Scale Matrix
-├── kuiperhealth/index.html     # Connected Health — Kuiper Health (Indonesia)
-├── about/index.html            # About — Scientific Symmetry & Operating Principles
-├── contact/index.html          # Contact — Structured Research Inquiry & support@terminalbio.com
-├── 404.html                    # Custom GitHub Pages 404 Page
-├── .nojekyll                   # Bypasses Jekyll processing on GitHub Pages
-└── assets/
-    ├── css/styles.css          # Architectural design system & responsive hairline grid
-    ├── js/main.js              # Interactive biomolecular canvas, loop tabs & filters
-    └── img/
-        ├── logo-horizontal.svg
-        ├── logo-horizontal-dark.svg
-        ├── logo-stacked.svg
-        └── favicon.svg
-```
+Run `npm run build`, then `python -m http.server 4173 --directory dist`. Open http://localhost:4173.
 
-## Deploying to GitHub Pages
+Run `npm ci` once before building. Dependencies are locked; Markdown is rendered and sanitized at build time.
 
-1. Push the contents of this folder directly to the root of your GitHub repository (or `/docs` folder).
-2. Open **Settings → Pages** in your GitHub repository.
-3. Under **Build and deployment**, select **Deploy from a branch** (`main` / `root`).
-4. If using a custom domain, add `terminalbio.com` in the **Custom domain** field (which automatically manages your `CNAME` record).
+## Check and build
+
+- `npm run check`: validate local links, assets, and the 26 XIRA3 study records.
+- `npm run build`: produce the deployment in `dist/`.
+
+## Publish to GitHub Pages
+
+Upload the project files to the repository root, retaining `.github/workflows/deploy-pages.yml`, `scripts/`, all page folders, and `src/`. Push to main. The workflow builds the site and deploys only `dist/`.
+
+`CNAME` retains terminalbio.com. All page links use clean directory routes, including `/biocompute/`.
+
+## Interactions
+
+## Blog and browser editor
+
+The approved visual design is preserved. Blog articles build to `/blog/<filename>/` from JSON records in `content/posts/`. Only records with `published: true` appear on the website. Dates are display dates, not a scheduler. No example article is published.
+
+After uploading this project (including the hidden `.pages.yml`, `package-lock.json`, and updated workflow), visit https://app.pagescms.org/, sign in with GitHub, and authorize the Pages CMS GitHub App for **only** `iamhamzaabdullah/terminalbio.github.io`. Select `main`, then **Blog articles**. The editor also has an entry page at `/admin/`. This third-party permission must be approved by the repository owner; it has not been granted by this implementation.
+
+Write in the rich-text editor, review the formatted content, and save with **Publish on the website** disabled to draft. Enable it and save to publish. The existing GitHub Actions workflow installs locked dependencies, tests the renderer, and deploys the blog automatically. The editor previews content formatting; it is not a pixel-identical live-site preview. A future date does not delay publication.
+
+**Public repository warning:** drafts are excluded from the deployed article pages, but draft source and uploaded media remain visible in the public repository and Git history. Do not save confidential research. Deleting a post does not erase its Git history. Unpublishing takes effect after a successful deployment.
+
+Use lowercase, hyphen-separated filenames and keep them stable after publishing: filenames determine article URLs. Images go in `src/uploads`; a cover image needs alt text. The CMS only exposes blog records/media, not the design files, though its GitHub App permission scope is controlled by GitHub.
+
+Run `node --test scripts/blog.test.mjs` to check draft exclusion, clean routes, escaping, and unsafe HTML removal. To preview full article layouts locally, run `npm run build` and serve `dist/`. A fixture is tested in the temporary directory and never published.
+
+Homepage model details are native HTML disclosures and work without JavaScript. XIRA40 includes a research-stage explorer, chapter navigation, and expandable roadmap/flagships. XIRA3 includes combined search/category filtering, reset, empty states, and expandable study details. Scientific caveats and all planned studies remain.
+
+The public product pages describe terminalbio's research and infrastructure direction; no performance figures, client endorsements, or public API availability have been invented.
