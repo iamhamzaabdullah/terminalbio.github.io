@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#0B132B" />
+  <defs>
+    <linearGradient id="tbGradFav" gradientUnits="userSpaceOnUse" x1="0" y1="86.0" x2="0" y2="426.0">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="48%" stop-color="#B9F7F1" />
+      <stop offset="100%" stop-color="#2CE6D3" />
+    </linearGradient>
+  </defs>
+  <g id="tb-monogram">
+    <rect x="134.571" y="86.0" width="48.571" height="97.143" rx="1.214" ry="1.214" fill="url(#tbGradFav)" />
+    <rect x="86.0" y="183.143" width="48.571" height="48.571" rx="1.214" ry="1.214" fill="url(#tbGradFav)" />
+    <rect x="183.143" y="183.143" width="48.571" height="48.571" rx="1.214" ry="1.214" fill="url(#tbGradFav)" />
+    <rect x="134.571" y="231.714" width="48.571" height="145.714" rx="1.214" ry="1.214" fill="url(#tbGradFav)" />
+    <rect x="183.143" y="377.429" width="48.571" height="48.571" rx="1.214" ry="1.214" fill="url(#tbGradFav)" />
+    <rect x="256.0" y="86.0" width="48.571" height="291.429" rx="1.214" ry="1.214" fill="url(#tbGradFav)" />
+    <rect x="304.571" y="231.714" width="24.286" height="48.571" rx="1.214" ry="1.214" fill="url(#tbGradFav)" />
+    <rect x="328.857" y="183.143" width="48.571" height="48.571" rx="1.214" ry="1.214" fill="url(#tbGradFav)" />
+    <rect x="377.429" y="231.714" width="48.571" height="145.714" rx="1.214" ry="1.214" fill="url(#tbGradFav)" />
+    <rect x="304.571" y="377.429" width="72.857" height="48.571" rx="1.214" ry="1.214" fill="url(#tbGradFav)" />
+  </g>
+</svg>
