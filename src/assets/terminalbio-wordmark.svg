@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 302 52" fill="none" stroke="#182622" stroke-width="4.7" stroke-linecap="square" stroke-linejoin="round" role="img" aria-label="terminalbio"><title>terminalbio</title><path d="M9 10v25q0 8 9 8h3M3 22h19M51 38q-4 6-12 5-12-1-12-11 0-11 12-11 11 0 11 11H28M61 43V22m0 8q3-9 14-9M85 43V22m0 8q0-9 9-9t9 9v13m0-13q0-9 9-9t9 9v13M132 22v21M144 43V22m0 8q0-9 11-9t11 9v13M198 43V22m0 10q0-11-11-11t-11 11 11 11 11-11M210 8v35M223 8v35m0-11q0-11 11-11t11 11-11 11-11-11M257 22v21M293 32q0-11-12-11t-12 11 12 11 12-11"/><path d="M132 10v1M257 10v1" stroke-width="5.5"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="4096" height="720" viewBox="0 0 455 80" fill="none" role="img" aria-label="terminalbio">
+  <defs><linearGradient id="signal" x1="8" y1="10" x2="62" y2="68" gradientUnits="userSpaceOnUse"><stop stop-color="#54E3D5"/><stop offset="1" stop-color="#39AFC9"/></linearGradient></defs>
+  <g fill="url(#signal)">
+    <path d="M7 12h18v17h17v18H25v21H7V47h18V29H7z"/>
+    <path fill-rule="evenodd" d="M39 9h17v26h8a17 17 0 0 1 0 34H39V9Zm17 42v1h8a4 4 0 0 0 0-8h-8v7Z"/>
+  </g>
+  <text x="78" y="56" fill="#1C3042" font-family="Space Grotesk, 'Segoe UI', sans-serif" font-size="43" font-weight="600" letter-spacing="-1.7">terminalbio</text>
+</svg>
