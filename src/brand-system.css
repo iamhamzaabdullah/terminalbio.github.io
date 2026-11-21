@@ -51,10 +51,10 @@ body:has(.research-grid),body:has(.xira-portfolio){--nav-start:rgba(102,40,43,.9
 .site-header{position:sticky;top:0;z-index:100;height:82px;padding:0 clamp(22px,5vw,84px);gap:24px;border:0;background:transparent;box-shadow:none;pointer-events:auto}
 .site-header .brand{padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
 .site-header .brand img{width:148px;height:auto}
-.site-header nav,.site-header.is-scrolled nav{display:flex;align-items:center;gap:4px;margin-left:auto;padding:5px 8px;border:1px solid #ffffff40;border-radius:999px;background:linear-gradient(115deg,#71352f 0%,#9e4233 58%,#c25737 100%);box-shadow:0 8px 24px #6e32201a,inset 0 1px #ffffff24;-webkit-backdrop-filter:blur(16px) saturate(120%);backdrop-filter:blur(16px) saturate(120%)}
-.site-header nav a,.site-header nav a.active{padding:10px 12px;border-radius:999px;background:transparent;color:#fff8f1;font:500 12px/1.35 var(--sans)}
-.site-header nav a:hover,.site-header nav a:focus-visible{background:#ffffff20;color:#fff}
-.site-header.is-scrolled nav{box-shadow:0 8px 22px #6e32202b,inset 0 1px #ffffff22}
+.site-header nav,.site-header.is-scrolled nav{display:flex;align-items:center;gap:clamp(18px,2.4vw,34px);margin-left:auto;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.site-header nav a,.site-header nav a.active{padding:9px 0;border:0;border-radius:0;background:transparent;color:#403432;font:500 12px/1.35 var(--sans)}
+.site-header nav a:hover,.site-header nav a:focus-visible{background:transparent;color:#a33e32}
+.site-header.is-scrolled nav{box-shadow:none}
 .site-header.is-scrolled .brand,.site-header.is-scrolled .header-cta,.site-header.is-scrolled .menu{background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
 .site-header .menu{border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
 .site-header .menu i{background:#403432}
