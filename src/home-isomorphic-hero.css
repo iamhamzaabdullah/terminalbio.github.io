@@ -43,3 +43,25 @@ body.home .hero-foot p{color:#acbdcd}
  body.home .hero-foot p{font-size:8px}
 }
 @media(prefers-reduced-motion:reduce){body.home .living-field *,body.home .hero-summary .button{transition:none!important}}
+
+/* Distinct terminalbio signature: warm paper, coral signal, visible evidence loop. */
+body.home .future-hero{background:#f8f5ef;color:#192a38}
+body.home .future-hero:after{background:radial-gradient(ellipse at 77% 48%,#edb29b55 0,transparent 44%),linear-gradient(110deg,#fbf8f2,#f5eee7 70%,#efe7df)}
+body.home .living-field{background:transparent url('./assets/hero-digital-biology.svg') 82% 50%/min(66vw,900px) auto no-repeat;opacity:1}
+body.home .living-field:before{background:linear-gradient(90deg,#f8f5ef 0%,#f8f5efe8 14%,#f8f5ef66 42%,transparent 78%),linear-gradient(0deg,#f8f5ef 0%,transparent 22%)}
+body.home .living-field canvas{opacity:.12;mix-blend-mode:multiply}
+body.home .hero-heading>.hero-slide .section-kicker{color:#8d5145}
+body.home .hero-heading h1{color:#1b2c3a}
+body.home .hero-heading h1 span{color:#c95042}
+body.home .hero-summary p{color:#4f606a}
+body.home .hero-summary .button{border-color:#bd4d40;background:#bd4d40;color:#fff}
+body.home .hero-summary .button:hover{background:#963b34}
+body.home .hero-carousel-controls button{border-color:#a8655b38;background:#fff9;color:#384a55}
+body.home .hero-carousel-controls button[aria-pressed=true]{border-color:#bd4d40;background:#bd4d40;color:#fff}
+body.home .field-top{color:#8b5d54}
+body.home .field-bottom p{color:#344752}
+body.home .motion-toggle{border-color:#a8655b66;background:#fff9;color:#344752}
+body.home .hero-foot{border-color:#394c5428}
+body.home .hero-foot>span{color:#bd4d40}
+body.home .hero-foot p{color:#59696f}
+@media(max-width:760px){body.home .future-hero{background:#f8f5ef}body.home .future-hero:after{background:linear-gradient(180deg,#f8f5ef11 0%,#f8f5ef4f 38%,#f8f5ef 94%),radial-gradient(ellipse at 68% 29%,#e5a68c55,transparent 58%)}body.home .living-field:before{background:linear-gradient(180deg,#f8f5ef22 0%,#f8f5ef18 38%,#f8f5ef 100%)}}
