@@ -24,7 +24,7 @@ body.home .hero-foot{z-index:3;border-color:#a5c2d42e}
 body.home .hero-foot>span{color:#8fe0db}
 body.home .hero-foot p{color:#acbdcd}
 @media(max-width:760px){
- body.home .future-hero{min-height:calc(100svh - 76px);padding:0 22px 15px;background:#08132c}
+ body.home .future-hero{width:100%;min-height:calc(100svh - 76px);margin:0;padding:0 22px 15px;border-radius:0;background:#08132c}
  body.home .future-hero:after{background:linear-gradient(180deg,#08132c5c 0%,#08132c66 31%,#08132c 92%),radial-gradient(ellipse at 66% 30%,#1b557044,transparent 58%)}
  body.home .living-field{inset:0 0 30% 0;background-position:68% 18%;background-size:min(112vw,640px) auto;opacity:.77}
  body.home .living-field:before{background:linear-gradient(180deg,#08132c44 0%,#08132c15 38%,#08132c 100%)}
