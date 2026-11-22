@@ -65,3 +65,23 @@ body.home .hero-foot{border-color:#394c5428}
 body.home .hero-foot>span{color:#bd4d40}
 body.home .hero-foot p{color:#59696f}
 @media(max-width:760px){body.home .future-hero{background:#f8f5ef}body.home .future-hero:after{background:linear-gradient(180deg,#f8f5ef11 0%,#f8f5ef4f 38%,#f8f5ef 94%),radial-gradient(ellipse at 68% 29%,#e5a68c55,transparent 58%)}body.home .living-field:before{background:linear-gradient(180deg,#f8f5ef22 0%,#f8f5ef18 38%,#f8f5ef 100%)}}
+
+/* Editorial split hero: text and terminalbio's evidence loop, not a carousel. */
+body.home .future-hero{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);grid-template-rows:minmax(0,1fr) auto;align-items:center;column-gap:clamp(28px,5vw,76px);min-height:calc(100svh - 88px);padding:12px clamp(28px,7vw,108px) 22px}
+body.home .future-hero:after{z-index:0}
+body.home .hero-heading{grid-column:1;grid-row:1;align-self:center;max-width:720px;padding:72px 0 58px}
+body.home .hero-heading h1{font-size:clamp(58px,7.2vw,104px);line-height:.98;letter-spacing:-.075em}
+body.home .hero-heading h1 span{margin-top:.06em}
+body.home .hero-summary{display:flex;flex-direction:column;align-items:flex-start;gap:21px;max-width:525px;margin-top:28px}
+body.home .hero-summary p{max-width:43ch;font-size:16px;line-height:1.65}
+body.home .hero-loop{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:32px;color:#344952;font:10px var(--mono);letter-spacing:.015em}
+body.home .hero-loop span{padding:8px 10px;border:1px solid #a75c4a2b;border-radius:99px;background:#fff8}
+body.home .hero-loop i{color:#bd4d40;font-style:normal}
+body.home .living-field{position:relative;grid-column:2;grid-row:1;inset:auto;width:100%;height:min(64vh,570px);min-height:410px;margin:0;background:transparent url('./assets/hero-digital-biology.svg') center/contain no-repeat;opacity:1}
+body.home .living-field:before{display:none}
+body.home .living-field canvas,body.home .living-field .hero-photo{display:none}
+body.home .field-top{top:6px;right:3px;left:3px;color:#95675b;font-size:8px}
+body.home .hero-foot{grid-column:1/-1;grid-row:2;width:100%;min-height:45px}
+@media(max-width:900px){body.home .future-hero{grid-template-columns:minmax(0,1fr) minmax(280px,.8fr);column-gap:18px;padding-inline:32px}body.home .hero-heading h1{font-size:clamp(54px,7.6vw,82px)}body.home .living-field{min-height:340px;height:48vh}body.home .hero-loop{gap:5px;font-size:8px}}
+@media(max-width:760px){body.home .future-hero{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;min-height:calc(100svh - 76px);padding:0 22px 15px}body.home .hero-heading{order:1;align-self:stretch;max-width:100%;padding:clamp(92px,15vh,132px) 0 12px}body.home .hero-heading h1{font-size:clamp(49px,11vw,76px)}body.home .hero-summary{gap:15px;margin-top:20px}body.home .hero-summary p{font-size:14px}body.home .hero-loop{gap:5px;margin-top:20px;font-size:7px}body.home .hero-loop span{padding:7px 8px}body.home .living-field{order:2;align-self:center;width:min(100%,430px);height:auto;min-height:0;aspect-ratio:1.25;margin:0 auto 8px;background-position:center;background-size:contain}body.home .field-top{top:0;right:5%;left:5%;font-size:6px}body.home .hero-foot{order:3;margin-top:auto;min-height:40px}body.home .hero-foot p{font-size:8px}}
+@media(max-width:420px){body.home .future-hero{min-height:calc(100svh - 76px);padding-inline:18px}body.home .hero-heading{padding-top:90px}body.home .hero-heading h1{font-size:clamp(44px,11vw,58px)}body.home .hero-loop{font-size:6.5px}body.home .living-field{width:100%;aspect-ratio:1.35}}
