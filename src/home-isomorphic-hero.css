@@ -1,0 +1,45 @@
+/* Homepage hero visual treatment only. The site header and navigation are untouched. */
+body.home .future-hero{position:relative;isolation:isolate;min-height:calc(100svh - 88px);padding:0 clamp(28px,7vw,108px) 24px;background:#08132c;color:#f4f8ff;overflow:hidden}
+body.home .future-hero:after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 78% 46%,#1d48704d 0,transparent 48%),linear-gradient(120deg,#071127 5%,#0b1935 55%,#0d1c37 100%)}
+body.home .living-field{position:absolute;z-index:1;inset:0 0 48px 37%;width:auto;height:auto;margin:0;border:0;border-radius:0;background:transparent url('./assets/hero-digital-biology.svg') 82% 48%/min(67vw,940px) auto no-repeat;box-shadow:none;opacity:.96}
+body.home .living-field .hero-photo{display:none}
+body.home .living-field:before{content:"";position:absolute;z-index:1;inset:0;background:linear-gradient(90deg,#08132c 0%,#08132ced 15%,#08132c99 42%,transparent 77%),linear-gradient(0deg,#08132c 0%,transparent 24%);pointer-events:none}
+body.home .living-field canvas{position:absolute;inset:0;z-index:2;opacity:.2;mix-blend-mode:screen}
+body.home .hero-heading{position:relative;z-index:3;grid-column:1;grid-row:1;align-self:center;max-width:790px;margin:0;padding:clamp(115px,17vh,175px) 0 34px}
+body.home .hero-heading>.hero-slide .section-kicker{display:flex;align-items:center;gap:9px;width:max-content;margin:0 0 26px;padding:0;border:0;border-radius:0;background:transparent;color:#9bcacb;font:9px var(--mono);letter-spacing:.13em;box-shadow:none;backdrop-filter:none}
+body.home .hero-heading h1{max-width:780px;margin:0;color:#f5f7fb;font:500 clamp(62px,8.1vw,116px)/.98 'Space Grotesk',var(--sans);letter-spacing:-.075em;text-wrap:balance}
+body.home .hero-heading h1 span{display:block;margin-top:.03em;color:#a5e7e2;-webkit-text-stroke:0;letter-spacing:-.075em}
+body.home .hero-summary{display:grid;grid-template-columns:minmax(220px,1fr) auto;align-items:end;gap:25px;margin-top:27px;max-width:660px}
+body.home .hero-summary p{max-width:35ch;margin:0;color:#c4d1e0;font-size:16px;line-height:1.6}
+body.home .hero-summary .button{padding:14px 17px;border:1px solid #8ce0de;background:#8ce0de;color:#0b1935;font-size:9px;box-shadow:none}
+body.home .hero-carousel-controls{gap:8px;margin-top:27px}
+body.home .hero-carousel-controls button{min-height:36px;padding:0 12px;border:1px solid #b8d6e32e;border-radius:99px;background:#102443a6;color:#d2deeb;font-size:9px;backdrop-filter:blur(10px)}
+body.home .hero-carousel-controls button[aria-pressed=true]{border-color:#7bdbda;background:#7bdbda;color:#0b1935}
+body.home .hero-carousel-controls button span{width:18px;height:18px;font-size:7px}
+body.home .field-top{display:flex;z-index:3;top:30px;right:clamp(28px,6vw,88px);left:auto;color:#91b2c2;font:8px var(--mono);letter-spacing:.13em}
+body.home .field-bottom{z-index:3;right:clamp(28px,6vw,88px);bottom:26px;left:auto;align-items:center}
+body.home .field-bottom p{padding:0;border:0;border-radius:0;background:transparent;color:#d5e1ed;font:11px/1.5 var(--mono);backdrop-filter:none}
+body.home .motion-toggle{border-color:#9bb9c766;background:#08132c99;color:#e0e9f0;font-size:8px}
+body.home .hero-foot{z-index:3;border-color:#a5c2d42e}
+body.home .hero-foot>span{color:#8fe0db}
+body.home .hero-foot p{color:#acbdcd}
+@media(max-width:760px){
+ body.home .future-hero{min-height:calc(100svh - 76px);padding:0 22px 15px;background:#08132c}
+ body.home .future-hero:after{background:linear-gradient(180deg,#08132c5c 0%,#08132c66 31%,#08132c 92%),radial-gradient(ellipse at 66% 30%,#1b557044,transparent 58%)}
+ body.home .living-field{inset:0 0 30% 0;background-position:68% 18%;background-size:min(112vw,640px) auto;opacity:.77}
+ body.home .living-field:before{background:linear-gradient(180deg,#08132c44 0%,#08132c15 38%,#08132c 100%)}
+ body.home .living-field canvas{opacity:.08}
+ body.home .hero-heading{align-self:end;padding:120px 0 18px}
+ body.home .hero-heading>.hero-slide .section-kicker{font-size:7px;margin-bottom:18px}
+ body.home .hero-heading h1{font-size:clamp(48px,11vw,76px)}
+ body.home .hero-summary{grid-template-columns:1fr;justify-items:start;gap:16px;margin-top:20px}
+ body.home .hero-summary p{font-size:14px}
+ body.home .hero-carousel-controls{gap:5px;margin-top:18px}
+ body.home .hero-carousel-controls button{min-height:32px;padding:0 9px;font-size:8px}
+ body.home .field-top{display:none}
+ body.home .field-bottom{display:none}
+ body.home .hero-foot{gap:8px;padding-top:9px}
+ body.home .hero-foot>span{font-size:7px}
+ body.home .hero-foot p{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){body.home .living-field *,body.home .hero-summary .button{transition:none!important}}
